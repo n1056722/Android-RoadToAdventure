@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">RoadToAdventure</string>
+    <!-- Alert Text -->
+    <string name="alert_bt_confirm">確定</string>
+    <string name="alert_bt_cancel">取消</string>
+    <string name="msg_loading">讀取中</string>
+    <!-- Drawer -->
+    <string name="text_open">開啟</string>
+    <string name="text_close">關閉</string>
+    <!-- Menu -->
+    <string name="menu_close">close</string>
+    <string name="menu_personal">personal</string>
+    <string name="menu_group">group</string>
+    <string name="menu_challenge">challenge</string>
+    <string name="menu_xxx">xxx</string>
+    <!---->
+    <string name="title_activity_maps">Map</string>
+</resources>
