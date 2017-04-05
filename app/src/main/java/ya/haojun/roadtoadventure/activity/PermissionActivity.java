@@ -32,7 +32,7 @@ public class PermissionActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent();
             if (SPHelper.getServiceStatus(this)) {
-                intent.setClass(this, MainActivity.class);
+                intent.setClass(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             } else {
