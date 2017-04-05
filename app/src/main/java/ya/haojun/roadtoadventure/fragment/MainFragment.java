@@ -52,8 +52,7 @@ public class MainFragment extends CommonFragment implements OnMapReadyCallback, 
     private int status = LOCATION_NONE;
 
     public static MainFragment getInstance() {
-        MainFragment f = new MainFragment();
-        return f;
+        return new MainFragment();
     }
 
     @Override
@@ -187,7 +186,7 @@ public class MainFragment extends CommonFragment implements OnMapReadyCallback, 
     }
 
     private void moveMap(LatLng place) {
-        moveMap(place,false);
+        moveMap(place, false);
     }
 
     private void moveMap(LatLng place, boolean ani) {

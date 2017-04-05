@@ -39,7 +39,6 @@ public class MainActivity extends CommonActivity implements ViewAnimator.ViewAni
 
     // data
     private MainFragment mainFragment;
-    private List<MenuItem> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +100,7 @@ public class MainActivity extends CommonActivity implements ViewAnimator.ViewAni
     }
 
     private void initMenu() {
-        list = new ArrayList<>();
+        List<MenuItem> list = new ArrayList<>();
         list.add(new MenuItem(MenuItem.CLOSE, R.drawable.ic_nav_close_w));
         list.add(new MenuItem(MenuItem.PERSONAL, R.drawable.ic_nav_personal_w));
         list.add(new MenuItem(MenuItem.GROUP, R.drawable.ic_nav_group_w));

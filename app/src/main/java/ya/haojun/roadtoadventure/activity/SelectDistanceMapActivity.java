@@ -45,7 +45,6 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
     public static final int STATUS_TO = 2;
     // ui
     private TextView tv_from, tv_to;
-    private View ll_confirm;
     // map data
     private GoogleMap mMap;
     // location data
@@ -66,7 +65,6 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         // ui reference
         tv_from = (TextView) findViewById(R.id.tv_select_distance_from);
         tv_to = (TextView) findViewById(R.id.tv_select_distance_to);
-        ll_confirm = findViewById(R.id.ll_select_distance_confirm);
         findViewById(R.id.fab_select_distance).setOnClickListener(this);
         findViewById(R.id.tv_select_distance_cancel).setOnClickListener(this);
         findViewById(R.id.tv_select_distance_confirm).setOnClickListener(this);
@@ -116,7 +114,8 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                 // check selected
                 if (latLng_from != null && latLng_to != null) { // 'from','to' are ok
                     // show confirm ui
-                    ll_confirm.setVisibility(View.VISIBLE);
+                    findViewById(R.id.ll_select_distance_confirm).setVisibility(View.VISIBLE);
+                    findViewById(R.id.fab_select_distance).setVisibility(View.VISIBLE);
                     // add 'to' marker
                     updateMapMarker();
                     // compute bounds
