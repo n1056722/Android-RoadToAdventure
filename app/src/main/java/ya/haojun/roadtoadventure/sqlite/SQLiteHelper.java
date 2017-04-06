@@ -12,7 +12,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     // database name
     public static final String DATABASE_NAME = "timer.db";
     // version
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
     // database object
     private static SQLiteDatabase database;
 
@@ -31,11 +31,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DAOLocationRecord.createTable());
+        db.execSQL(DAOJourney.createTable());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + DAOLocationRecord.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOJourney.TABLENAME);
         onCreate(db);
     }
 }

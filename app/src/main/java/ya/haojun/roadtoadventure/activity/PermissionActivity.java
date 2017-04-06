@@ -1,12 +1,15 @@
 package ya.haojun.roadtoadventure.activity;
 
 import android.Manifest;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.helper.SPHelper;
@@ -32,9 +35,18 @@ public class PermissionActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent();
             if (SPHelper.getServiceStatus(this)) {
+                if (!isMyServiceRunning(LocationService.class)) {
+                    Intent intent_service = new Intent();
+                    intent_service.setClass(this, LocationService.class);
+                    startService(intent_service);
+                    Log.d("xxx", "RESTART");
+                } else {
+                    Log.d("xxx", "RUNNING");
+                }
                 intent.setClass(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
+
             } else {
                 // start service
                 intent = new Intent();
@@ -45,6 +57,16 @@ public class PermissionActivity extends AppCompatActivity {
                 checkPermission();
             }
         }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

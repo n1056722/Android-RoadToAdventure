@@ -1,10 +1,14 @@
 package ya.haojun.roadtoadventure.fragment;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import ya.haojun.roadtoadventure.R;
@@ -56,5 +60,25 @@ public class CommonFragment extends Fragment {
 
     protected void t(String message) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void openActivity(Class activityClass) {
+        openActivity(activityClass, null);
+    }
+
+    protected void openActivity(Class activityClass, Bundle bundle) {
+        Intent intent = new Intent(activity, activityClass);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
+
+    protected AlertDialog alertWithView(View v, DialogInterface.OnClickListener posi, DialogInterface.OnClickListener nega) {
+        return new AlertDialog.Builder(activity)
+                .setView(v)
+                .setPositiveButton(R.string.alert_bt_confirm, posi)
+                .setNegativeButton(R.string.alert_bt_cancel, nega)
+                .show();
     }
 }

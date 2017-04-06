@@ -25,7 +25,7 @@ public class LocationService extends Service {
     //
     private static final String TAG = "LocationService";
     private LocationManager mLocationManager;
-    private static final int LOCATION_INTERVAL = 5000;
+    private static final int LOCATION_INTERVAL = 2000;
     private static final float LOCATION_DISTANCE = 0;
 
     private class MyLocationListener implements LocationListener {
