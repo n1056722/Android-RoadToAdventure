@@ -130,12 +130,19 @@ public class MainActivity extends CommonActivity implements ViewAnimator.ViewAni
             case MenuItem.CLOSE:
                 break;
             case MenuItem.PERSONAL:
-                final String[] items = {"選一段路程"};
+                final String[] items = {"選一段路程", "我的路程紀錄"};
                 new AlertDialog.Builder(this)
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                openActivityForResult(SelectDistanceMapActivity.class, REQUEST_SELECT_DISTANCE);
+                                switch (which) {
+                                    case 0:
+                                        openActivityForResult(SelectDistanceMapActivity.class, REQUEST_SELECT_DISTANCE);
+                                        break;
+                                    case 1:
+                                        openActivity(JourneyListActivity.class);
+                                        break;
+                                }
                             }
                         })
                         .show();

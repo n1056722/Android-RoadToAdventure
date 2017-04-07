@@ -11,15 +11,14 @@ import java.util.List;
 import ya.haojun.roadtoadventure.model.JourneyModel;
 
 
-/**
- * Created by asus on 2016/5/8.
- */
 public class DAOJourney {
     // table name
     public static final String TABLENAME = "Journey";
     // pk
     private static final String JOURNEY_ID = "JourneyId";
     // other column
+    private static final String JOURNEY_NAME_COL = "JourneyName";
+    private static final String JOURNEY_CONTENT_COL = "JourneyContent";
     private static final String START_TIME_COL = "StartTime";
     private static final String STOP_TIME_COL = "StopTime";
 
@@ -27,16 +26,16 @@ public class DAOJourney {
         StringBuilder sb = new StringBuilder();
         sb.append("Create Table " + TABLENAME + " ( ");
         sb.append(JOURNEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , ");
+        sb.append(JOURNEY_NAME_COL + " TEXT NOT NULL, ");
+        sb.append(JOURNEY_CONTENT_COL + " TEXT NOT NULL, ");
         sb.append(START_TIME_COL + " TEXT NOT NULL, ");
         sb.append(STOP_TIME_COL + " TEXT NOT NULL) ");
         return sb.toString();
     }
 
-    private Context context;
     private SQLiteDatabase db;
 
     public DAOJourney(Context context) {
-        this.context = context;
         db = SQLiteHelper.getDatabase(context);
     }
 
@@ -44,6 +43,8 @@ public class DAOJourney {
 
         ContentValues cv = new ContentValues();
 
+        cv.put(JOURNEY_NAME_COL, item.getJourneyName());
+        cv.put(JOURNEY_CONTENT_COL, item.getJourneyContent());
         cv.put(START_TIME_COL, item.getStartTime());
         cv.put(STOP_TIME_COL, item.getStopTime());
 
@@ -56,6 +57,8 @@ public class DAOJourney {
 
         ContentValues cv = new ContentValues();
 
+        cv.put(JOURNEY_NAME_COL, item.getJourneyName());
+        cv.put(JOURNEY_CONTENT_COL, item.getJourneyContent());
         cv.put(START_TIME_COL, item.getStartTime());
         cv.put(STOP_TIME_COL, item.getStopTime());
 
@@ -129,8 +132,10 @@ public class DAOJourney {
         // Course
         JourneyModel result = new JourneyModel();
         result.setJourneyId((int) cursor.getLong(0));
-        result.setStartTime(cursor.getString(1));
-        result.setStopTime(cursor.getString(2));
+        result.setJourneyName(cursor.getString(1));
+        result.setJourneyContent(cursor.getString(2));
+        result.setStartTime(cursor.getString(3));
+        result.setStopTime(cursor.getString(4));
         return result;
     }
 

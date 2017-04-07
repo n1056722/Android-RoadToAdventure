@@ -4,15 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by asus on 2016/5/8.
- */
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     // database name
     public static final String DATABASE_NAME = "timer.db";
     // version
-    public static final int VERSION = 2;
+    public static final int VERSION = 3;
     // database object
     private static SQLiteDatabase database;
 

@@ -32,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.activity.JourneyListActivity;
+import ya.haojun.roadtoadventure.activity.JourneyStatusActivity;
 import ya.haojun.roadtoadventure.api.GoogleMapService;
 import ya.haojun.roadtoadventure.helper.GoogleMapHelper;
 import ya.haojun.roadtoadventure.helper.TimeHelper;
@@ -223,39 +224,40 @@ public class MainFragment extends CommonFragment implements OnMapReadyCallback, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_main_bike:
-                View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_main_bike, null);
-                TextView tv_information = (TextView) view.findViewById(R.id.tv_dialog_main_bike_information);
-                TextView tv_start_stop = (TextView) view.findViewById(R.id.tv_dialog_main_bike_start_stop);
-                // show information
-                if (checkStart()) {
-                    tv_start_stop.setText("START");
-                } else {
-                    tv_start_stop.setText("STOP");
-                    JourneyModel jm = new DAOJourney(getMyActivity()).getLast();
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("StartTime : ").append(jm.getStartTime()).append("\n");
-                    sb.append("StopTime : ").append(jm.getStopTime()).append("\n");
-                    int count = new DAOLocationRecord(getMyActivity()).getCount(jm.getStartTime(), TimeHelper.now());
-                    sb.append("Count : ").append(count);
-                    tv_information.setText(sb);
-                }
-                // listener
-                tv_start_stop.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String time = TimeHelper.now();
-                        if (checkStart()) { // do start
-                            new DAOJourney(getMyActivity()).insert(new JourneyModel(time, ""));
-                        } else { // do stop
-                            JourneyModel jm = new DAOJourney(getMyActivity()).getLast();
-                            jm.setStopTime(time);
-                            new DAOJourney(getMyActivity()).update(jm);
-                            openActivity(JourneyListActivity.class);
-                        }
-                        ad.dismiss();
-                    }
-                });
-                ad = alertWithView(view, null, null);
+//                View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_main_bike, null);
+//                TextView tv_information = (TextView) view.findViewById(R.id.tv_dialog_main_bike_information);
+//                TextView tv_start_stop = (TextView) view.findViewById(R.id.tv_dialog_main_bike_start_stop);
+//                // show information
+//                if (checkStart()) {
+//                    tv_start_stop.setText("START");
+//                } else {
+//                    tv_start_stop.setText("STOP");
+//                    JourneyModel jm = new DAOJourney(getMyActivity()).getLast();
+//                    StringBuilder sb = new StringBuilder();
+//                    sb.append("StartTime : ").append(jm.getStartTime()).append("\n");
+//                    sb.append("StopTime : ").append(jm.getStopTime()).append("\n");
+//                    int count = new DAOLocationRecord(getMyActivity()).getCount(jm.getStartTime(), TimeHelper.now());
+//                    sb.append("Count : ").append(count);
+//                    tv_information.setText(sb);
+//                }
+//                // listener
+//                tv_start_stop.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        String time = TimeHelper.now();
+//                        if (checkStart()) { // do start
+//                            new DAOJourney(getMyActivity()).insert(new JourneyModel(time, ""));
+//                        } else { // do stop
+//                            JourneyModel jm = new DAOJourney(getMyActivity()).getLast();
+//                            jm.setStopTime(time);
+//                            new DAOJourney(getMyActivity()).update(jm);
+//                            openActivity(JourneyListActivity.class);
+//                        }
+//                        ad.dismiss();
+//                    }
+//                });
+//                ad = alertWithView(view, null, null);
+                openActivity(JourneyStatusActivity.class);
                 break;
         }
     }

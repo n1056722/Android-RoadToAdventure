@@ -6,6 +6,8 @@ package ya.haojun.roadtoadventure.model;
 
 public class JourneyModel {
     private int journeyId;
+    private String journeyName;
+    private String journeyContent;
     private String startTime;
     private String stopTime;
     private int count;
@@ -25,6 +27,22 @@ public class JourneyModel {
 
     public void setJourneyId(int journeyId) {
         this.journeyId = journeyId;
+    }
+
+    public String getJourneyName() {
+        return journeyName;
+    }
+
+    public void setJourneyName(String journeyName) {
+        this.journeyName = journeyName;
+    }
+
+    public String getJourneyContent() {
+        return journeyContent;
+    }
+
+    public void setJourneyContent(String journeyContent) {
+        this.journeyContent = journeyContent;
     }
 
     public String getStartTime() {

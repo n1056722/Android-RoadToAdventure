@@ -49,16 +49,22 @@ public class JourneyListAdapter extends CommonBaseAdapter {
         }
         final JourneyModel item = (JourneyModel) getItem(position);
         // set text
+        tag.name.setText(item.getJourneyName());
+        tag.content.setText(item.getJourneyContent());
         tag.startTime.setText(item.getStartTime());
         tag.stopTime.setText(item.getStopTime());
         return v;
     }
 
     private class ViewHolder {
+        TextView name;
+        TextView content;
         TextView startTime;
         TextView stopTime;
 
         ViewHolder(View v) {
+            name = (TextView) v.findViewById(R.id.tv_item_list_journey_name);
+            content = (TextView) v.findViewById(R.id.tv_item_list_journey_content);
             startTime = (TextView) v.findViewById(R.id.tv_item_list_journey_start_time);
             stopTime = (TextView) v.findViewById(R.id.tv_item_list_journey_stop_time);
         }

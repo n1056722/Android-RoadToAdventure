@@ -11,9 +11,6 @@ import java.util.List;
 import ya.haojun.roadtoadventure.model.LocationRecordModel;
 
 
-/**
- * Created by asus on 2016/5/8.
- */
 public class DAOLocationRecord {
     // table name
     public static final String TABLENAME = "LocationRecord";

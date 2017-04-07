@@ -34,7 +34,8 @@
         <activity android:name=".activity.SelectDistanceMapActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.JourneyListActivity"></activity>
+        <activity android:name=".activity.JourneyListActivity" />
+        <activity android:name=".activity.JourneyStatusActivity"></activity>
     </application>
 
 </manifest>
