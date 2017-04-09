@@ -42,6 +42,8 @@ public class JourneyStatusActivity extends CommonActivity implements View.OnClic
             tv_start_stop.setText("STOP");
             et_name.setText(jm.getJourneyName());
             et_content.setText(jm.getJourneyContent());
+            et_name.setEnabled(false);
+            et_content.setEnabled(false);
             // refresh time
             startRefresh();
             Message msg = new Message();
@@ -98,7 +100,7 @@ public class JourneyStatusActivity extends CommonActivity implements View.OnClic
                     }
                 } else {
                     String name = et_name.getText().toString();
-                    String content = et_name.getText().toString();
+                    String content = et_content.getText().toString();
                     if (name.isEmpty() || content.isEmpty()) return;
                     // create model
                     JourneyModel jm = new JourneyModel();
@@ -110,6 +112,7 @@ public class JourneyStatusActivity extends CommonActivity implements View.OnClic
                     if (new DAOJourney(this).insert(jm)) {
                         et_name.setEnabled(false);
                         et_content.setEnabled(false);
+                        tv_start_stop.setText("STOP");
                         // refresh view
                         refreshing = true;
                         Message msg = new Message();

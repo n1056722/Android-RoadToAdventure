@@ -1,5 +1,6 @@
 package ya.haojun.roadtoadventure.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,16 +35,9 @@ public class JourneyListActivity extends CommonActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                JourneyModel jm = list_journey.get(position);
-                StringBuilder sb = new StringBuilder();
-                sb.append("StartTime : ").append(jm.getStartTime()).append("\n");
-                sb.append("StopTime : ").append(jm.getStopTime()).append("\n\n");
-                List<LocationRecordModel> records = new DAOLocationRecord(JourneyListActivity.this).filter(jm.getStartTime(), jm.getStopTime());
-                for (LocationRecordModel r : records) {
-                    sb.append(r.getLatitude()).append(" ").append(r.getLongitude()).append("\n");
-                }
-
-                t(sb.toString());
+                Bundle b = new Bundle();
+                b.putParcelable("journey", list_journey.get(position));
+                openActivity(JourneyRecordActivity.class, b);
             }
         });
         // load

@@ -35,7 +35,8 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.JourneyListActivity" />
-        <activity android:name=".activity.JourneyStatusActivity"></activity>
+        <activity android:name=".activity.JourneyStatusActivity" />
+        <activity android:name=".activity.JourneyRecordActivity"></activity>
     </application>
 
 </manifest>

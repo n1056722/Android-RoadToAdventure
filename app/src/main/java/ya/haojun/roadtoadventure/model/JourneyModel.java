@@ -1,10 +1,13 @@
 package ya.haojun.roadtoadventure.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by asus on 2017/4/6.
  */
 
-public class JourneyModel {
+public class JourneyModel implements Parcelable{
     private int journeyId;
     private String journeyName;
     private String journeyContent;
@@ -20,6 +23,27 @@ public class JourneyModel {
         this.startTime = startTime;
         this.stopTime = stopTime;
     }
+
+    protected JourneyModel(Parcel in) {
+        journeyId = in.readInt();
+        journeyName = in.readString();
+        journeyContent = in.readString();
+        startTime = in.readString();
+        stopTime = in.readString();
+        count = in.readInt();
+    }
+
+    public static final Creator<JourneyModel> CREATOR = new Creator<JourneyModel>() {
+        @Override
+        public JourneyModel createFromParcel(Parcel in) {
+            return new JourneyModel(in);
+        }
+
+        @Override
+        public JourneyModel[] newArray(int size) {
+            return new JourneyModel[size];
+        }
+    };
 
     public int getJourneyId() {
         return journeyId;
@@ -67,5 +91,20 @@ public class JourneyModel {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(journeyId);
+        dest.writeString(journeyName);
+        dest.writeString(journeyContent);
+        dest.writeString(startTime);
+        dest.writeString(stopTime);
+        dest.writeInt(count);
     }
 }

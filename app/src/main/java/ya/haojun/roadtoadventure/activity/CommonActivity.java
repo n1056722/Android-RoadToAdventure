@@ -45,6 +45,11 @@ public class CommonActivity extends AppCompatActivity {
                 .setNegativeButton(R.string.alert_bt_cancel, nega)
                 .show();
     }
+    protected void alertWithView(View v) {
+        new AlertDialog.Builder(this)
+                .setView(v)
+                .show();
+    }
 
     protected void t(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

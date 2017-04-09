@@ -195,4 +195,16 @@ public class MainActivity extends CommonActivity implements ViewAnimator.ViewAni
             }
         }
     }
+
+    private long lastBackPressedTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastBackPressedTime < 2000) {
+            super.onBackPressed();
+        } else {
+            lastBackPressedTime = System.currentTimeMillis();
+            t("在按一次離開");
+        }
+    }
 }

@@ -23,6 +23,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 //                String userName =((EditText)findViewById(R.id.et_login_user_name)).getText().toString();
 //                String userPassword =((EditText)findViewById(R.id.et_login_user_password)).getText().toString();
                 openActivity(MainActivity.class);
+                finish();
                 break;
         }
     }

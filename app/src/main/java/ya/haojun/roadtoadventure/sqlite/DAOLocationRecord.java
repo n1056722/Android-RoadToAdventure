@@ -86,7 +86,7 @@ public class DAOLocationRecord {
         List<LocationRecordModel> result = new ArrayList<>();
         String where = TIME_COL + " BETWEEN '" + from + "' AND '" + to + "'";
         Cursor cursor = db.query(
-                TABLENAME, null, where, null, null, null, null, null);
+                TABLENAME, null, where, null, null, null, LOCATION_RECORD_ID + " asc", null);
 
         while (cursor.moveToNext()) {
             result.add(getRecord(cursor));
