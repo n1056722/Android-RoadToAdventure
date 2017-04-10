@@ -7,12 +7,9 @@
     <!-- Drawer -->
     <string name="text_open">開啟</string>
     <string name="text_close">關閉</string>
-    <!-- Menu -->
-    <string name="menu_close">close</string>
-    <string name="menu_personal">personal</string>
-    <string name="menu_group">group</string>
-    <string name="menu_challenge">challenge</string>
-    <string name="menu_xxx">xxx</string>
+    <!-- Status -->
+    <string name="status_start">開始</string>
+    <string name="status_stop">停止</string>
     <!---->
     <string name="title_activity_maps">Map</string>
 </resources>

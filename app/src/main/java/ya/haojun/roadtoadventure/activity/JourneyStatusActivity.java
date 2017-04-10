@@ -2,7 +2,6 @@ package ya.haojun.roadtoadventure.activity;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -39,7 +38,7 @@ public class JourneyStatusActivity extends CommonActivity implements View.OnClic
             // set text
             DAOJourney daoJourney = new DAOJourney(this);
             JourneyModel jm = daoJourney.getLast();
-            tv_start_stop.setText("STOP");
+            tv_start_stop.setText(getString(R.string.status_stop));
             et_name.setText(jm.getJourneyName());
             et_content.setText(jm.getJourneyContent());
             et_name.setEnabled(false);
@@ -112,7 +111,7 @@ public class JourneyStatusActivity extends CommonActivity implements View.OnClic
                     if (new DAOJourney(this).insert(jm)) {
                         et_name.setEnabled(false);
                         et_content.setEnabled(false);
-                        tv_start_stop.setText("STOP");
+                        tv_start_stop.setText(getString(R.string.status_stop));
                         // refresh view
                         refreshing = true;
                         Message msg = new Message();

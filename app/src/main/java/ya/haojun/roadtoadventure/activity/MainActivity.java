@@ -20,6 +20,7 @@ import java.util.List;
 
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.fragment.MainFragment;
+import ya.haojun.roadtoadventure.helper.PicassoViewAnimator;
 import ya.haojun.roadtoadventure.model.MenuItem;
 import ya.haojun.roadtoadventure.model.SampleScreenShotable;
 import yalantis.com.sidemenu.interfaces.Resourceble;
@@ -34,7 +35,7 @@ public class MainActivity extends CommonActivity implements ViewAnimator.ViewAni
     // ui
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    private ViewAnimator viewAnimator;
+    private PicassoViewAnimator viewAnimator;
     private LinearLayout linearLayout;
 
     // data
@@ -101,15 +102,15 @@ public class MainActivity extends CommonActivity implements ViewAnimator.ViewAni
 
     private void initMenu() {
         List<MenuItem> list = new ArrayList<>();
-        list.add(new MenuItem(MenuItem.CLOSE, R.drawable.ic_nav_close_w));
-        list.add(new MenuItem(MenuItem.PERSONAL, R.drawable.ic_nav_personal_w));
-        list.add(new MenuItem(MenuItem.GROUP, R.drawable.ic_nav_group_w));
-        list.add(new MenuItem(MenuItem.CHALLENGE, R.drawable.ic_nav_challenge_w));
-        list.add(new MenuItem(MenuItem.SETTING, R.drawable.ic_nav_settings_w));
-        list.add(new MenuItem(MenuItem.SETTING, R.drawable.ic_nav_settings_w));
-        list.add(new MenuItem(MenuItem.SETTING, R.drawable.ic_nav_settings_w));
-        list.add(new MenuItem(MenuItem.SETTING, R.drawable.ic_nav_settings_w));
-        viewAnimator = new ViewAnimator<>(this, list, new SampleScreenShotable(), drawerLayout, this);
+        list.add(new MenuItem(MenuItem.CLOSE, R.drawable.ic_nav_close));
+        list.add(new MenuItem(MenuItem.PERSONAL, R.drawable.ic_nav_personal));
+        list.add(new MenuItem(MenuItem.GROUP, R.drawable.ic_nav_group));
+        list.add(new MenuItem(MenuItem.CHALLENGE, R.drawable.ic_nav_challenge));
+        list.add(new MenuItem(MenuItem.INTERACTIVE, R.drawable.ic_nav_interactive));
+        list.add(new MenuItem(MenuItem.SHOPPING, R.drawable.ic_nav_shopping));
+        list.add(new MenuItem(MenuItem.SETTING, R.drawable.ic_nav_setting));
+        list.add(new MenuItem(MenuItem.EXIT, R.drawable.ic_nav_exit));
+        viewAnimator = new PicassoViewAnimator<>(this, list, new SampleScreenShotable(), drawerLayout, this);
     }
 
     @Override
@@ -130,28 +131,61 @@ public class MainActivity extends CommonActivity implements ViewAnimator.ViewAni
             case MenuItem.CLOSE:
                 break;
             case MenuItem.PERSONAL:
-                final String[] items = {"選一段路程", "我的路程紀錄"};
-                new AlertDialog.Builder(this)
-                        .setItems(items, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case 0:
-                                        openActivityForResult(SelectDistanceMapActivity.class, REQUEST_SELECT_DISTANCE);
-                                        break;
-                                    case 1:
-                                        openActivity(JourneyListActivity.class);
-                                        break;
-                                }
-                            }
-                        })
-                        .show();
+                alertWithItem(new String[]{"選一段路程", "我的路程紀錄", "好友"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                openActivityForResult(SelectDistanceMapActivity.class, REQUEST_SELECT_DISTANCE);
+                                break;
+                            case 1:
+                                openActivity(JourneyListActivity.class);
+                                break;
+                        }
+                    }
+                });
                 break;
             case MenuItem.GROUP:
+                alertWithItem(new String[]{"群組"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                break;
+                        }
+                    }
+                });
                 break;
             case MenuItem.CHALLENGE:
+                alertWithItem(new String[]{"自我挑戰", "他人挑戰"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                break;
+                        }
+                    }
+                });
                 break;
-            case MenuItem.OTHER:
+            case MenuItem.INTERACTIVE:
+                alertWithItem(new String[]{"留言板", "即時路況", "路程攻略", "緊急救助", "客棧旅社"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                break;
+                        }
+                    }
+                });
+                break;
+            case MenuItem.SHOPPING:
+                t("購物商城");
+                break;
+            case MenuItem.SETTING:
+                t("設定");
+                break;
+            case MenuItem.EXIT:
+                finish();
                 break;
         }
         return new SampleScreenShotable();

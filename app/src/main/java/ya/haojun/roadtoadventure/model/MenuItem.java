@@ -11,8 +11,10 @@ public class MenuItem implements Resourceble{
     public static final String PERSONAL = "personal";
     public static final String GROUP = "group";
     public static final String CHALLENGE = "challenge";
+    public static final String INTERACTIVE= "interactive";
+    public static final String SHOPPING= "shopping";
     public static final String SETTING= "setting";
-    public static final String OTHER= "other";
+    public static final String EXIT= "exit";
 
 
     private String name;

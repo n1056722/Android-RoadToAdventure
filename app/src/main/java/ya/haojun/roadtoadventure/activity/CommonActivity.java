@@ -45,9 +45,16 @@ public class CommonActivity extends AppCompatActivity {
                 .setNegativeButton(R.string.alert_bt_cancel, nega)
                 .show();
     }
+
     protected void alertWithView(View v) {
         new AlertDialog.Builder(this)
                 .setView(v)
+                .show();
+    }
+
+    protected void alertWithItem(String[] items, DialogInterface.OnClickListener listener) {
+        new AlertDialog.Builder(this)
+                .setItems(items, listener)
                 .show();
     }
 

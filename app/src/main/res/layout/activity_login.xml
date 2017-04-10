@@ -28,7 +28,7 @@
                 android:id="@+id/et_login_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="USERNAME"
+                android:hint="使用者名稱"
                 android:inputType="text"
                 android:maxLines="1"
                 android:textColor="#FFF"
@@ -44,7 +44,7 @@
                 android:id="@+id/et_login_user_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="PASSWORD"
+                android:hint="密碼"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:textColor="#FFF"
@@ -57,6 +57,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="LOGIN" />
+            android:text="登入" />
     </LinearLayout>
 </RelativeLayout>

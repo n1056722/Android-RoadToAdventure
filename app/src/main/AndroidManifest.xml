@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PermissionActivity">
+        <activity
+            android:name=".activity.PermissionActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,13 +32,27 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activity.ChartActivity" />
-        <activity android:name=".activity.SelectDistanceMapActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.JourneyListActivity" />
-        <activity android:name=".activity.JourneyStatusActivity" />
-        <activity android:name=".activity.JourneyRecordActivity"></activity>
+        <activity
+            android:name=".activity.ChartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectDistanceMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.JourneyListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.JourneyStatusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.JourneyRecordActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
