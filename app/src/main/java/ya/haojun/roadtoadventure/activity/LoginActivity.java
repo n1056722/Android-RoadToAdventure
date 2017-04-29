@@ -14,6 +14,8 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViewById(R.id.tv_login_do_login).setOnClickListener(this);
+        findViewById(R.id.tv_login_sign_up).setOnClickListener(this);
+        findViewById(R.id.tv_login_forget_password).setOnClickListener(this);
     }
 
     @Override
@@ -24,6 +26,10 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 //                String userPassword =((EditText)findViewById(R.id.et_login_user_password)).getText().toString();
                 openActivity(MainActivity.class);
                 finish();
+                break;
+            case R.id.tv_login_sign_up:
+                break;
+            case R.id.tv_login_forget_password:
                 break;
         }
     }

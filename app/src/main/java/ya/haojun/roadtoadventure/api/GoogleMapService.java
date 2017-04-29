@@ -10,10 +10,6 @@ import retrofit2.http.QueryMap;
 import ya.haojun.roadtoadventure.model.GoogleDirection;
 import ya.haojun.roadtoadventure.model.GooglePath;
 
-/**
- * Created by asus on 2017/3/8.
- */
-
 public interface GoogleMapService {
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://maps.googleapis.com/maps/api/")

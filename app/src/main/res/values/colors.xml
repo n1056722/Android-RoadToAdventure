@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1DE9B6</color>
-    <color name="colorPrimaryDark">#00BFA5</color>
-    <color name="colorAccent">#1DE9B6</color>
+    <color name="colorPrimary">#039BE5</color>
+    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorAccent">#039BE5</color>
 
     <!-- Chart -->
     <color name="chart_line_background">#FFF</color>
     <color name="chart_line_fill_background">#FF4081</color>
+
+    <!-- Main Item -->
+    <color name="main_record">#F4DC5E</color>
+    <color name="main_position">#FFBDC7</color>
+    <color name="main_tip">#97E2A1</color>
+    <color name="main_together">#5ABFCB</color>
+    <color name="main_chat">#F35B2A</color>
+    <color name="main_help">#F1F0EB</color>
+    <color name="main_challenge">#ACA6A6</color>
+    <color name="main_road_query">#2753AC</color>
 </resources>
