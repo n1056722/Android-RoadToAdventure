@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#039BE5</color>
-    <color name="colorPrimaryDark">#0288D1</color>
-    <color name="colorAccent">#039BE5</color>
+    <color name="colorPrimary">#87C7E3</color>
+    <color name="colorPrimaryDark">#87C7E3</color>
+    <color name="colorAccent">#87C7E3</color>
 
     <!-- Chart -->
     <color name="chart_line_background">#FFF</color>
@@ -17,4 +17,5 @@
     <color name="main_help">#F1F0EB</color>
     <color name="main_challenge">#ACA6A6</color>
     <color name="main_road_query">#2753AC</color>
+    <color name="main_group">#A4C2CC</color>
 </resources>

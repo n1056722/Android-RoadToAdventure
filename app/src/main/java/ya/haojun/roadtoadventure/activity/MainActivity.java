@@ -1,7 +1,9 @@
 package ya.haojun.roadtoadventure.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.GridLayoutManager;
@@ -42,38 +44,65 @@ public class MainActivity extends CommonActivity {
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv_main_navigation);
         rv.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<DrawerItem> list = new ArrayList<>();
-        list.add(new DrawerItem(R.drawable.ic_bike_w, DrawerItem.SIGN_OUT));
+        list.add(new DrawerItem(R.drawable.ic_nav_personal, DrawerItem.PERSONAL));
+        list.add(new DrawerItem(0, DrawerItem.PERSONAL_RECORD));
+        list.add(new DrawerItem(0, DrawerItem.PERSONAL_PLAN));
+        list.add(new DrawerItem(0, DrawerItem.PERSONAL_FIREND));
+        list.add(new DrawerItem(R.drawable.ic_nav_group, DrawerItem.GROUP));
+        list.add(new DrawerItem(0, DrawerItem.GROUP_MY));
+        list.add(new DrawerItem(R.drawable.ic_nav_challenge, DrawerItem.CHALLENGE));
+        list.add(new DrawerItem(0, DrawerItem.CHALLENGE_MY));
+        list.add(new DrawerItem(0, DrawerItem.CHALLENGE_GROUP));
         rv.setAdapter(new DrawerRVAdapter(this, list));
+
+
+    }
+
+    public void onDrawerItemClick(String name) {
+        switch (name) {
+            case DrawerItem.PERSONAL_RECORD:
+                break;
+            case DrawerItem.PERSONAL_PLAN:
+                break;
+            case DrawerItem.PERSONAL_FIREND:
+                break;
+            case DrawerItem.GROUP_MY:
+                break;
+            case DrawerItem.CHALLENGE_MY:
+                break;
+            case DrawerItem.CHALLENGE_GROUP:
+                break;
+        }
     }
 
     private void initRecyclerView() {
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv_main);
         ArrayList<MainItem> list = new ArrayList<>();
-        list.add(new MainItem(R.drawable.ic_record, MainItem.RECORD, ContextCompat.getColor(this, R.color.main_record)));
-        list.add(new MainItem(R.drawable.ic_position, MainItem.POSITION, ContextCompat.getColor(this, R.color.main_position)));
-        list.add(new MainItem(R.drawable.ic_tip, MainItem.TIP, ContextCompat.getColor(this, R.color.main_tip)));
-        list.add(new MainItem(R.drawable.ic_together, MainItem.TOGETHER, ContextCompat.getColor(this, R.color.main_together)));
-        list.add(new MainItem(R.drawable.ic_chat, MainItem.CHAT, ContextCompat.getColor(this, R.color.main_chat)));
-        list.add(new MainItem(R.drawable.ic_help, MainItem.HELP, ContextCompat.getColor(this, R.color.main_help)));
-        list.add(new MainItem(R.drawable.ic_challenge, MainItem.CHALLENGE, ContextCompat.getColor(this, R.color.main_challenge)));
-        list.add(new MainItem(R.drawable.ic_road_query, MainItem.ROAD_QUERY, ContextCompat.getColor(this, R.color.main_road_query)));
+        list.add(new MainItem(R.drawable.ic_record, MainItem.RECORD, ContextCompat.getColor(this, R.color.main_record), Color.BLACK));
+        list.add(new MainItem(R.drawable.ic_position, MainItem.POSITION, ContextCompat.getColor(this, R.color.main_position), Color.BLACK));
+        list.add(new MainItem(R.drawable.ic_tip, MainItem.TIP, ContextCompat.getColor(this, R.color.main_tip), Color.BLACK));
+        list.add(new MainItem(R.drawable.ic_together, MainItem.TOGETHER, ContextCompat.getColor(this, R.color.main_together), Color.BLACK));
+        list.add(new MainItem(R.drawable.ic_chat, MainItem.CHAT, ContextCompat.getColor(this, R.color.main_chat), Color.WHITE));
+        list.add(new MainItem(R.drawable.ic_help, MainItem.HELP, ContextCompat.getColor(this, R.color.main_help), Color.BLACK));
+        list.add(new MainItem(R.drawable.ic_challenge, MainItem.CHALLENGE, ContextCompat.getColor(this, R.color.main_challenge), Color.BLACK));
+        list.add(new MainItem(R.drawable.ic_road_query, MainItem.ROAD_QUERY, ContextCompat.getColor(this, R.color.main_road_query), Color.WHITE));
+        list.add(new MainItem(R.drawable.ic_group, MainItem.GROUP, ContextCompat.getColor(this, R.color.main_group), Color.BLACK));
 
         rv.setLayoutManager(new GridLayoutManager(this, 3));
         rv.setAdapter(new MainRVAdapter(this, list));
     }
 
-    public void onDrawerItemClick(String name) {
-        switch (name) {
-            case DrawerItem.SIGN_OUT:
-                finish();
-                break;
-        }
-    }
 
     private long lastBackPressedTime = 0;
 
     @Override
     public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+            return;
+        }
+
         if (System.currentTimeMillis() - lastBackPressedTime < 2000) {
             super.onBackPressed();
         } else {

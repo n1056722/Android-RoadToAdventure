@@ -27,7 +27,7 @@ public class MainRVAdapter extends CommonRVAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getInflater().inflate(R.layout.item_rv_main, parent, false));
+        return new ViewHolder(getInflater().inflate(R.layout.item_rv_main, parent, false));
 
     }
 
@@ -39,7 +39,8 @@ public class MainRVAdapter extends CommonRVAdapter {
             // set text
             h.icon.setImageResource(item.getIcon());
             h.name.setText(item.getName());
-            h.background.setCardBackgroundColor(item.getColor());
+            h.name.setTextColor(item.getTextColor());
+            h.background.setCardBackgroundColor(item.getBackgroundColor());
         }
     }
 

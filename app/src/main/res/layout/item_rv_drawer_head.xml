@@ -7,13 +7,15 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:background="@drawable/background_navigation"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -21,17 +23,36 @@
             android:layout_width="@dimen/imageview_drawer_width"
             android:layout_height="@dimen/imageview_drawer_width"
             android:layout_gravity="center"
+            android:src="@drawable/icon"
             app:civ_border_color="#FFF"
             app:civ_border_width="1dp" />
 
-        <TextView
-            android:id="@+id/tv_item_rv_drawer_head_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="123"
-            android:textColor="#FFF"
-            android:textSize="20sp" />
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_item_rv_drawer_head_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="使用者名稱"
+                android:textColor="#FFF"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_item_rv_drawer_head_name2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="使用者名稱2"
+                android:textColor="#FFF"
+                android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

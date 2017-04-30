@@ -5,7 +5,7 @@
 
     <dimen name="chart_height">200dp</dimen>
 
-    <dimen name="imageview_drawer_width">60dp</dimen>
+    <dimen name="imageview_drawer_width">100dp</dimen>
     <dimen name="imageview_drawer_item_width">30dp</dimen>
 
     <dimen name="imageview_main_grid_width">60dp</dimen>
