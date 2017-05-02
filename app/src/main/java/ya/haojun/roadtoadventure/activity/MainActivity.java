@@ -65,6 +65,7 @@ public class MainActivity extends CommonActivity {
             case DrawerItem.PERSONAL_PLAN:
                 break;
             case DrawerItem.PERSONAL_FIREND:
+                openActivity(FriendListActivity.class);
                 break;
             case DrawerItem.GROUP_MY:
                 break;

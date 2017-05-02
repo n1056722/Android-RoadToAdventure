@@ -27,7 +27,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 //                String userPassword =((EditText)findViewById(R.id.et_login_user_password)).getText().toString();
 
                 User user = User.getInstance();
-                user.setUserID("haojun");
+                user.setUserID("hj");
                 user.setUserName("haojun");
                 user.setUserPicture("https://avatars1.githubusercontent.com/u/15250400?v=3&s=460");
 

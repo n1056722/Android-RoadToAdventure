@@ -9,4 +9,12 @@
     <dimen name="imageview_drawer_item_width">30dp</dimen>
 
     <dimen name="imageview_main_grid_width">60dp</dimen>
+
+    <dimen name="imageview_toolbar_width">25dp</dimen>
+    <dimen name="imageview_toolbar_margin">16dp</dimen>
+
+    <dimen name="imageview_list_picture">60dp</dimen>
+
+    <dimen name="imageview_chat_send">40dp</dimen>
+    <dimen name="imageview_chat_picture">40dp</dimen>
 </resources>

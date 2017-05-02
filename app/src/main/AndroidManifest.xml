@@ -52,7 +52,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.JourneyRecordActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.FriendListActivity" />
+        <activity android:name=".activity.FriendChatActivity"></activity>
     </application>
 
 </manifest>
