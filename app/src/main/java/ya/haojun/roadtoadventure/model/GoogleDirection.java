@@ -3,10 +3,6 @@ package ya.haojun.roadtoadventure.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by asus on 2017/3/11.
- */
-
 public class GoogleDirection {
     private List<GoogleRoute> routes;
 

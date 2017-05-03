@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
+import ya.haojun.roadtoadventure.activity.MainActivity;
 import ya.haojun.roadtoadventure.model.MainItem;
 
 
@@ -41,6 +42,12 @@ public class MainRVAdapter extends CommonRVAdapter {
             h.name.setText(item.getName());
             h.name.setTextColor(item.getTextColor());
             h.background.setCardBackgroundColor(item.getBackgroundColor());
+            h.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) getContext()).onMainItemClick(item.getName());
+                }
+            });
         }
     }
 

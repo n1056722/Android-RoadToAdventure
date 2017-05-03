@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,24 +22,25 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
-import ya.haojun.roadtoadventure.api.GoogleMapService;
+import ya.haojun.roadtoadventure.helper.LogHelper;
+import ya.haojun.roadtoadventure.model.GoogleRoute;
+import ya.haojun.roadtoadventure.retrofit.GoogleMapService;
 import ya.haojun.roadtoadventure.model.GoogleDirection;
 import ya.haojun.roadtoadventure.helper.GoogleMapHelper;
 
 public class SelectDistanceMapActivity extends CommonActivity implements OnMapReadyCallback, LocationListener, View.OnClickListener {
 
-    // location status
-    public static final int LOCATION_NONE = 0;
-    public static final int LOCATION_MY_POSITION = 1;
     // select status
     public static final int STATUS_NONE = 0;
     public static final int STATUS_FROM = 1;
@@ -47,12 +49,13 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
     private TextView tv_from, tv_to;
     // map data
     private GoogleMap mMap;
+    private GoogleDirection direction;
+    private ArrayList<Polyline> list_polyline;
     // location data
     private LocationManager locationManager;
     private static final long MIN_TIME = 0;
     private static final float MIN_DISTANCE = 1;
     // data
-    private int locationStatus = LOCATION_NONE;
     private int selectStatus = STATUS_NONE;
     private LatLng latLng_from, latLng_to;
     private List<LatLng> list_latLng;
@@ -65,7 +68,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         // ui reference
         tv_from = (TextView) findViewById(R.id.tv_select_distance_from);
         tv_to = (TextView) findViewById(R.id.tv_select_distance_to);
-        findViewById(R.id.fab_select_distance).setOnClickListener(this);
+        findViewById(R.id.fab_select_distance_chart).setOnClickListener(this);
         findViewById(R.id.tv_select_distance_cancel).setOnClickListener(this);
         findViewById(R.id.tv_select_distance_confirm).setOnClickListener(this);
 
@@ -74,6 +77,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         tv_to.setOnClickListener(this);
 
         // init data
+        list_polyline = new ArrayList<>();
         list_latLng = new ArrayList<>();
         // sync map
         syncMap();
@@ -93,8 +97,8 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         }
-        // check permission
-        requestLocationUpdate(LOCATION_MY_POSITION);
+        // request location
+        requestLocationUpdate();
 
         // listener
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -109,13 +113,12 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                         latLng_to = latLng;
                         break;
                 }
-                // reset status
-                selectStatus = STATUS_NONE;
+                if (selectStatus == STATUS_NONE) return;
                 // check selected
                 if (latLng_from != null && latLng_to != null) { // 'from','to' are ok
                     // show confirm ui
                     findViewById(R.id.ll_select_distance_confirm).setVisibility(View.VISIBLE);
-                    findViewById(R.id.fab_select_distance).setVisibility(View.VISIBLE);
+                    findViewById(R.id.fab_select_distance_chart).setVisibility(View.VISIBLE);
                     // add 'to' marker
                     updateMapMarker();
                     // compute bounds
@@ -132,6 +135,16 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                     updateMapMarker();
                     moveMap(latLng_from);
                 }
+                // reset status
+                selectStatus = STATUS_NONE;
+            }
+        });
+        mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+            @Override
+            public void onPolylineClick(Polyline polyline) {
+                for (Polyline p : list_polyline) {
+                    p.setColor(p.equals(polyline) ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY);
+                }
             }
         });
     }
@@ -146,19 +159,27 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
             @Override
             public void onResponse(Call<GoogleDirection> call, Response<GoogleDirection> response) {
                 dismissLoadingDialog();
-                if (response.body() != null) {
-                    log(response.body().toString());
-                }
+                direction = response.body();
                 try {
-                    String encodedString = response.body().getRoutes().get(0).getPolyLine().getPoints();
-                    list_latLng.clear();
-                    list_latLng.addAll(GoogleMapHelper.decodePoly(encodedString));
-                    mMap.addPolyline(new PolylineOptions()
-                            .addAll(list_latLng)
-                            .width(10)
-                            .color(ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary))//Google maps blue color
-                            .geodesic(true)
-                    );
+                    list_polyline.clear();
+                    for (int i = direction.getRoutes().size() - 1; i >= 0; i--) {
+                        GoogleRoute route = direction.getRoutes().get(i);
+                        // get encoded string
+                        String encodedString = route.getOverview_polyline().getPoints();
+                        // set polyline
+                        PolylineOptions polylineOptions = new PolylineOptions()
+                                .addAll(GoogleMapHelper.decodePoly(encodedString))
+                                .width(16)
+                                .color((i == 0 ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY))
+                                .geodesic(true);
+                        // add polyline to map
+                        Polyline polyline = mMap.addPolyline(polylineOptions);
+                        polyline.setClickable(true);
+                        // add to route obj
+                        route.setPolyline(polyline);
+                        // add to list
+                        list_polyline.add(polyline);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     t("取得路徑失敗");
@@ -168,20 +189,18 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
             @Override
             public void onFailure(Call<GoogleDirection> call, Throwable t) {
                 dismissLoadingDialog();
-                log(t.toString());
+                t(String.format("取得路徑失敗(%s)", t.toString()));
             }
         });
     }
 
-    private void requestLocationUpdate(int locationStatus) {
+    private void requestLocationUpdate() {
         if (locationManager == null)
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
-        this.locationStatus = locationStatus;
-        showLoadingDialog();
     }
 
     private void updateMapMarker() {
@@ -196,23 +215,18 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
 
     @Override
     public void onLocationChanged(Location location) {
-        dismissLoadingDialog();
         double lat = location.getLatitude();
         double lng = location.getLongitude();
-        switch (locationStatus) {
-            case LOCATION_MY_POSITION:
-                // show map
-                findViewById(R.id.pb_select_distance).setVisibility(View.GONE);
-                findViewById(R.id.map_select_distance).setVisibility(View.VISIBLE);
-                // init
-                tv_from.setText("你的位置");
-                latLng_from = new LatLng(lat, lng);
-                updateMapMarker();
-                // move map
-                moveMap(new LatLng(lat, lng));
-                locationManager.removeUpdates(this);
-                break;
-        }
+        // show map
+        findViewById(R.id.pb_select_distance).setVisibility(View.GONE);
+        findViewById(R.id.map_select_distance).setVisibility(View.VISIBLE);
+        // init
+        tv_from.setText("你的位置");
+        latLng_from = new LatLng(lat, lng);
+        updateMapMarker();
+        // move map
+        moveMap(new LatLng(lat, lng));
+        locationManager.removeUpdates(this);
     }
 
     @Override
@@ -260,12 +274,24 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                 selectStatus = STATUS_TO;
                 t("選個終點吧");
                 break;
-            case R.id.fab_select_distance:
-                Bundle b = new Bundle();
-                ArrayList<LatLng> list = new ArrayList<>();
-                list.addAll(list_latLng);
-                b.putParcelableArrayList("routes", list);
-                openActivity(ChartActivity.class, b);
+            case R.id.fab_select_distance_chart:
+
+                if (direction != null) {
+                    for (GoogleRoute route : direction.getRoutes()) {
+                        if (route.getPolyline().getColor() == ContextCompat.getColor(this, R.color.colorPrimary)) { // find selected
+                            t(route.getSummary());
+                            break;
+                        }
+                    }
+                }
+//
+//                Bundle b = new Bundle();
+//                ArrayList<LatLng> list = new ArrayList<>();
+//                list.addAll(list_latLng);
+//                b.putParcelableArrayList("routes", list);
+//                HashMap<Integer>
+//
+//                openActivity(ChartActivity.class, b);
                 break;
             case R.id.tv_select_distance_confirm:
                 Intent intent = new Intent();

@@ -13,7 +13,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,19 +30,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
-import ya.haojun.roadtoadventure.activity.JourneyListActivity;
 import ya.haojun.roadtoadventure.activity.JourneyStatusActivity;
-import ya.haojun.roadtoadventure.api.GoogleMapService;
+import ya.haojun.roadtoadventure.retrofit.GoogleMapService;
 import ya.haojun.roadtoadventure.helper.GoogleMapHelper;
-import ya.haojun.roadtoadventure.helper.TimeHelper;
 import ya.haojun.roadtoadventure.model.GoogleDirection;
-import ya.haojun.roadtoadventure.model.JourneyModel;
 import ya.haojun.roadtoadventure.sqlite.DAOJourney;
-import ya.haojun.roadtoadventure.sqlite.DAOLocationRecord;
 
-/**
- * Created by asus on 2017/3/11.
- */
 
 public class MainFragment extends CommonFragment implements OnMapReadyCallback, LocationListener, View.OnClickListener {
 
@@ -135,7 +127,7 @@ public class MainFragment extends CommonFragment implements OnMapReadyCallback, 
                     log(response.body().toString());
                 }
                 try {
-                    String encodedString = response.body().getRoutes().get(0).getPolyLine().getPoints();
+                    String encodedString = response.body().getRoutes().get(0).getOverview_polyline().getPoints();
                     List<LatLng> list = GoogleMapHelper.decodePoly(encodedString);
                     mMap.addPolyline(new PolylineOptions()
                             .addAll(list)

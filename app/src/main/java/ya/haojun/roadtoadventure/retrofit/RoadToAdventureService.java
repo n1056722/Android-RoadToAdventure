@@ -1,4 +1,4 @@
-package ya.haojun.roadtoadventure.api;
+package ya.haojun.roadtoadventure.retrofit;
 
 
 import retrofit2.Retrofit;

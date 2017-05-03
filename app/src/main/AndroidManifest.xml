@@ -56,7 +56,8 @@
         <activity android:name=".activity.FriendListActivity" />
         <activity android:name=".activity.FriendChatActivity" />
         <activity android:name=".activity.SearchFriendActivity" />
-        <activity android:name=".activity.PersonalRecordListActivity"></activity>
+        <activity android:name=".activity.PersonalRecordListActivity" />
+        <activity android:name=".activity.AddPersonalRecordActivity"></activity>
     </application>
 
 </manifest>

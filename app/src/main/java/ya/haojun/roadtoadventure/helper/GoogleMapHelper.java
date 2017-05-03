@@ -39,6 +39,7 @@ public class GoogleMapHelper {
         Map<String, String> map = new HashMap<>();
         map.put("origin", String.format("%f,%f", from.latitude, from.longitude));
         map.put("destination", String.format("%f,%f", to.latitude, to.longitude));
+        map.put("alternatives", "true");
         map.put("avoid", "tolls|highways|ferries");
         map.put("mode", "driving");
         map.put("key", context.getString(R.string.google_maps_key));
@@ -72,8 +73,8 @@ public class GoogleMapHelper {
             int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
             lng += dlng;
 
-            LatLng p = new LatLng( (((double) lat / 1E5)),
-                    (((double) lng / 1E5) ));
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
             poly.add(p);
         }
 

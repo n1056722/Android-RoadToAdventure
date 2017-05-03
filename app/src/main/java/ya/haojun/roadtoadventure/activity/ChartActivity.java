@@ -21,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
-import ya.haojun.roadtoadventure.api.GoogleMapService;
+import ya.haojun.roadtoadventure.retrofit.GoogleMapService;
 import ya.haojun.roadtoadventure.model.GooglePath;
 import ya.haojun.roadtoadventure.model.GooglePoint;
 import ya.haojun.roadtoadventure.helper.GoogleMapHelper;
