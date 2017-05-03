@@ -3,8 +3,7 @@ package ya.haojun.roadtoadventure.model;
 
 public class DrawerItem {
     public static final String PERSONAL = "個人騎乘";
-    public static final String PERSONAL_RECORD = "我的騎乘紀錄";
-    public static final String PERSONAL_PLAN = "路線規劃";
+    public static final String PERSONAL_RECORD = "騎乘紀錄";
     public static final String PERSONAL_FIREND = "我的好友";
 
     public static final String GROUP = "團體騎乘";

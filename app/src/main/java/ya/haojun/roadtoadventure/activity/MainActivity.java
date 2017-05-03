@@ -46,7 +46,6 @@ public class MainActivity extends CommonActivity {
         ArrayList<DrawerItem> list = new ArrayList<>();
         list.add(new DrawerItem(R.drawable.ic_nav_personal, DrawerItem.PERSONAL));
         list.add(new DrawerItem(0, DrawerItem.PERSONAL_RECORD));
-        list.add(new DrawerItem(0, DrawerItem.PERSONAL_PLAN));
         list.add(new DrawerItem(0, DrawerItem.PERSONAL_FIREND));
         list.add(new DrawerItem(R.drawable.ic_nav_group, DrawerItem.GROUP));
         list.add(new DrawerItem(0, DrawerItem.GROUP_MY));
@@ -61,8 +60,6 @@ public class MainActivity extends CommonActivity {
     public void onDrawerItemClick(String name) {
         switch (name) {
             case DrawerItem.PERSONAL_RECORD:
-                break;
-            case DrawerItem.PERSONAL_PLAN:
                 break;
             case DrawerItem.PERSONAL_FIREND:
                 openActivity(FriendListActivity.class);

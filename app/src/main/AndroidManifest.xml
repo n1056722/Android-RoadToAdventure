@@ -54,7 +54,9 @@
             android:name=".activity.JourneyRecordActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.FriendListActivity" />
-        <activity android:name=".activity.FriendChatActivity"></activity>
+        <activity android:name=".activity.FriendChatActivity" />
+        <activity android:name=".activity.SearchFriendActivity" />
+        <activity android:name=".activity.PersonalRecordListActivity"></activity>
     </application>
 
 </manifest>
