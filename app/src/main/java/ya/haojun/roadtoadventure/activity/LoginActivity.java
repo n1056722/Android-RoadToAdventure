@@ -35,6 +35,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.tv_login_sign_up:
+                openActivity(SignUpActivity.class);
                 break;
             case R.id.tv_login_forget_password:
                 break;

@@ -142,6 +142,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
             @Override
             public void onPolylineClick(Polyline polyline) {
+                
                 for (Polyline p : list_polyline) {
                     p.setColor(p.equals(polyline) ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY);
                 }
@@ -280,18 +281,15 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                     for (GoogleRoute route : direction.getRoutes()) {
                         if (route.getPolyline().getColor() == ContextCompat.getColor(this, R.color.colorPrimary)) { // find selected
                             t(route.getSummary());
+                            Bundle b = new Bundle();
+                            ArrayList<LatLng> list = new ArrayList<>();
+                            list.addAll(route.getPolyline().getPoints());
+                            b.putParcelableArrayList("routes", list);
+                            openActivity(ChartActivity.class, b);
                             break;
                         }
                     }
                 }
-//
-//                Bundle b = new Bundle();
-//                ArrayList<LatLng> list = new ArrayList<>();
-//                list.addAll(list_latLng);
-//                b.putParcelableArrayList("routes", list);
-//                HashMap<Integer>
-//
-//                openActivity(ChartActivity.class, b);
                 break;
             case R.id.tv_select_distance_confirm:
                 Intent intent = new Intent();
