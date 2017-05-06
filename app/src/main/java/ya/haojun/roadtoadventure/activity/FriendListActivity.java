@@ -8,7 +8,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
-import ya.haojun.roadtoadventure.adapter.FriendRVAdapter;
+import ya.haojun.roadtoadventure.adapter.FriendListRVAdapter;
 import ya.haojun.roadtoadventure.model.Friend;
 
 public class FriendListActivity extends CommonActivity implements View.OnClickListener {
@@ -33,7 +33,7 @@ public class FriendListActivity extends CommonActivity implements View.OnClickLi
             list_friend.add(new Friend("hj" + i, "haojun" + i, "https://avatars1.githubusercontent.com/u/15250400?v=3&s=460"));
         }
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new FriendRVAdapter(this, list_friend));
+        rv.setAdapter(new FriendListRVAdapter(this, list_friend));
     }
 
     @Override

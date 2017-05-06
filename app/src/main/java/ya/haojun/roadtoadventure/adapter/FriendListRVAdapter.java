@@ -18,14 +18,14 @@ import ya.haojun.roadtoadventure.activity.FriendChatActivity;
 import ya.haojun.roadtoadventure.model.Friend;
 
 
-public class FriendRVAdapter extends CommonRVAdapter {
+public class FriendListRVAdapter extends CommonRVAdapter {
 
 
     // data
     private int pictureWidth;
     private ArrayList<Friend> list;
 
-    public FriendRVAdapter(Context context, ArrayList<Friend> list) {
+    public FriendListRVAdapter(Context context, ArrayList<Friend> list) {
         super(context);
         this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_list_picture);
         this.list = list;
@@ -34,7 +34,7 @@ public class FriendRVAdapter extends CommonRVAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(getInflater().inflate(R.layout.item_rv_friend, parent, false));
+        return new ViewHolder(getInflater().inflate(R.layout.item_rv_friend_list, parent, false));
     }
 
     @Override
@@ -66,8 +66,8 @@ public class FriendRVAdapter extends CommonRVAdapter {
 
         ViewHolder(View v) {
             super(v);
-            picture = (ImageView) v.findViewById(R.id.iv_item_rv_friend_picture);
-            name = (TextView) v.findViewById(R.id.tv_item_rv_friend_name);
+            picture = (ImageView) v.findViewById(R.id.iv_item_rv_friend_list_picture);
+            name = (TextView) v.findViewById(R.id.tv_item_rv_friend_list_name);
         }
     }
 

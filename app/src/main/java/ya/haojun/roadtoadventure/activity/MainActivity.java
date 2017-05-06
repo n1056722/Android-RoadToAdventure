@@ -66,6 +66,7 @@ public class MainActivity extends CommonActivity {
                 openActivity(FriendListActivity.class);
                 break;
             case DrawerItem.GROUP_MY:
+                openActivity(GroupListActivity.class);
                 break;
             case DrawerItem.CHALLENGE_MY:
                 break;
@@ -78,6 +79,9 @@ public class MainActivity extends CommonActivity {
         switch (name) {
             case MainItem.RECORD:
                 openActivity(PersonalJourneyListActivity.class);
+                break;
+            case MainItem.GROUP:
+                openActivity(GroupListActivity.class);
                 break;
         }
     }
