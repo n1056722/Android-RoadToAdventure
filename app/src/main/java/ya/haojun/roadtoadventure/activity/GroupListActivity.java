@@ -29,18 +29,19 @@ public class GroupListActivity extends CommonActivity implements View.OnClickLis
 
         // init RecyclerView
         list_group = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            list_group.add(new Group("Group"+i,"http://barkpost-assets.s3.amazonaws.com/wp-content/uploads/2013/11/muchdoge-700x393.jpg"));
+        for (int i = 0; i < 10; i++) {
+            list_group.add(new Group("Group" + i, "http://barkpost-assets.s3.amazonaws.com/wp-content/uploads/2013/11/muchdoge-700x393.jpg"));
         }
 
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new GroupListRVAdapter(this,list_group));
+        rv.setAdapter(new GroupListRVAdapter(this, list_group));
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_group_list_add_group:
+                openActivity(AddGroupActivity.class);
                 break;
         }
     }

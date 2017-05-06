@@ -46,7 +46,7 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_personal_journey_list_add_record:
-                openActivity(AddPersonalRecordActivity.class);
+                openActivity(AddPersonalJourneyActivity.class);
                 break;
         }
     }
