@@ -60,7 +60,7 @@ public class MainActivity extends CommonActivity {
     public void onDrawerItemClick(String name) {
         switch (name) {
             case DrawerItem.PERSONAL_RECORD:
-                openActivity(AddPersonalRecordActivity.class);
+                openActivity(PersonalJourneyListActivity.class);
                 break;
             case DrawerItem.PERSONAL_FIREND:
                 openActivity(FriendListActivity.class);
@@ -77,7 +77,7 @@ public class MainActivity extends CommonActivity {
     public void onMainItemClick(String name){
         switch (name) {
             case MainItem.RECORD:
-                openActivity(AddPersonalRecordActivity.class);
+                openActivity(PersonalJourneyListActivity.class);
                 break;
         }
     }

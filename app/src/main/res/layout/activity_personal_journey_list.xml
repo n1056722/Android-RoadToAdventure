@@ -27,7 +27,7 @@
                     android:textColor="#FFF"
                     android:textSize="24sp" />
                 <ImageView
-                    android:id="@+id/iv_personal_record_list_add_record"
+                    android:id="@+id/iv_personal_journey_list_add_record"
                     android:layout_width="@dimen/imageview_toolbar_width"
                     android:layout_height="@dimen/imageview_toolbar_width"
                     android:layout_alignParentRight="true"
@@ -38,7 +38,7 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_personal_record_list"
+        android:id="@+id/rv_personal_journey_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

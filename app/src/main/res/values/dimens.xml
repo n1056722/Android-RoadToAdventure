@@ -14,6 +14,7 @@
     <dimen name="imageview_toolbar_margin">16dp</dimen>
 
     <dimen name="imageview_list_picture">60dp</dimen>
+    <dimen name="imageview_list_picture_big">100dp</dimen>
 
     <dimen name="imageview_chat_send">40dp</dimen>
     <dimen name="imageview_chat_picture">40dp</dimen>

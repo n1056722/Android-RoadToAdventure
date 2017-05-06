@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class TimeHelper {
     private static final SimpleDateFormat sdf_standard = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat sdf_no_year_second = new SimpleDateFormat("MM/dd HH:mm");
 
     public static String now() {
         return sdf_standard.format(new Date());
@@ -26,5 +27,14 @@ public class TimeHelper {
             e.printStackTrace();
         }
         return "error";
+    }
+
+    public static String convertToNoYearSecond(String date) {
+        try {
+            return sdf_no_year_second.format(sdf_standard.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 }
