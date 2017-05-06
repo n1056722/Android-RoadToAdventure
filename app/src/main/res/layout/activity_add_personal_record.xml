@@ -37,6 +37,13 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <TextView
+            android:id="@+id/tv_add_personal_record_direction"
+            style="@style/AppTheme.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="騎乘路線" />
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -49,12 +56,6 @@
                 android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_add_personal_record_direction"
-            style="@style/AppTheme.TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="騎乘路線" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"

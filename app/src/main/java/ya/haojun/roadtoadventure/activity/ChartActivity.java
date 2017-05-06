@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -29,8 +30,10 @@ import ya.haojun.roadtoadventure.helper.GoogleMapHelper;
 public class ChartActivity extends CommonActivity {
 
     // ui
+    private TextView tv_info;
     private LineChart mChart;
-
+    // extra
+    private String summary, distance, duration, startAddress, endAddress;
     // data
     private ArrayList<LatLng> list_latLng;
     private GooglePath paths;
@@ -40,10 +43,24 @@ public class ChartActivity extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
         // ui reference
+        tv_info = (TextView) findViewById(R.id.tv_chart_info);
         mChart = (LineChart) findViewById(R.id.lc_chart);
         // get extra
         Bundle b = getIntent().getExtras();
+        summary = b.getString("summary");
+        distance = b.getString("distance");
+        duration = b.getString("duration");
+        startAddress = b.getString("startAddress");
+        endAddress = b.getString("endAddress");
         list_latLng = b.getParcelableArrayList("routes");
+        // init
+        StringBuilder sb = new StringBuilder();
+        sb.append("路線名稱\n").append(summary);
+        sb.append("\n距離\n").append(distance);
+        sb.append("\n時間\n").append(duration);
+        sb.append("\n起點地址\n").append(startAddress);
+        sb.append("\n終點地址\n").append(endAddress);
+        tv_info.setText(sb.toString());
         // load elevation
         loadElevation();
     }
@@ -164,8 +181,8 @@ public class ChartActivity extends CommonActivity {
 //            set1.setCircleRadius(4f);
 //            set1.setCircleColor(Color.WHITE);
             //set1.setHighLightColor(Color.rgb(244, 117, 117));
-            set1.setColor(ContextCompat.getColor(this, R.color.chart_line_fill_background));
-            set1.setFillColor(ContextCompat.getColor(this, R.color.chart_line_fill_background));
+            set1.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
+            set1.setFillColor(ContextCompat.getColor(this, R.color.colorPrimary));
             set1.setFillAlpha(100);
             set1.setDrawHorizontalHighlightIndicator(false);
             set1.setDrawVerticalHighlightIndicator(false);

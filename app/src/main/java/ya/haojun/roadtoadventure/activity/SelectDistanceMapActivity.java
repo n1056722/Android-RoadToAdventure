@@ -34,6 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.helper.LogHelper;
+import ya.haojun.roadtoadventure.model.GoogleLeg;
 import ya.haojun.roadtoadventure.model.GoogleRoute;
 import ya.haojun.roadtoadventure.retrofit.GoogleMapService;
 import ya.haojun.roadtoadventure.model.GoogleDirection;
@@ -58,7 +59,6 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
     // data
     private int selectStatus = STATUS_NONE;
     private LatLng latLng_from, latLng_to;
-    private List<LatLng> list_latLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +78,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
 
         // init data
         list_polyline = new ArrayList<>();
-        list_latLng = new ArrayList<>();
         // sync map
-        syncMap();
-    }
-
-    private void syncMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_select_distance);
         mapFragment.getMapAsync(this);
@@ -142,7 +137,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
             @Override
             public void onPolylineClick(Polyline polyline) {
-                
+
                 for (Polyline p : list_polyline) {
                     p.setColor(p.equals(polyline) ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY);
                 }
@@ -276,16 +271,24 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                 t("選個終點吧");
                 break;
             case R.id.fab_select_distance_chart:
-
                 if (direction != null) {
                     for (GoogleRoute route : direction.getRoutes()) {
                         if (route.getPolyline().getColor() == ContextCompat.getColor(this, R.color.colorPrimary)) { // find selected
-                            t(route.getSummary());
                             Bundle b = new Bundle();
-                            ArrayList<LatLng> list = new ArrayList<>();
-                            list.addAll(route.getPolyline().getPoints());
-                            b.putParcelableArrayList("routes", list);
-                            openActivity(ChartActivity.class, b);
+                            GoogleLeg leg = route.getLegs().get(0);
+                            if (leg != null) {
+                                b.putString("summary", route.getSummary());
+                                b.putString("distance", leg.getDistance().getText());
+                                b.putString("duration", leg.getDuration().getText());
+                                b.putString("startAddress", leg.getStart_address());
+                                b.putString("endAddress", leg.getEnd_address());
+                                ArrayList<LatLng> list = new ArrayList<>();
+                                list.addAll(route.getPolyline().getPoints());
+                                b.putParcelableArrayList("routes", list);
+                                openActivity(ChartActivity.class, b);
+                            }else{
+                                t("沒資料");
+                            }
                             break;
                         }
                     }
