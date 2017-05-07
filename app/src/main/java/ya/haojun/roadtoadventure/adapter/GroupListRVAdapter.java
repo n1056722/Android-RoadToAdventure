@@ -3,6 +3,7 @@ package ya.haojun.roadtoadventure.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.activity.FriendChatActivity;
+import ya.haojun.roadtoadventure.activity.GroupInfoActivity;
 import ya.haojun.roadtoadventure.activity.GroupListActivity;
 import ya.haojun.roadtoadventure.model.Friend;
 import ya.haojun.roadtoadventure.model.Group;
@@ -43,13 +45,17 @@ public class GroupListRVAdapter extends CommonRVAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
-            Group item = list.get(position);
+            final Group item = list.get(position);
             Picasso.with(getContext()).load(item.getGroupPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
             h.name.setText(item.getGroupName());
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(getContext(), GroupInfoActivity.class);
+                    Bundle b = new Bundle();
+                    b.putInt("groupID",item.getGroupID());
+                    intent.putExtras(b);
+                    getContext().startActivity(intent);
                 }
             });
         }

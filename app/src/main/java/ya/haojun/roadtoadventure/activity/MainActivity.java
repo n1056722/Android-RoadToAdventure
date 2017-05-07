@@ -145,7 +145,7 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
         if (weatherInfo != null) {
             iv_weather_image.setImageResource(getWeatherImage(weatherInfo.getCurrentText()));
             tv_weather_date.setText(TimeHelper.convertToNoYearSecond(TimeHelper.now()));
-            tv_weather_name.setText(weatherInfo.getCurrentText());
+            tv_weather_name.setText(getWeatherName(weatherInfo.getCurrentText()));
             tv_weather_temperature.setText(weatherInfo.getCurrentTemp() + "ºC");
         } else {
             t("取得天氣失敗");
@@ -182,6 +182,39 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
                 return R.drawable.wh_wind;
             default:
                 return R.drawable.ic_clear_w;
+        }
+    }
+
+    private String getWeatherName(String weather) {
+        switch (weather) {
+            case "Light Rain":
+                return "小雨";
+            case "Showers":
+                return "陣雨";
+            case "Scattered Showers":
+                return "零星陣雨";
+            case "Windy":
+                return "刮風";
+            case "Mostly Cloudy":
+                return "大多時間多雲";
+            case "Partly Cloudy":
+                return "部份多雲";
+            case "Cloudy":
+                return "多雲";
+            case "Sunny":
+                return "晴朗";
+            case "Mostly Sunny":
+                return "大多時間晴朗";
+            case "Haze":
+                return "陰霾";
+            case "Fog":
+                return "多霧";
+            case "Thunderstorms":
+                return "雷雨";
+            case "Breezy":
+                return "微風";
+            default:
+                return "未知";
         }
     }
 

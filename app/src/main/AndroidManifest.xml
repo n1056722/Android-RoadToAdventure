@@ -60,7 +60,8 @@
         <activity android:name=".activity.AddPersonalJourneyActivity" />
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.GroupListActivity" />
-        <activity android:name=".activity.AddGroupActivity"></activity>
+        <activity android:name=".activity.AddGroupActivity" />
+        <activity android:name=".activity.GroupInfoActivity"></activity>
     </application>
 
 </manifest>
