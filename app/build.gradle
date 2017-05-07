@@ -29,11 +29,12 @@ dependencies {
     compile "com.android.support:design:${rootProject.ext.supportLibraryVersion}"
     compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibraryVersion}"
     compile "com.android.support:cardview-v7:${rootProject.ext.supportLibraryVersion}"
-    compile 'com.google.android.gms:play-services-maps:10.2.1'
+    compile 'com.google.android.gms:play-services-maps:10.2.4'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     compile 'com.github.yalantis:Side-Menu.Android:1.0.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'zh.wang.android:yweathergetter4a:1.3.0'
 }

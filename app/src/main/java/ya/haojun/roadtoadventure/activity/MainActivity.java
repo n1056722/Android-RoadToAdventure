@@ -1,7 +1,10 @@
 package ya.haojun.roadtoadventure.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,24 +13,46 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.adapter.DrawerRVAdapter;
 import ya.haojun.roadtoadventure.adapter.MainRVAdapter;
+import ya.haojun.roadtoadventure.helper.TimeHelper;
 import ya.haojun.roadtoadventure.model.DrawerItem;
 import ya.haojun.roadtoadventure.model.MainItem;
+import zh.wang.android.yweathergetter4a.WeatherInfo;
+import zh.wang.android.yweathergetter4a.YahooWeather;
+import zh.wang.android.yweathergetter4a.YahooWeatherInfoListener;
 
-public class MainActivity extends CommonActivity {
+import static ya.haojun.roadtoadventure.activity.PermissionActivity.PERMISSION;
 
+public class MainActivity extends CommonActivity implements YahooWeatherInfoListener {
+
+    // ui
+    private ImageView iv_weather_image;
+    private TextView tv_weather_date, tv_weather_name, tv_weather_temperature;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // ui reference
+        iv_weather_image = (ImageView) findViewById(R.id.iv_main_weather_image);
+        tv_weather_date = (TextView) findViewById(R.id.tv_main_weather_date);
+        tv_weather_name = (TextView) findViewById(R.id.tv_main_weather_name);
+        tv_weather_temperature = (TextView) findViewById(R.id.tv_main_weather_temperature);
+
+        // init
         initToolbarDrawer();
         initRecyclerView();
+        // get Weather
+        getWeather();
     }
 
     private void initToolbarDrawer() {
@@ -53,8 +78,6 @@ public class MainActivity extends CommonActivity {
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_MY));
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_GROUP));
         rv.setAdapter(new DrawerRVAdapter(this, list));
-
-
     }
 
     public void onDrawerItemClick(String name) {
@@ -71,17 +94,6 @@ public class MainActivity extends CommonActivity {
             case DrawerItem.CHALLENGE_MY:
                 break;
             case DrawerItem.CHALLENGE_GROUP:
-                break;
-        }
-    }
-
-    public void onMainItemClick(String name){
-        switch (name) {
-            case MainItem.RECORD:
-                openActivity(PersonalJourneyListActivity.class);
-                break;
-            case MainItem.GROUP:
-                openActivity(GroupListActivity.class);
                 break;
         }
     }
@@ -103,6 +115,75 @@ public class MainActivity extends CommonActivity {
         rv.setAdapter(new MainRVAdapter(this, list));
     }
 
+    public void onMainItemClick(String name) {
+        switch (name) {
+            case MainItem.RECORD:
+                openActivity(PersonalJourneyListActivity.class);
+                break;
+            case MainItem.GROUP:
+                openActivity(GroupListActivity.class);
+                break;
+        }
+    }
+
+    private void getWeather() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION);
+        } else {
+            findViewById(R.id.ll_main_weather_loading).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_main_weather_result).setVisibility(View.GONE);
+            YahooWeather mYahooWeather = YahooWeather.getInstance();
+            mYahooWeather.queryYahooWeatherByGPS(this, this);
+        }
+    }
+
+    @Override
+    public void gotWeatherInfo(WeatherInfo weatherInfo, YahooWeather.ErrorType errorType) {
+        findViewById(R.id.ll_main_weather_loading).setVisibility(View.GONE);
+        findViewById(R.id.ll_main_weather_result).setVisibility(View.VISIBLE);
+        if (weatherInfo != null) {
+            iv_weather_image.setImageResource(getWeatherImage(weatherInfo.getCurrentText()));
+            tv_weather_date.setText(TimeHelper.convertToNoYearSecond(TimeHelper.now()));
+            tv_weather_name.setText(weatherInfo.getCurrentText());
+            tv_weather_temperature.setText(weatherInfo.getCurrentTemp() + "ºC");
+        } else {
+            t("取得天氣失敗");
+        }
+    }
+
+    private int getWeatherImage(String weather) {
+        switch (weather) {
+            case "Light Rain":
+                return R.drawable.wh_rain;
+            case "Showers":
+                return R.drawable.wh_rain;
+            case "Scattered Showers":
+                return R.drawable.wh_rain;
+            case "Windy":
+                return R.drawable.wh_rain;
+            case "Mostly Cloudy":
+                return R.drawable.wh_double_cloud;
+            case "Partly Cloudy":
+                return R.drawable.wh_cloud;
+            case "Cloudy":
+                return R.drawable.wh_cloud;
+            case "Sunny":
+                return R.drawable.wh_sun;
+            case "Mostly Sunny":
+                return R.drawable.wh_sun;
+            case "Haze":
+                return R.drawable.wh_haze;
+            case "Fog":
+                return R.drawable.wh_haze;
+            case "Thunderstorms":
+                return R.drawable.wh_thunder;
+            case "Breezy":
+                return R.drawable.wh_wind;
+            default:
+                return R.drawable.ic_clear_w;
+        }
+    }
 
     private long lastBackPressedTime = 0;
 
@@ -121,4 +202,6 @@ public class MainActivity extends CommonActivity {
             t("在按一次離開");
         }
     }
+
+
 }
