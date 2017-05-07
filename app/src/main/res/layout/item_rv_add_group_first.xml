@@ -7,8 +7,8 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_item_rv_add_group_first"
-        android:layout_width="@dimen/imageview_list_picture"
-        android:layout_height="@dimen/imageview_list_picture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_add_w" />
 </LinearLayout>

@@ -61,7 +61,8 @@
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.GroupListActivity" />
         <activity android:name=".activity.AddGroupActivity" />
-        <activity android:name=".activity.GroupInfoActivity"></activity>
+        <activity android:name=".activity.GroupInfoActivity" />
+        <activity android:name=".activity.GroupMemberActivity"></activity>
     </application>
 
 </manifest>
