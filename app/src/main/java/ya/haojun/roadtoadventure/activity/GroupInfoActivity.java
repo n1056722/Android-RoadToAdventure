@@ -44,6 +44,7 @@ public class GroupInfoActivity extends CommonActivity implements View.OnClickLis
                 openActivity(GroupMemberActivity.class);
                 break;
             case R.id.cv_group_info_chat:
+                openActivity(GroupChatActivity.class);
                 break;
         }
     }

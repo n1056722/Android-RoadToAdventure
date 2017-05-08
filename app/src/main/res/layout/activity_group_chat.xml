@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="群組聊天"
+                    android:textColor="#FFF"
+                    android:textSize="24sp" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_group_chat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#B3DBF4"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_group_chat_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:hint="輸入訊息"
+            android:background="@drawable/edittext_chat_send" />
+
+        <ImageView
+            android:id="@+id/iv_group_chat_send"
+            android:layout_width="@dimen/imageview_chat_send"
+            android:layout_height="@dimen/imageview_chat_send"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_send_w" />
+    </LinearLayout>
+</LinearLayout>
