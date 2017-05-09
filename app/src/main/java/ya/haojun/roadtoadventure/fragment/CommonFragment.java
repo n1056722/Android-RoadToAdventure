@@ -13,10 +13,6 @@ import android.widget.Toast;
 
 import ya.haojun.roadtoadventure.R;
 
-/**
- * Created by asus on 2017/3/11.
- */
-
 public class CommonFragment extends Fragment {
 
     public static final String TAG = "RoadToAdventure";

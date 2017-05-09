@@ -78,6 +78,7 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_MY));
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_GROUP));
         rv.setAdapter(new DrawerRVAdapter(this, list));
+
     }
 
     public void onDrawerItemClick(String name) {
@@ -123,6 +124,9 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
             case MainItem.GROUP:
                 openActivity(GroupListActivity.class);
                 break;
+            case MainItem.HELP:
+                openActivity(HelpActivity.class);
+                break;
         }
     }
 
@@ -154,6 +158,8 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
 
     private int getWeatherImage(String weather) {
         switch (weather) {
+            case "Rain":
+                return R.drawable.wh_rain;
             case "Light Rain":
                 return R.drawable.wh_rain;
             case "Showers":
@@ -187,6 +193,8 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
 
     private String getWeatherName(String weather) {
         switch (weather) {
+            case "Rain":
+                return "下雨";
             case "Light Rain":
                 return "小雨";
             case "Showers":

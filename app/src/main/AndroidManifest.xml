@@ -63,7 +63,8 @@
         <activity android:name=".activity.AddGroupActivity" />
         <activity android:name=".activity.GroupInfoActivity" />
         <activity android:name=".activity.GroupMemberActivity" />
-        <activity android:name=".activity.GroupChatActivity"></activity>
+        <activity android:name=".activity.GroupChatActivity" />
+        <activity android:name=".activity.HelpActivity"></activity>
     </application>
 
 </manifest>
