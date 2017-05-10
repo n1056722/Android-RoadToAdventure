@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.adapter.DrawerRVAdapter;
 import ya.haojun.roadtoadventure.adapter.MainRVAdapter;
+import ya.haojun.roadtoadventure.helper.LogHelper;
 import ya.haojun.roadtoadventure.helper.TimeHelper;
 import ya.haojun.roadtoadventure.model.DrawerItem;
 import ya.haojun.roadtoadventure.model.MainItem;
@@ -49,13 +50,14 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
         tv_weather_temperature = (TextView) findViewById(R.id.tv_main_weather_temperature);
 
         // init
-        initToolbarDrawer();
-        initRecyclerView();
+        initToolbar();
+        initDrawer();
+        initMainGrid();
         // get Weather
         getWeather();
     }
 
-    private void initToolbarDrawer() {
+    private void initToolbar() {
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
@@ -65,7 +67,9 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
                 this, drawer, toolbar, R.string.app_name, R.string.app_name);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        // RecyclerView
+    }
+
+    private void initDrawer() {
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv_main_navigation);
         rv.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<DrawerItem> list = new ArrayList<>();
@@ -77,8 +81,10 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
         list.add(new DrawerItem(R.drawable.ic_nav_challenge, DrawerItem.CHALLENGE));
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_MY));
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_GROUP));
+        list.add(new DrawerItem(R.drawable.ic_nav_road_query, DrawerItem.ROAD_QUERY));
+        list.add(new DrawerItem(R.drawable.ic_nav_tip, DrawerItem.TIP));
+        list.add(new DrawerItem(R.drawable.ic_nav_help, DrawerItem.HELP));
         rv.setAdapter(new DrawerRVAdapter(this, list));
-
     }
 
     public void onDrawerItemClick(String name) {
@@ -99,7 +105,7 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
         }
     }
 
-    private void initRecyclerView() {
+    private void initMainGrid() {
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv_main);
         ArrayList<MainItem> list = new ArrayList<>();
         list.add(new MainItem(R.drawable.ic_record, MainItem.RECORD, ContextCompat.getColor(this, R.color.main_record), Color.BLACK));
@@ -121,12 +127,26 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
             case MainItem.RECORD:
                 openActivity(PersonalJourneyListActivity.class);
                 break;
-            case MainItem.GROUP:
-                openActivity(GroupListActivity.class);
+            case MainItem.POSITION:
+                break;
+            case MainItem.TIP:
+                break;
+            case MainItem.TOGETHER:
+                break;
+            case MainItem.CHAT:
+                openActivity(FriendListActivity.class);
                 break;
             case MainItem.HELP:
                 openActivity(HelpActivity.class);
                 break;
+            case MainItem.CHALLENGE:
+                break;
+            case MainItem.ROAD_QUERY:
+                break;
+            case MainItem.GROUP:
+                openActivity(GroupListActivity.class);
+                break;
+
         }
     }
 
@@ -137,7 +157,7 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
         } else {
             findViewById(R.id.ll_main_weather_loading).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_main_weather_result).setVisibility(View.GONE);
-            YahooWeather mYahooWeather = YahooWeather.getInstance();
+            YahooWeather mYahooWeather = YahooWeather.getInstance(20000,true);
             mYahooWeather.queryYahooWeatherByGPS(this, this);
         }
     }
@@ -152,7 +172,7 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
             tv_weather_name.setText(getWeatherName(weatherInfo.getCurrentText()));
             tv_weather_temperature.setText(weatherInfo.getCurrentTemp() + "ºC");
         } else {
-            t("取得天氣失敗");
+            t("取得天氣失敗"+errorType.name());
         }
     }
 
@@ -222,7 +242,7 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
             case "Breezy":
                 return "微風";
             default:
-                return "未知";
+                return weather;
         }
     }
 

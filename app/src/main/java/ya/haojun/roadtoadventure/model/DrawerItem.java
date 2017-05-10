@@ -13,6 +13,10 @@ public class DrawerItem {
     public static final String CHALLENGE_MY = "個人挑戰";
     public static final String CHALLENGE_GROUP = "團體挑戰";
 
+    public static final String ROAD_QUERY = "路況查詢";
+    public static final String TIP = "路程功略";
+    public static final String HELP = "急難救助";
+
     private int icon;
     private String name;
 
