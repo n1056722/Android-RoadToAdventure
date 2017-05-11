@@ -37,6 +37,11 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <Spinner
+            android:id="@+id/sp_add_personal_journey_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -69,5 +74,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="騎乘路線" />
+        <ImageView
+            android:id="@+id/iv_add_personal_journey_image"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

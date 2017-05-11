@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -12,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,6 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
+import ya.haojun.roadtoadventure.helper.BitmapHelper;
 import ya.haojun.roadtoadventure.helper.LogHelper;
 import ya.haojun.roadtoadventure.model.GoogleLeg;
 import ya.haojun.roadtoadventure.model.GoogleRoute;
@@ -59,6 +62,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
     // data
     private int selectStatus = STATUS_NONE;
     private LatLng latLng_from, latLng_to;
+    private Bitmap bmp_screenshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,13 +119,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                     // add 'to' marker
                     updateMapMarker();
                     // compute bounds
-                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                    builder.include(latLng_from);
-                    builder.include(latLng_to);
-                    LatLngBounds bounds = builder.build();
-                    int padding = (int) (100 * getResources().getDisplayMetrics().density);
-                    // move camera
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+                    moveMap(latLng_from, latLng_to);
                     // load route
                     loadDirections(latLng_from, latLng_to);
                 } else if (latLng_from != null) { // 'from' ok
@@ -141,7 +139,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
 
                 mMap.clear();
                 updateMapMarker();
-
+                moveMap(latLng_from, latLng_to);
                 int w = (int) polyline.getWidth();
                 // non selected
                 for (int i = 0; i < direction.getRoutes().size(); i++) {
@@ -182,8 +180,10 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                         // get encoded string
                         String encodedString = route.getOverview_polyline().getPoints();
                         // set polyline
-                        addPolyLineToMap(GoogleMapHelper.decodePoly(encodedString), i == 0 ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY, i);
+                        List<LatLng> latLngs = GoogleMapHelper.decodePoly(encodedString);
+                        addPolyLineToMap(latLngs, i == 0 ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY, i);
                     }
+                    selected = 0;
                 } catch (Exception e) {
                     e.printStackTrace();
                     t("取得路徑失敗");
@@ -279,6 +279,17 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         }
     }
 
+
+    private void moveMap(LatLng from, LatLng to) {
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(from);
+        builder.include(to);
+        LatLngBounds bounds = builder.build();
+        int padding = (int) (100 * getResources().getDisplayMetrics().density);
+        // move camera
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -292,8 +303,9 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                 break;
             case R.id.fab_select_distance_chart:
                 if (direction != null) {
-                    for (GoogleRoute route : direction.getRoutes()) {
-                        if (route.getPolyline().getColor() == ContextCompat.getColor(this, R.color.colorPrimary)) { // find selected
+                    for (int i = 0; i < direction.getRoutes().size(); i++) {
+                        if (i == selected) {
+                            GoogleRoute route = direction.getRoutes().get(i);
                             Bundle b = new Bundle();
                             GoogleLeg leg = route.getLegs().get(0);
                             if (leg != null) {
@@ -302,12 +314,11 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                                 b.putString("duration", leg.getDuration().getText());
                                 b.putString("startAddress", leg.getStart_address());
                                 b.putString("endAddress", leg.getEnd_address());
+
                                 ArrayList<LatLng> list = new ArrayList<>();
-                                list.addAll(route.getPolyline().getPoints());
+                                list.addAll(GoogleMapHelper.decodePoly(route.getOverview_polyline().getPoints()));
                                 b.putParcelableArrayList("routes", list);
                                 openActivity(ChartActivity.class, b);
-                            } else {
-                                t("沒資料");
                             }
                             break;
                         }
@@ -315,11 +326,16 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                 }
                 break;
             case R.id.tv_select_distance_confirm:
-                Intent intent = new Intent();
-                intent.putExtra("from", latLng_from);
-                intent.putExtra("to", latLng_to);
-                setResult(RESULT_OK, intent);
-                finish();
+                moveMap(latLng_from, latLng_to);
+                mMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
+                    @Override
+                    public void onSnapshotReady(Bitmap bitmap) {
+                        Intent intent = new Intent();
+                        intent.putExtra("image", BitmapHelper.bitmapToByteArray(bitmap));
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                });
                 break;
             case R.id.tv_select_distance_cancel:
                 finish();
