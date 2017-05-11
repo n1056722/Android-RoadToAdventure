@@ -10,4 +10,6 @@ public interface RoadToAdventureService {
             .baseUrl(URLHelper.HOST)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+
+    RoadToAdventureService service = RoadToAdventureService.retrofit.create(RoadToAdventureService.class);
 }

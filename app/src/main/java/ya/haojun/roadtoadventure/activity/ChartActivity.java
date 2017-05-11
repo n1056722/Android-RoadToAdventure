@@ -66,13 +66,10 @@ public class ChartActivity extends CommonActivity {
     }
 
     private void loadElevation() {
-        // GoogleMapService is ready
-        GoogleMapService service = GoogleMapService.retrofit.create(GoogleMapService.class);
-        // getPaths is ready
         Map<String, String> map = new HashMap<>();
         map.put("locations", GoogleMapHelper.getLocationsQueryString(list_latLng));
         map.put("key", getString(R.string.google_maps_key));
-        Call<GooglePath> call = service.getElevations(map);
+        Call<GooglePath> call = GoogleMapService.service.getElevations(map);
         showLoadingDialog();
         call.enqueue(new Callback<GooglePath>() {
             @Override

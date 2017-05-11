@@ -51,7 +51,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
     // map data
     private GoogleMap mMap;
     private GoogleDirection direction;
-    private ArrayList<Polyline> list_polyline;
+    private int selected = 0;
     // location data
     private LocationManager locationManager;
     private static final long MIN_TIME = 0;
@@ -76,8 +76,6 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         tv_from.setOnClickListener(this);
         tv_to.setOnClickListener(this);
 
-        // init data
-        list_polyline = new ArrayList<>();
         // sync map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_select_distance);
@@ -137,19 +135,41 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
             @Override
             public void onPolylineClick(Polyline polyline) {
+//                for (Polyline p : list_polyline) {
+//                    p.setColor(p.equals(polyline) ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY);
+//                }
 
-                for (Polyline p : list_polyline) {
-                    p.setColor(p.equals(polyline) ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY);
+                mMap.clear();
+                updateMapMarker();
+
+                int w = (int) polyline.getWidth();
+                // non selected
+                for (int i = 0; i < direction.getRoutes().size(); i++) {
+                    if (i == w - 16) continue;
+                    GoogleRoute route = direction.getRoutes().get(i);
+                    // get encoded string
+                    String encodedString = route.getOverview_polyline().getPoints();
+                    addPolyLineToMap(GoogleMapHelper.decodePoly(encodedString), Color.GRAY, i);
                 }
+                // selected
+                for (int i = 0; i < direction.getRoutes().size(); i++) {
+                    if (i == w - 16) {
+                        GoogleRoute route = direction.getRoutes().get(i);
+                        // get encoded string
+                        String encodedString = route.getOverview_polyline().getPoints();
+                        addPolyLineToMap(GoogleMapHelper.decodePoly(encodedString), ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary), i);
+                        selected = i;
+                        break;
+                    }
+                }
+                LogHelper.d("Selected:" + selected);
             }
         });
     }
 
     public void loadDirections(final LatLng from, final LatLng to) {
-        // GoogleMapService is ready
-        GoogleMapService service = GoogleMapService.retrofit.create(GoogleMapService.class);
-        // getPaths is ready
-        Call<GoogleDirection> call = service.getDirections(GoogleMapHelper.getDirectionsQueryString(this, from, to));
+
+        Call<GoogleDirection> call = GoogleMapService.service.getDirections(GoogleMapHelper.getDirectionsQueryString(this, from, to));
         showLoadingDialog();
         call.enqueue(new Callback<GoogleDirection>() {
             @Override
@@ -157,24 +177,12 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                 dismissLoadingDialog();
                 direction = response.body();
                 try {
-                    list_polyline.clear();
                     for (int i = direction.getRoutes().size() - 1; i >= 0; i--) {
                         GoogleRoute route = direction.getRoutes().get(i);
                         // get encoded string
                         String encodedString = route.getOverview_polyline().getPoints();
                         // set polyline
-                        PolylineOptions polylineOptions = new PolylineOptions()
-                                .addAll(GoogleMapHelper.decodePoly(encodedString))
-                                .width(16)
-                                .color((i == 0 ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY))
-                                .geodesic(true);
-                        // add polyline to map
-                        Polyline polyline = mMap.addPolyline(polylineOptions);
-                        polyline.setClickable(true);
-                        // add to route obj
-                        route.setPolyline(polyline);
-                        // add to list
-                        list_polyline.add(polyline);
+                        addPolyLineToMap(GoogleMapHelper.decodePoly(encodedString), i == 0 ? ContextCompat.getColor(SelectDistanceMapActivity.this, R.color.colorPrimary) : Color.GRAY, i);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -188,6 +196,18 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                 t(String.format("取得路徑失敗(%s)", t.toString()));
             }
         });
+    }
+
+    private Polyline addPolyLineToMap(List<LatLng> list, int color, int position) {
+        PolylineOptions polylineOptions = new PolylineOptions()
+                .addAll(list)
+                .width(16 + position)
+                .color(color)
+                .geodesic(true);
+        // add polyline to map
+        Polyline polyline = mMap.addPolyline(polylineOptions);
+        polyline.setClickable(true);
+        return polyline;
     }
 
     private void requestLocationUpdate() {
@@ -286,7 +306,7 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                                 list.addAll(route.getPolyline().getPoints());
                                 b.putParcelableArrayList("routes", list);
                                 openActivity(ChartActivity.class, b);
-                            }else{
+                            } else {
                                 t("沒資料");
                             }
                             break;

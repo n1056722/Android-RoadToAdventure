@@ -16,6 +16,8 @@ public interface GoogleMapService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
+    GoogleMapService service = GoogleMapService.retrofit.create(GoogleMapService.class);
+
     @GET("elevation/json")
     Call<GooglePath> getElevations(@QueryMap Map<String, String> options);
 

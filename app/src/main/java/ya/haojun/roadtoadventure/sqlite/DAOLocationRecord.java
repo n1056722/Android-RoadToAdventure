@@ -118,6 +118,24 @@ public class DAOLocationRecord {
         return item;
     }
 
+    public LocationRecordModel getLast() {
+
+        LocationRecordModel item = null;
+
+        Cursor result = db.query(TABLENAME, null, null, null, null, null, LOCATION_RECORD_ID + " desc", "1");
+
+
+        if (result.moveToFirst()) {
+
+            item = getRecord(result);
+        }
+
+
+        result.close();
+
+        return item;
+    }
+
     public LocationRecordModel getRecord(Cursor cursor) {
         // Course
         LocationRecordModel result = new LocationRecordModel();

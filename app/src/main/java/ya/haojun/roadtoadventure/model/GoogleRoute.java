@@ -11,8 +11,10 @@ public class GoogleRoute {
     private GooglePolyLine overview_polyline;
     private String summary;
     private Polyline polyline;
+    //
+    private boolean isSelected;
 
-    public GoogleRoute(){
+    public GoogleRoute() {
         legs = new ArrayList<>();
     }
 
@@ -42,6 +44,14 @@ public class GoogleRoute {
 
     public void setPolyline(Polyline polyline) {
         this.polyline = polyline;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     @Override

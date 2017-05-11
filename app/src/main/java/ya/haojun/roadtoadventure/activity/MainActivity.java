@@ -1,10 +1,7 @@
 package ya.haojun.roadtoadventure.activity;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,22 +14,27 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.adapter.DrawerRVAdapter;
 import ya.haojun.roadtoadventure.adapter.MainRVAdapter;
 import ya.haojun.roadtoadventure.helper.LogHelper;
 import ya.haojun.roadtoadventure.helper.TimeHelper;
+import ya.haojun.roadtoadventure.helper.YahooWeatherHelper;
 import ya.haojun.roadtoadventure.model.DrawerItem;
+import ya.haojun.roadtoadventure.model.LocationRecordModel;
 import ya.haojun.roadtoadventure.model.MainItem;
-import zh.wang.android.yweathergetter4a.WeatherInfo;
-import zh.wang.android.yweathergetter4a.YahooWeather;
-import zh.wang.android.yweathergetter4a.YahooWeatherInfoListener;
+import ya.haojun.roadtoadventure.retrofit.YahooWeatherService;
+import ya.haojun.roadtoadventure.sqlite.DAOLocationRecord;
 
-import static ya.haojun.roadtoadventure.activity.PermissionActivity.PERMISSION;
-
-public class MainActivity extends CommonActivity implements YahooWeatherInfoListener {
+public class MainActivity extends CommonActivity {
 
     // ui
     private ImageView iv_weather_image;
@@ -151,99 +153,38 @@ public class MainActivity extends CommonActivity implements YahooWeatherInfoList
     }
 
     private void getWeather() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION);
-        } else {
-            findViewById(R.id.ll_main_weather_loading).setVisibility(View.VISIBLE);
-            findViewById(R.id.ll_main_weather_result).setVisibility(View.GONE);
-            YahooWeather mYahooWeather = YahooWeather.getInstance(20000,true);
-            mYahooWeather.queryYahooWeatherByGPS(this, this);
-        }
-    }
+        findViewById(R.id.ll_main_weather_loading).setVisibility(View.VISIBLE);
+        findViewById(R.id.ll_main_weather_result).setVisibility(View.GONE);
 
-    @Override
-    public void gotWeatherInfo(WeatherInfo weatherInfo, YahooWeather.ErrorType errorType) {
-        findViewById(R.id.ll_main_weather_loading).setVisibility(View.GONE);
-        findViewById(R.id.ll_main_weather_result).setVisibility(View.VISIBLE);
-        if (weatherInfo != null) {
-            iv_weather_image.setImageResource(getWeatherImage(weatherInfo.getCurrentText()));
-            tv_weather_date.setText(TimeHelper.convertToNoYearSecond(TimeHelper.now()));
-            tv_weather_name.setText(getWeatherName(weatherInfo.getCurrentText()));
-            tv_weather_temperature.setText(weatherInfo.getCurrentTemp() + "ºC");
-        } else {
-            t("取得天氣失敗"+errorType.name());
-        }
-    }
+        LocationRecordModel l = new DAOLocationRecord(this).getLast();
+        Call<String> call = YahooWeatherService.service.getWeather(YahooWeatherHelper.getWeatherQuery(l.getLatitude(), l.getLongitude()));
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String result = response.body();
+                try {
+                    JSONObject j = new JSONObject(result);
+                    JSONObject j_condition = j.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition");
+                    String code = j_condition.getString("code");
+                    String temp = j_condition.getString("temp");
 
-    private int getWeatherImage(String weather) {
-        switch (weather) {
-            case "Rain":
-                return R.drawable.wh_rain;
-            case "Light Rain":
-                return R.drawable.wh_rain;
-            case "Showers":
-                return R.drawable.wh_rain;
-            case "Scattered Showers":
-                return R.drawable.wh_rain;
-            case "Windy":
-                return R.drawable.wh_rain;
-            case "Mostly Cloudy":
-                return R.drawable.wh_double_cloud;
-            case "Partly Cloudy":
-                return R.drawable.wh_cloud;
-            case "Cloudy":
-                return R.drawable.wh_cloud;
-            case "Sunny":
-                return R.drawable.wh_sun;
-            case "Mostly Sunny":
-                return R.drawable.wh_sun;
-            case "Haze":
-                return R.drawable.wh_haze;
-            case "Fog":
-                return R.drawable.wh_haze;
-            case "Thunderstorms":
-                return R.drawable.wh_thunder;
-            case "Breezy":
-                return R.drawable.wh_wind;
-            default:
-                return R.drawable.ic_clear_w;
-        }
-    }
+                    findViewById(R.id.ll_main_weather_loading).setVisibility(View.GONE);
+                    findViewById(R.id.ll_main_weather_result).setVisibility(View.VISIBLE);
+                    iv_weather_image.setImageResource(YahooWeatherHelper.getWeatherPicture(code));
+                    tv_weather_date.setText(TimeHelper.convertToNoYearSecond(TimeHelper.now()));
+                    tv_weather_name.setText(YahooWeatherHelper.getWeatherName(code));
+                    tv_weather_temperature.setText(YahooWeatherHelper.getWeatherTemp(temp));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    t("取得天氣失敗(parser)");
+                }
+            }
 
-    private String getWeatherName(String weather) {
-        switch (weather) {
-            case "Rain":
-                return "下雨";
-            case "Light Rain":
-                return "小雨";
-            case "Showers":
-                return "陣雨";
-            case "Scattered Showers":
-                return "零星陣雨";
-            case "Windy":
-                return "刮風";
-            case "Mostly Cloudy":
-                return "大多時間多雲";
-            case "Partly Cloudy":
-                return "部份多雲";
-            case "Cloudy":
-                return "多雲";
-            case "Sunny":
-                return "晴朗";
-            case "Mostly Sunny":
-                return "大多時間晴朗";
-            case "Haze":
-                return "陰霾";
-            case "Fog":
-                return "多霧";
-            case "Thunderstorms":
-                return "雷雨";
-            case "Breezy":
-                return "微風";
-            default:
-                return weather;
-        }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t("取得天氣失敗(" + t.toString() + ")");
+            }
+        });
     }
 
     private long lastBackPressedTime = 0;
