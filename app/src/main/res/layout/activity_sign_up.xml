@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/et_sign_up_user_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="請輸入帳號"
@@ -57,9 +58,11 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/et_sign_up_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="請輸入密碼"
@@ -69,9 +72,11 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/et_sign_up_confirm_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="確認密碼"
@@ -81,9 +86,11 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/et_sign_up_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="請輸入姓名"
@@ -93,9 +100,11 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/et_sign_up_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="請輸入電子郵件"
@@ -104,6 +113,8 @@
             </android.support.design.widget.TextInputLayout>
 
             <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_sign_up_do_sign_up"
                 style="@style/AppTheme.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -38,7 +38,7 @@ public class JourneyStatusActivity extends CommonActivity implements View.OnClic
             // set text
             DAOJourney daoJourney = new DAOJourney(this);
             JourneyModel jm = daoJourney.getLast();
-            tv_start_stop.setText(getString(R.string.status_stop));
+            tv_start_stop.setText(getString(R.string.stop));
             et_name.setText(jm.getJourneyName());
             et_content.setText(jm.getJourneyContent());
             et_name.setEnabled(false);
@@ -111,7 +111,7 @@ public class JourneyStatusActivity extends CommonActivity implements View.OnClic
                     if (new DAOJourney(this).insert(jm)) {
                         et_name.setEnabled(false);
                         et_content.setEnabled(false);
-                        tv_start_stop.setText(getString(R.string.status_stop));
+                        tv_start_stop.setText(getString(R.string.stop));
                         // refresh view
                         refreshing = true;
                         Message msg = new Message();

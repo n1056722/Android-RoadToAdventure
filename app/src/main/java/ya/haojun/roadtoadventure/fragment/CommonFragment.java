@@ -40,7 +40,7 @@ public class CommonFragment extends Fragment {
             pd.setIndeterminate(true);
             pd.setCancelable(false);
         }
-        pd.setMessage(message != null ? message : getString(R.string.msg_loading));
+        pd.setMessage(message != null ? message : getString(R.string.loading));
         pd.show();
     }
 
@@ -73,8 +73,8 @@ public class CommonFragment extends Fragment {
     protected AlertDialog alertWithView(View v, DialogInterface.OnClickListener posi, DialogInterface.OnClickListener nega) {
         return new AlertDialog.Builder(activity)
                 .setView(v)
-                .setPositiveButton(R.string.alert_bt_confirm, posi)
-                .setNegativeButton(R.string.alert_bt_cancel, nega)
+                .setPositiveButton(R.string.confirm, posi)
+                .setNegativeButton(R.string.cancel, nega)
                 .show();
     }
 }

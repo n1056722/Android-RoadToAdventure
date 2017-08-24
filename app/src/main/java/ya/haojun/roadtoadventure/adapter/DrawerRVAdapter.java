@@ -57,9 +57,11 @@ public class DrawerRVAdapter extends CommonRVAdapter {
             HeadViewHolder h = (HeadViewHolder) holder;
             User user = User.getInstance();
             int w = (int) getResources().getDimension(R.dimen.imageview_drawer_width);
-            Picasso.with(getContext()).load(user.getUserPicture()).resize(w, w).centerCrop().into(h.picture);
+            String picturePath = user.getUserPicture();
+            if (!picturePath.isEmpty())
+                Picasso.with(getContext()).load(picturePath).resize(w, w).centerCrop().into(h.picture);
             h.name.setText(user.getUserName());
-            h.id.setText(user.getUserID());
+            h.userId.setText(user.getUserId());
         } else if (holder instanceof BodyGroupViewHolder) {
             BodyGroupViewHolder h = (BodyGroupViewHolder) holder;
             final DrawerItem item = list.get(position - 1);
@@ -93,13 +95,13 @@ public class DrawerRVAdapter extends CommonRVAdapter {
 
         ImageView picture;
         TextView name;
-        TextView id;
+        TextView userId;
 
         HeadViewHolder(View v) {
             super(v);
             picture = (ImageView) v.findViewById(R.id.iv_item_rv_drawer_head_picture);
             name = (TextView) v.findViewById(R.id.tv_item_rv_drawer_head_name);
-            id = (TextView) v.findViewById(R.id.tv_item_rv_drawer_head_name2);
+            userId = (TextView) v.findViewById(R.id.tv_item_rv_drawer_head_name2);
         }
     }
 

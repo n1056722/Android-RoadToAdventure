@@ -1,15 +1,25 @@
 <resources>
     <string name="app_name">RoadToAdventure</string>
-    <!-- Alert Text -->
-    <string name="alert_bt_confirm">確定</string>
-    <string name="alert_bt_cancel">取消</string>
-    <string name="msg_loading">讀取中</string>
-    <!-- Drawer -->
-    <string name="text_open">開啟</string>
-    <string name="text_close">關閉</string>
-    <!-- Status -->
-    <string name="status_start">開始</string>
-    <string name="status_stop">停止</string>
-    <!---->
-    <string name="title_activity_maps">Map</string>
+
+    <string name="confirm">確定</string>
+    <string name="cancel">取消</string>
+    <string name="loading">讀取中</string>
+    <string name="success">成功</string>
+    <string name="fail">失敗</string>
+    <string name="empty">空的</string>
+    <string name="stop">停止</string>
+    <string name="start">開始</string>
+
+    <!-- Error -->
+    <string name="connection_error">連線錯誤</string>
+    <string name="empty_error">不能是空的</string>
+    <string name="confirm_password_error">確認密碼錯誤</string>
+    <string name="credit_card_error">信用卡號錯誤</string>
+    <string name="code_error">安全碼錯誤</string>
+    <string name="server_error_null">伺服器回傳錯誤(null)</string>
+    <string name="login_error">使用者名稱或密碼錯誤</string>
+    <string name="email_error">信箱格式不符</string>
+    <string name="modify_data_error">修改資料失敗</string>
+    <string name="modify_password_error">修改密碼失敗</string>
+    <string name="permission_denied">權限不足</string>
 </resources>
