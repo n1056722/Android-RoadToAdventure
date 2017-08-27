@@ -72,7 +72,9 @@
         <activity android:name=".activity.GroupMemberActivity" />
         <activity android:name=".activity.GroupChatActivity" />
         <activity android:name=".activity.HelpActivity" />
-        <activity android:name=".activity.ForgetPasswordActivity"></activity>
+        <activity android:name=".activity.ForgetPasswordActivity" />
+        <activity android:name=".activity.VerificationCodeActivity" />
+        <activity android:name=".activity.ResetPasswordActivity"></activity>
     </application>
 
 </manifest>

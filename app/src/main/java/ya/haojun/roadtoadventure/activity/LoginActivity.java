@@ -66,6 +66,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        hideKeyBoard(v);
         switch (v.getId()) {
             case R.id.tv_login_do_login:
                 String userId = ((EditText) findViewById(R.id.et_login_user_id)).getText().toString();

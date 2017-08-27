@@ -12,6 +12,8 @@ public class User extends CommonModel {
     private String userPicture;
     private String email;
     private String modifyDate;
+    private String verificationCode;
+    private String newPassword;
 
     public static User getInstance() {
         return ourInstance;
@@ -67,6 +69,22 @@ public class User extends CommonModel {
 
     public void setModifyDate(String modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public JSONObject getJSONObject() {
