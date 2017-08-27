@@ -74,7 +74,8 @@
         <activity android:name=".activity.HelpActivity" />
         <activity android:name=".activity.ForgetPasswordActivity" />
         <activity android:name=".activity.VerificationCodeActivity" />
-        <activity android:name=".activity.ResetPasswordActivity"></activity>
+        <activity android:name=".activity.ResetPasswordActivity" />
+        <activity android:name=".activity.ProfileActivity"></activity>
     </application>
 
 </manifest>

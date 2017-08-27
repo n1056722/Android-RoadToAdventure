@@ -30,6 +30,9 @@ public interface RoadToAdventureService {
     @POST("User/SignUp")
     Call<User> signUp(@Body User user);
 
+    @POST("User/UpdatePassword")
+    Call<User> updatePassword(@Body User user);
+
     @POST("User/ForgetPassword")
     Call<User> forgetPassword(@Body User user);
 

@@ -57,6 +57,8 @@ public class MainActivity extends CommonActivity {
         initMainGrid();
         // get Weather
         getWeather();
+
+        LogHelper.d(new DAOLocationRecord(this).getCount() + "");
     }
 
     private void initToolbar() {

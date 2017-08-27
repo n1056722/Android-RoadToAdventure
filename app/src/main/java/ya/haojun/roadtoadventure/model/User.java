@@ -13,6 +13,7 @@ public class User extends CommonModel {
     private String email;
     private String modifyDate;
     private String verificationCode;
+    private String oldPassword;
     private String newPassword;
 
     public static User getInstance() {
@@ -77,6 +78,14 @@ public class User extends CommonModel {
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     public String getNewPassword() {

@@ -12,6 +12,8 @@
     <string name="start">開始</string>
     <string name="account">帳號</string>
     <string name="password">密碼</string>
+    <string name="old_password">舊密碼</string>
+    <string name="new_password">新密碼</string>
     <string name="confirm_password">確認密碼</string>
     <string name="email">信箱</string>
     <string name="name">名字</string>
@@ -19,6 +21,8 @@
     <string name="verification_code">驗證碼</string>
     <string name="verification_code_format_error">驗證碼格式不符</string>
     <string name="reset_password">重設密碼</string>
+    <string name="update_password">修改密碼</string>
+    <string name="update_profile">修改資料</string>
 
     <!-- Error -->
     <string name="connection_error">連線錯誤</string>

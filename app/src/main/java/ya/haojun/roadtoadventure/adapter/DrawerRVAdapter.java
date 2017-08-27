@@ -2,6 +2,7 @@ package ya.haojun.roadtoadventure.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.activity.MainActivity;
+import ya.haojun.roadtoadventure.activity.ProfileActivity;
 import ya.haojun.roadtoadventure.model.DrawerItem;
 import ya.haojun.roadtoadventure.model.User;
 
@@ -62,6 +64,13 @@ public class DrawerRVAdapter extends CommonRVAdapter {
                 Picasso.with(getContext()).load(picturePath).resize(w, w).centerCrop().into(h.picture);
             h.name.setText(user.getUserName());
             h.userId.setText(user.getUserId());
+            h.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), ProfileActivity.class);
+                    getContext().startActivity(intent);
+                }
+            });
         } else if (holder instanceof BodyGroupViewHolder) {
             BodyGroupViewHolder h = (BodyGroupViewHolder) holder;
             final DrawerItem item = list.get(position - 1);
