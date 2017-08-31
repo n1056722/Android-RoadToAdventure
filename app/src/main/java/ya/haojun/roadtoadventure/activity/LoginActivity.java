@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +38,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                dismissLoadingDialog();
+                        dismissLoadingDialog();
                 if (isResponseOK(response)) {
                     User result = response.body();
                     if (result.isSuccess()) {

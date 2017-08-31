@@ -45,8 +45,8 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
             PersonalJourney item = list.get(position);
             Picasso.with(getContext()).load(item.getPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
             h.createDate.setText(TimeHelper.convertToNoYearSecond(item.getCreateDate()));
-            h.name.setText(item.getPersonalJourneyName());
-            h.content.setText(item.getPersonalJourneyContent());
+            h.name.setText(item.getName());
+            h.content.setText(item.getContent());
             h.status.setVisibility(item.getStatus().equals("1") ? View.VISIBLE : View.GONE);
         }
     }

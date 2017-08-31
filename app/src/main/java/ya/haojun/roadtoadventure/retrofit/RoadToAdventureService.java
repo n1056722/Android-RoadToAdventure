@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 import ya.haojun.roadtoadventure.helper.URLHelper;
+import ya.haojun.roadtoadventure.model.PersonalJourney;
 import ya.haojun.roadtoadventure.model.User;
 
 public interface RoadToAdventureService {
@@ -42,4 +43,6 @@ public interface RoadToAdventureService {
     @POST("User/ResetPassword")
     Call<User> resetPassword(@Body User user);
 
+    @POST("PersonalJourney/Create")
+    Call<PersonalJourney> createPersonalJourney(@Body PersonalJourney personalJourney);
 }

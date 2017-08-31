@@ -34,9 +34,9 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
             s2 += "三坑";
             s3 += "后豐";
         }
-        list.add(new PersonalJourney("金山自由行", s1, "0", "http://2.blog.xuite.net/2/8/0/e/244134372/blog_4539270/txt/331642785/0.jpg", "2017-05-05 00:00:00"));
-        list.add(new PersonalJourney("三坑鐵馬行", s2, "1", "http://i.imgur.com/ar9eLff.jpg", "2017-05-05 00:00:00"));
-        list.add(new PersonalJourney("后豐鐵馬行", s3, "2", "http://www.tonyhuang39.com/tony0821/20110114b_04.JPG", "2017-05-05 00:00:00"));
+//        list.add(new PersonalJourney("金山自由行", s1, "0", "http://2.blog.xuite.net/2/8/0/e/244134372/blog_4539270/txt/331642785/0.jpg", "2017-05-05 00:00:00"));
+//        list.add(new PersonalJourney("三坑鐵馬行", s2, "1", "http://i.imgur.com/ar9eLff.jpg", "2017-05-05 00:00:00"));
+//        list.add(new PersonalJourney("后豐鐵馬行", s3, "2", "http://www.tonyhuang39.com/tony0821/20110114b_04.JPG", "2017-05-05 00:00:00"));
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PersonalJourneyListRVAdapter(this, list));

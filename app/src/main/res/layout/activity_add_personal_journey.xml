@@ -48,6 +48,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/et_add_personal_journey_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="名稱"
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/et_add_personal_journey_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="內容"
@@ -69,11 +71,37 @@
         </android.support.design.widget.TextInputLayout>
 
         <TextView
+            android:id="@+id/tv_add_personal_journey_starttime"
+            android:layout_marginTop="10dp"
+            style="@style/AppTheme.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="開始時間" />
+
+
+        <TextView
+            android:id="@+id/tv_add_personal_journey_endtime"
+            android:layout_marginTop="10dp"
+            style="@style/AppTheme.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="結束時間" />
+
+        <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/tv_add_personal_journey_direction"
             style="@style/AppTheme.TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="騎乘路線" />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_add_personal_journey_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.TextView"
+            android:text="新增旅程"
+            />
         <ImageView
             android:id="@+id/iv_add_personal_journey_image"
             android:layout_width="wrap_content"
