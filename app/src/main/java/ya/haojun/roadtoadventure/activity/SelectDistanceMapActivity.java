@@ -247,17 +247,17 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        log(provider);
+        LogHelper.d(provider);
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        log(provider);
+        LogHelper.d(provider);
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-        log(provider);
+        LogHelper.d(provider);
     }
 
     private void moveMap(LatLng place) {

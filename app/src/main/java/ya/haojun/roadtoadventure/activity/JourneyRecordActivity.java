@@ -103,29 +103,33 @@ public class JourneyRecordActivity extends CommonActivity implements OnMapReadyC
         loadLocations();
     }
 
+    private void showJourneyRecordInfo() {
+        View v = getLayoutInflater().inflate(R.layout.dialog_journey_record_info, null);
+        TextView tv_name = (TextView) v.findViewById(R.id.tv_dialog_journey_record_info_name);
+        TextView tv_content = (TextView) v.findViewById(R.id.tv_dialog_journey_record_info_content);
+        TextView tv_start_time = (TextView) v.findViewById(R.id.tv_dialog_journey_record_info_start_time);
+        TextView tv_end_time = (TextView) v.findViewById(R.id.tv_dialog_journey_record_info_end_time);
+        v.findViewById(R.id.tv_dialog_journey_record_info_chart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b = new Bundle();
+                b.putParcelableArrayList("routes", list_latLng);
+                openActivity(ChartActivity.class, b);
+            }
+        });
+        // set text
+        tv_name.setText(jm.getJourneyName());
+        tv_content.setText(jm.getJourneyContent());
+        tv_start_time.setText(jm.getStartTime());
+        tv_end_time.setText(jm.getStopTime());
+        alertWithView(v, null, null);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_journey_record_info:
-                View view = getLayoutInflater().inflate(R.layout.dialog_journey_record_info, null);
-                TextView tv_name = (TextView) view.findViewById(R.id.tv_dialog_journey_record_info_name);
-                TextView tv_content = (TextView) view.findViewById(R.id.tv_dialog_journey_record_info_content);
-                TextView tv_start_time = (TextView) view.findViewById(R.id.tv_dialog_journey_record_info_start_time);
-                TextView tv_end_time = (TextView) view.findViewById(R.id.tv_dialog_journey_record_info_end_time);
-                view.findViewById(R.id.tv_dialog_journey_record_info_chart).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle b = new Bundle();
-                        b.putParcelableArrayList("routes", list_latLng);
-                        openActivity(ChartActivity.class, b);
-                    }
-                });
-                // set text
-                tv_name.setText(jm.getJourneyName());
-                tv_content.setText(jm.getJourneyContent());
-                tv_start_time.setText(jm.getStartTime());
-                tv_end_time.setText(jm.getStopTime());
-                alertWithView(view);
+                showJourneyRecordInfo();
                 break;
         }
     }

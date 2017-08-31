@@ -33,7 +33,7 @@ public class ChatRVAdapter extends CommonRVAdapter {
     public ChatRVAdapter(Context context, ArrayList<Chat> list) {
         super(context);
         this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_chat_picture);
-        this.selfUserID = User.getInstance().getUserID();
+        this.selfUserID = User.getInstance().getUserId();
         this.list = list;
     }
 

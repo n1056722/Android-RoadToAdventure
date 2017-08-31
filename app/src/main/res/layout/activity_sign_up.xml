@@ -48,66 +48,77 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/et_sign_up_user_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="請輸入帳號"
-                    android:inputType="text"
+                    android:digits="@string/allow_word"
+                    android:hint="@string/account"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <EditText
+                    android:id="@+id/et_sign_up_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="請輸入密碼"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <EditText
+                    android:id="@+id/et_sign_up_confirm_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="確認密碼"
+                    android:hint="@string/confirm_password"
                     android:inputType="textPassword"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <EditText
+                    android:id="@+id/et_sign_up_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="請輸入姓名"
+                    android:hint="@string/name"
                     android:inputType="text"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <EditText
+                    android:id="@+id/et_sign_up_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="請輸入電子郵件"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
+                android:id="@+id/tv_sign_up_do_sign_up"
                 style="@style/AppTheme.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="加入會員" />
+                android:layout_marginTop="10dp"
+                android:text="@string/email" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

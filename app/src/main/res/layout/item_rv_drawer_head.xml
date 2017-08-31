@@ -20,8 +20,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_item_rv_drawer_head_picture"
-            android:layout_width="@dimen/imageview_drawer_width"
-            android:layout_height="@dimen/imageview_drawer_width"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:src="@drawable/icon"
             app:civ_border_color="#FFF"

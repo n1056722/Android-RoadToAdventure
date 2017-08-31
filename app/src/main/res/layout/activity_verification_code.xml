@@ -24,7 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="忘記密碼"
+                    android:text="@string/verification"
                     android:textColor="#FFF"
                     android:textSize="24sp" />
             </RelativeLayout>
@@ -39,34 +39,21 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/et_forget_password_user_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:digits="@string/allow_word"
-                android:hint="@string/account"
-                android:maxLines="1" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/et_verification_code_code"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_gravity="center"
+            android:digits="0123456789"
 
-            <EditText
-                android:id="@+id/et_forget_password_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
+            android:hint="@string/verification_code"
+            android:maxLength="6"
+            android:maxLines="1"
+            android:textSize="48sp" />
 
         <TextView
-            android:id="@+id/tv_forget_password_confirm"
+            android:id="@+id/tv_verification_code_confirm"
             style="@style/AppTheme.TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
