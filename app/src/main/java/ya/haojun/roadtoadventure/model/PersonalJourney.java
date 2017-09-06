@@ -1,6 +1,8 @@
 package ya.haojun.roadtoadventure.model;
 
 
+import java.util.ArrayList;
+
 public class PersonalJourney extends CommonModel {
     private int personalJourneyId;
     private String userId;
@@ -14,6 +16,11 @@ public class PersonalJourney extends CommonModel {
     private String endTime;
     private String createDate;
     private String modifyDate;
+   private ArrayList<PersonalJourney> personalJourneys;
+
+    public ArrayList<PersonalJourney> getPersonalJourneys() {
+        return personalJourneys;
+    }
 
     public int getPersonalJourneyId() {
         return personalJourneyId;

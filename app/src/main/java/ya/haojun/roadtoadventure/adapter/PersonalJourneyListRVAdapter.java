@@ -44,7 +44,7 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
             ViewHolder h = (ViewHolder) holder;
             PersonalJourney item = list.get(position);
             Picasso.with(getContext()).load(item.getPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
-            h.createDate.setText(TimeHelper.convertToNoYearSecond(item.getCreateDate()));
+//            h.starttime.setText(TimeHelper.convertToNoYearSecond(item.getStartTime()));
             h.name.setText(item.getName());
             h.content.setText(item.getContent());
             h.status.setVisibility(item.getStatus().equals("1") ? View.VISIBLE : View.GONE);
@@ -60,7 +60,7 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
 
         ImageView picture;
         TextView status;
-        TextView createDate;
+        TextView starttime;
         TextView name;
         TextView content;
 
@@ -68,7 +68,7 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
             super(v);
             picture = (ImageView) v.findViewById(R.id.iv_item_rv_personal_journey_list_picture);
             status = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_status);
-            createDate = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_create_date);
+            starttime = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_create_date);
             name = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_name);
             content = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_content);
         }

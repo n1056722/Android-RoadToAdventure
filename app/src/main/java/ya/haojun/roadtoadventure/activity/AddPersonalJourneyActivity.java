@@ -76,8 +76,6 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
                     t(R.string.empty_error);
                     return;
                 }
-
-
                 createPersonalJourney(name, content,starttime ,endtime);
                 break;
         }
@@ -107,7 +105,7 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
         }
     }
 
-    private void createPersonalJourney(  String name, String content, String startTime, String endTime) {
+    private void createPersonalJourney( String name, String content, String startTime, String endTime) {
         PersonalJourney params = new PersonalJourney();
         params.setUserId(User.getInstance().getUserId());
         params.setName(name);
@@ -128,6 +126,8 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
                     PersonalJourney result = response.body();
                     if (result.isSuccess()) {
                         setResult(RESULT_OK);
+                        Intent myIntent = new Intent(AddPersonalJourneyActivity.this, PersonalJourneyListActivity.class);
+                        AddPersonalJourneyActivity.this.startActivity(myIntent);
                         Toast.makeText(AddPersonalJourneyActivity.this, "新增成功", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
