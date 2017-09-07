@@ -52,4 +52,7 @@ public interface RoadToAdventureService {
 
     @POST("Friend/GetFriendList")
     Call<Friend> getFriendsList(@Body Friend friend);
+
+    @POST("Friend/Search")
+    Call<Friend> searchFriends(@Body Friend friend);
 }
