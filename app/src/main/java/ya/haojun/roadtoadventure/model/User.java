@@ -4,6 +4,8 @@ package ya.haojun.roadtoadventure.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class User extends CommonModel {
     private static final User ourInstance = new User();
     private String userId;
@@ -15,6 +17,7 @@ public class User extends CommonModel {
     private String verificationCode;
     private String oldPassword;
     private String newPassword;
+
 
     public static User getInstance() {
         return ourInstance;

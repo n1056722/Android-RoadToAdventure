@@ -1,23 +1,34 @@
 package ya.haojun.roadtoadventure.model;
 
 
-public class Friend {
-    private String userID;
+import java.util.ArrayList;
+
+public class Friend extends CommonModel{
+    private String userId;
     private String userName;
     private String userPicture;
+    private ArrayList<Friend> friends;
 
-    public Friend(String userID, String userName, String userPicture) {
-        this.userID = userID;
+
+    public ArrayList<Friend> getFriends() {
+        return friends;
+    }
+    public Friend(){
+
+    }
+
+    public Friend(String userId, String userName, String userPicture) {
+        this.userId = userId;
         this.userName = userName;
         this.userPicture = userPicture;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {

@@ -1,15 +1,22 @@
 package ya.haojun.roadtoadventure.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.adapter.PersonalJourneyListRVAdapter;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
+import ya.haojun.roadtoadventure.model.User;
+import ya.haojun.roadtoadventure.retrofit.RoadToAdventureService;
 
 public class PersonalJourneyListActivity extends CommonActivity implements View.OnClickListener {
 
@@ -28,19 +35,41 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
         findViewById(R.id.iv_personal_journey_list_add_record).setOnClickListener(this);
         // init RecyclerView
         list = new ArrayList<>();
-        String s1 = "", s2 = "", s3 = "";
-        for (int i = 0; i < 100; i++) {
-            s1 += "金山";
-            s2 += "三坑";
-            s3 += "后豐";
-        }
-        list.add(new PersonalJourney("金山自由行", s1, "0", "http://2.blog.xuite.net/2/8/0/e/244134372/blog_4539270/txt/331642785/0.jpg", "2017-05-05 00:00:00"));
-        list.add(new PersonalJourney("三坑鐵馬行", s2, "1", "http://i.imgur.com/ar9eLff.jpg", "2017-05-05 00:00:00"));
-        list.add(new PersonalJourney("后豐鐵馬行", s3, "2", "http://www.tonyhuang39.com/tony0821/20110114b_04.JPG", "2017-05-05 00:00:00"));
-
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PersonalJourneyListRVAdapter(this, list));
+        getPersonalJourneyList();
     }
+
+    private void getPersonalJourneyList() {
+        PersonalJourney params = new PersonalJourney();
+        params.setUserId(User.getInstance().getUserId());
+
+        Call<PersonalJourney> call = RoadToAdventureService.service.getPersonalJourneyList(params);
+        showLoadingDialog();
+        call.enqueue(new Callback<PersonalJourney>() {
+            @Override
+            public void onResponse(Call<PersonalJourney> call, Response<PersonalJourney> response) {
+                dismissLoadingDialog();
+                if (isResponseOK(response)) {
+                    PersonalJourney result = response.body();
+                    if (result.isSuccess()) {
+                        list.clear();
+                        list.addAll(result.getPersonalJourneys());
+                        rv.getAdapter().notifyDataSetChanged();
+                    } else {
+                        t(R.string.fail);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PersonalJourney> call, Throwable t) {
+                dismissLoadingDialog();
+                t(t.toString());
+            }
+        });
+    }
+
 
     @Override
     public void onClick(View v) {

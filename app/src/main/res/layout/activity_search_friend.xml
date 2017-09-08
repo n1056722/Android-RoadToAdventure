@@ -37,23 +37,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rb_search_friend_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="電子郵件" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="電話" />
-        </RadioGroup>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -75,5 +58,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="搜尋" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/rv_friend_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
 </LinearLayout>

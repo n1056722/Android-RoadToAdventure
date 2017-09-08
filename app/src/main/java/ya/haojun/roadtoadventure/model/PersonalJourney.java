@@ -1,11 +1,13 @@
 package ya.haojun.roadtoadventure.model;
 
 
-public class PersonalJourney {
-    private int personalJourneyID;
-    private String userID;
-    private String personalJourneyName;
-    private String personalJourneyContent;
+import java.util.ArrayList;
+
+public class PersonalJourney extends CommonModel {
+    private int personalJourneyId;
+    private String userId;
+    private String name;
+    private String content;
     private String picture;
     private String points;
     private String status;
@@ -14,45 +16,42 @@ public class PersonalJourney {
     private String endTime;
     private String createDate;
     private String modifyDate;
+   private ArrayList<PersonalJourney> personalJourneys;
 
-    public PersonalJourney(String name, String content, String status, String picture, String createDate) {
-        this.personalJourneyName = name;
-        this.personalJourneyContent = content;
-        this.picture = picture;
-        this.status = status;
-        this.createDate = createDate;
+    public ArrayList<PersonalJourney> getPersonalJourneys() {
+        return personalJourneys;
     }
 
-    public int getPersonalJourneyID() {
-        return personalJourneyID;
+    public int getPersonalJourneyId() {
+        return personalJourneyId;
     }
 
-    public void setPersonalJourneyID(int personalJourneyID) {
-        this.personalJourneyID = personalJourneyID;
+    public void setPersonalJourneyId(int personalJourneyId) {
+        this.personalJourneyId = personalJourneyId;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getPersonalJourneyName() {
-        return personalJourneyName;
+    public String getName() {
+        return name;
     }
 
-    public void setPersonalJourneyName(String personalJourneyName) {
-        this.personalJourneyName = personalJourneyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPersonalJourneyContent() {
-        return personalJourneyContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setPersonalJourneyContent(String personalJourneyContent) {
-        this.personalJourneyContent = personalJourneyContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getPicture() {
@@ -118,4 +117,25 @@ public class PersonalJourney {
     public void setModifyDate(String modifyDate) {
         this.modifyDate = modifyDate;
     }
+
+    public PersonalJourney(int personalJourneyId, String userId, String name, String content, String picture, String points, String status, String isOpen, String startTime, String endTime, String createDate, String modifyDate) {
+        this.personalJourneyId = personalJourneyId;
+        this.userId = userId;
+        this.name = name;
+        this.content = content;
+        this.picture = picture;
+        this.points = points;
+        this.status = status;
+        this.isOpen = isOpen;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.createDate = createDate;
+        this.modifyDate = modifyDate;
+
+
+    }
+    public PersonalJourney(){
+
+    }
+
 }

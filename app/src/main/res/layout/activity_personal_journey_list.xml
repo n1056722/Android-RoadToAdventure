@@ -37,6 +37,7 @@
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_personal_journey_list"
         android:layout_width="match_parent"
