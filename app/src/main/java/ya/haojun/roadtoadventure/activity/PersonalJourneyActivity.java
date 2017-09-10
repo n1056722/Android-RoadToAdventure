@@ -2,7 +2,10 @@ package ya.haojun.roadtoadventure.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,6 +20,7 @@ public class PersonalJourneyActivity extends CommonActivity {
 
     // ui
     private TextView tv_name, tv_content, tv_start_time, tv_end_time;
+    private ImageView iv_map_picture;
     // extra
     private int personalJourneyId;
     // data
@@ -32,6 +36,7 @@ public class PersonalJourneyActivity extends CommonActivity {
         tv_content = (TextView) findViewById(R.id.tv_personal_journey_content);
         tv_start_time = (TextView) findViewById(R.id.tv_personal_journey_start_time);
         tv_end_time = (TextView) findViewById(R.id.tv_personal_journey_end_time);
+        iv_map_picture = (ImageView) findViewById(R.id.iv_personal_journey_map_picture);
         // extra
         personalJourneyId = getIntent().getExtras().getInt("personalJourneyId");
         // init
@@ -57,6 +62,9 @@ public class PersonalJourneyActivity extends CommonActivity {
                         tv_content.setText(personalJourney.getContent());
                         tv_start_time.setText(personalJourney.getStartTime());
                         tv_end_time.setText(personalJourney.getEndTime());
+                        Picasso.with(PersonalJourneyActivity.this)
+                                .load(personalJourney.getPictures().get(0))
+                                .into(iv_map_picture);
                     } else {
                         t(R.string.fail);
                     }

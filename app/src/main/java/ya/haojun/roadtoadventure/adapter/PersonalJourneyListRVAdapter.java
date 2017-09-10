@@ -44,13 +44,22 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
             final PersonalJourney item = list.get(position);
-            Picasso.with(getContext())
-                    .load(item.getPicture())
-                    .resize(w, w)
-                    .centerCrop()
-                    .placeholder(R.drawable.icon)
-                    .error(R.drawable.icon)
-                    .into(h.picture);
+            String picturePath = !item.getPictures().isEmpty() ? item.getPictures().get(0) : "";
+            if (!picturePath.isEmpty()) {
+                Picasso.with(getContext())
+                        .load(picturePath)
+                        .resize(w, w)
+                        .centerCrop()
+                        .placeholder(R.drawable.icon)
+                        .error(R.drawable.icon)
+                        .into(h.picture);
+            } else {
+                Picasso.with(getContext())
+                        .load(R.drawable.icon)
+                        .resize(w, w)
+                        .centerCrop()
+                        .into(h.picture);
+            }
             h.createDate.setText(TimeHelper.convertToNoYearSecond(item.getCreateDate()));
             h.name.setText(item.getName());
             h.content.setText(item.getContent());
@@ -58,7 +67,7 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((PersonalJourneyListActivity)getContext()).onItemClick(item);
+                    ((PersonalJourneyListActivity) getContext()).onItemClick(item);
                 }
             });
         }

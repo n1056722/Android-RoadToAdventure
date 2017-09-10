@@ -3,15 +3,19 @@ package ya.haojun.roadtoadventure.retrofit;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import ya.haojun.roadtoadventure.helper.URLHelper;
 import ya.haojun.roadtoadventure.model.Friend;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
+import ya.haojun.roadtoadventure.model.Picture;
 import ya.haojun.roadtoadventure.model.User;
 
 public interface RoadToAdventureService {
@@ -43,6 +47,13 @@ public interface RoadToAdventureService {
 
     @POST("User/ResetPassword")
     Call<User> resetPassword(@Body User user);
+
+    @Multipart
+    @POST("Picture/Create")
+    Call<Picture> createPicture(@Part MultipartBody.Part fileName,
+                                @Part MultipartBody.Part subFileName,
+                                @Part MultipartBody.Part type,
+                                @Part MultipartBody.Part file);
 
     @POST("PersonalJourney/Create")
     Call<PersonalJourney> createPersonalJourney(@Body PersonalJourney personalJourney);
