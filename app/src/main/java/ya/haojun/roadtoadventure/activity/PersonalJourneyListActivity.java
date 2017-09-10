@@ -20,6 +20,8 @@ import ya.haojun.roadtoadventure.retrofit.RoadToAdventureService;
 
 public class PersonalJourneyListActivity extends CommonActivity implements View.OnClickListener {
 
+    // request
+    public static final int REQUEST_ADD_PERSONAL_JOURNEY = 0;
     // ui
     private RecyclerView rv;
     // data
@@ -38,6 +40,12 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PersonalJourneyListRVAdapter(this, list));
         getPersonalJourneyList();
+    }
+
+    public void onItemClick(PersonalJourney item){
+        Bundle b = new Bundle();
+        b.putInt("personalJourneyId", item.getPersonalJourneyId());
+        openActivity(PersonalJourneyActivity.class, b);
     }
 
     private void getPersonalJourneyList() {
@@ -75,7 +83,18 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_personal_journey_list_add_record:
-                openActivity(AddPersonalJourneyActivity.class);
+                openActivityForResult(AddPersonalJourneyActivity.class, REQUEST_ADD_PERSONAL_JOURNEY);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_ADD_PERSONAL_JOURNEY:
+                getPersonalJourneyList();
                 break;
         }
     }

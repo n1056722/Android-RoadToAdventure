@@ -1,15 +1,21 @@
 package ya.haojun.roadtoadventure.helper;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 public class BitmapHelper {
@@ -20,7 +26,7 @@ public class BitmapHelper {
         // old w , h
         int oldWidth = bmp.getWidth();
         int oldHeight = bmp.getHeight();
-        // conform upload format
+        // origin is ok
         if (oldWidth <= maxW && oldHeight <= maxH)
             return bmp;
         // new format
@@ -60,18 +66,68 @@ public class BitmapHelper {
         return returnedBitmap;
     }
 
-    public static byte[] bitmapToByteArray(Bitmap bitmap) {
+    public static byte[] bitmap2PNGByteArray(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
 
+    public static byte[] bitmap2JPGByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
+    }
+
+    public static String bitmap2PNGBase64(Bitmap bitmap) {
+        return Base64.encodeToString(bitmap2PNGByteArray(bitmap), Base64.DEFAULT);
+    }
+
+    public static String bitmap2JPGBase64(Bitmap bitmap) {
+        return Base64.encodeToString(bitmap2JPGByteArray(bitmap), Base64.DEFAULT);
+    }
+
+
     public static Bitmap byteArrayToBitmap(byte[] byteArray) {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
 
-    public static String getUUID() {
-        return UUID.randomUUID().toString();
+    public static Bitmap uri2Bitmap(Context context, Uri uri) {
+        try {
+            return MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Bitmap file2Bitmap(File file) {
+        return BitmapFactory.decodeFile(file.getPath());
+    }
+
+    public static File bitmap2PNGFile(Context context, Bitmap bitmap, String fileName) {
+        // create a png file to cache dir
+        File f = FileHelper.createFile(FileHelper.getPicturesDir(context), fileName + ".png");
+        // convert to array
+        byte[] bArr = bitmap2PNGByteArray(bitmap);
+        // write to file
+        return FileHelper.writeFile(bArr, f);
+    }
+
+    public static File bitmap2PNGFile(Context context, Bitmap bitmap) {
+        return bitmap2PNGFile(context, bitmap, UUID.randomUUID().toString());
+    }
+
+    public static File bitmap2JPGFile(Context context, Bitmap bitmap, String fileName) {
+        // create a png file to cache dir
+        File f = FileHelper.createFile(FileHelper.getPicturesDir(context), fileName + ".jpg");
+        // convert to array
+        byte[] bArr = bitmap2JPGByteArray(bitmap);
+        // write to file
+        return FileHelper.writeFile(bArr, f);
+    }
+
+    public static File bitmap2JPGFile(Context context, Bitmap bitmap) {
+        return bitmap2JPGFile(context, bitmap, UUID.randomUUID().toString());
     }
 
 }

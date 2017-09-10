@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -290,6 +291,15 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
     }
 
+    private GoogleRoute getSelectedRoute() {
+        for (int i = 0; i < direction.getRoutes().size(); i++) {
+            if (i == selected) {
+                return direction.getRoutes().get(i);
+            }
+        }
+        return null;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -302,36 +312,43 @@ public class SelectDistanceMapActivity extends CommonActivity implements OnMapRe
                 t("選個終點吧");
                 break;
             case R.id.fab_select_distance_chart:
-                if (direction != null) {
-                    for (int i = 0; i < direction.getRoutes().size(); i++) {
-                        if (i == selected) {
-                            GoogleRoute route = direction.getRoutes().get(i);
-                            Bundle b = new Bundle();
-                            GoogleLeg leg = route.getLegs().get(0);
-                            if (leg != null) {
-                                b.putString("summary", route.getSummary());
-                                b.putString("distance", leg.getDistance().getText());
-                                b.putString("duration", leg.getDuration().getText());
-                                b.putString("startAddress", leg.getStart_address());
-                                b.putString("endAddress", leg.getEnd_address());
-
-                                ArrayList<LatLng> list = new ArrayList<>();
-                                list.addAll(GoogleMapHelper.decodePoly(route.getOverview_polyline().getPoints()));
-                                b.putParcelableArrayList("routes", list);
-                                openActivity(ChartActivity.class, b);
-                            }
-                            break;
-                        }
-                    }
+                GoogleRoute route = getSelectedRoute();
+                if (route == null || route.getLegs().get(0) == null) {
+                    t("No Route or Legs");
+                    return;
                 }
+                GoogleLeg leg = route.getLegs().get(0);
+                Bundle b = new Bundle();
+                b.putString("summary", route.getSummary());
+                b.putString("distance", leg.getDistance().getText());
+                b.putString("duration", leg.getDuration().getText());
+                b.putString("startAddress", leg.getStart_address());
+                b.putString("endAddress", leg.getEnd_address());
+                ArrayList<LatLng> list = new ArrayList<>();
+                list.addAll(GoogleMapHelper.decodePoly(route.getOverview_polyline().getPoints()));
+                b.putParcelableArrayList("routes", list);
+                openActivity(ChartActivity.class, b);
+
                 break;
             case R.id.tv_select_distance_confirm:
                 moveMap(latLng_from, latLng_to);
                 mMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
                     @Override
                     public void onSnapshotReady(Bitmap bitmap) {
+                        File file = BitmapHelper.bitmap2JPGFile(SelectDistanceMapActivity.this, bitmap, "journey");
+                        if (file == null) {
+                            t("No Picture");
+                            return;
+                        }
+                        GoogleRoute route = getSelectedRoute();
+                        if (route == null || route.getOverview_polyline().getPoints() == null) {
+                            t("No Route or Points");
+                            return;
+                        }
+
                         Intent intent = new Intent();
-                        intent.putExtra("image", BitmapHelper.bitmapToByteArray(bitmap));
+                        intent.putExtra("picturePath", file.getAbsolutePath());
+                        intent.putExtra("points", route.getOverview_polyline().getPoints());
                         setResult(RESULT_OK, intent);
                         finish();
                     }

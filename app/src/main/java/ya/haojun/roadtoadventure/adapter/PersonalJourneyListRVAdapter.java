@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.activity.FriendChatActivity;
+import ya.haojun.roadtoadventure.activity.PersonalJourneyListActivity;
 import ya.haojun.roadtoadventure.helper.TimeHelper;
 import ya.haojun.roadtoadventure.model.Friend;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
@@ -24,12 +25,12 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
 
     // data
     private ArrayList<PersonalJourney> list;
-    private int pictureWidth;
+    private int w;
 
     public PersonalJourneyListRVAdapter(Context context, ArrayList<PersonalJourney> list) {
         super(context);
         this.list = list;
-        this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_list_picture_big);
+        this.w = (int) (getResources().getDisplayMetrics().density * 100);
     }
 
 
@@ -42,12 +43,24 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
-            PersonalJourney item = list.get(position);
-            Picasso.with(getContext()).load(item.getPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
-//            h.starttime.setText(TimeHelper.convertToNoYearSecond(item.getStartTime()));
+            final PersonalJourney item = list.get(position);
+            Picasso.with(getContext())
+                    .load(item.getPicture())
+                    .resize(w, w)
+                    .centerCrop()
+                    .placeholder(R.drawable.icon)
+                    .error(R.drawable.icon)
+                    .into(h.picture);
+            h.createDate.setText(TimeHelper.convertToNoYearSecond(item.getCreateDate()));
             h.name.setText(item.getName());
             h.content.setText(item.getContent());
             h.status.setVisibility(item.getStatus().equals("1") ? View.VISIBLE : View.GONE);
+            h.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((PersonalJourneyListActivity)getContext()).onItemClick(item);
+                }
+            });
         }
     }
 
@@ -60,7 +73,7 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
 
         ImageView picture;
         TextView status;
-        TextView starttime;
+        TextView createDate;
         TextView name;
         TextView content;
 
@@ -68,7 +81,7 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
             super(v);
             picture = (ImageView) v.findViewById(R.id.iv_item_rv_personal_journey_list_picture);
             status = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_status);
-            starttime = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_create_date);
+            createDate = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_create_date);
             name = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_name);
             content = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_content);
         }

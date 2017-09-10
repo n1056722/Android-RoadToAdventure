@@ -33,9 +33,11 @@
                     android:id="@+id/et_login_user_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="帳號"
+                    android:digits="@string/allow_word"
+                    android:hint="@string/account"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:text="android"
                     android:textColor="#FFF"
                     android:textColorHint="#FFF" />
             </android.support.design.widget.TextInputLayout>
@@ -49,9 +51,10 @@
                     android:id="@+id/et_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="密碼"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLines="1"
+                    android:text="a"
                     android:textColor="#FFF"
                     android:textColorHint="#FFF" />
             </android.support.design.widget.TextInputLayout>

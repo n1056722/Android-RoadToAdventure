@@ -1,46 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <ImageView
-            android:id="@+id/iv_item_rv_personal_journey_list_picture"
-            android:layout_width="@dimen/imageview_list_picture_big"
-            android:layout_height="@dimen/imageview_list_picture_big"
-            android:layout_gravity="center" />
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
-            <TextView
-                android:id="@+id/tv_item_rv_personal_journey_list_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/textview_journey_status"
-                android:text="進行中"
-                android:textColor="#FFF"
-                android:visibility="visible" />
+            <ImageView
+                android:id="@+id/iv_item_rv_personal_journey_list_picture"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_item_rv_personal_journey_list_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textview_journey_status"
+                    android:text="進行中"
+                    android:textColor="#FFF"
+                    android:visibility="visible" />
+
 
                 <TextView
                     android:id="@+id/tv_item_rv_personal_journey_list_create_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="05/05 00:00"
                     android:textColor="#000"
                     android:textSize="16sp" />
@@ -49,24 +57,24 @@
                     android:id="@+id/tv_item_rv_personal_journey_list_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="name"
                     android:textColor="#000"
                     android:textSize="16sp" />
-            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_item_rv_personal_journey_list_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:text="content\nc\nc"
-                android:textColor="#000"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_item_rv_personal_journey_list_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="content"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

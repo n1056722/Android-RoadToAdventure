@@ -50,6 +50,9 @@ public interface RoadToAdventureService {
     @POST("PersonalJourney/GetList")
     Call<PersonalJourney> getPersonalJourneyList(@Body PersonalJourney personalJourney);
 
+    @POST("PersonalJourney/Get")
+    Call<PersonalJourney> getPersonalJourney(@Body PersonalJourney personalJourney);
+
     @POST("Friend/GetFriendList")
     Call<Friend> getFriendsList(@Body Friend friend);
 
