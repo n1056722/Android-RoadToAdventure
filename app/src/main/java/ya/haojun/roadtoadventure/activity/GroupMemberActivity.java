@@ -27,9 +27,6 @@ public class GroupMemberActivity extends CommonActivity {
 
         // init RecyclerView
         list_member = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list_member.add(new GroupMember("haojun" + i, "https://avatars1.githubusercontent.com/u/15250400?v=3&s=460"));
-        }
         rv_member.setLayoutManager(new GridLayoutManager(this, 3));
         rv_member.setAdapter(new GroupMemberRVAdapter(this, list_member));
     }

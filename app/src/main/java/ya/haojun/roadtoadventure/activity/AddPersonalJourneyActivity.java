@@ -100,7 +100,6 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
                         setResult(RESULT_OK);
                         finish();
                     } else {
-                        LogHelper.d(result.getMessage());
                         t(R.string.fail);
                     }
                 }
@@ -121,7 +120,7 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
         }
         MultipartBody.Part fileName = MultipartBody.Part.createFormData("fileName", UUID.randomUUID().toString());
         MultipartBody.Part subFileName = MultipartBody.Part.createFormData("subFileName", "jpg");
-        MultipartBody.Part type = MultipartBody.Part.createFormData("type", "1");
+        MultipartBody.Part type = MultipartBody.Part.createFormData("type", "2");
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file_map_picture.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file_map_picture));
 
         Call<Picture> call = RoadToAdventureService.service.createPicture(fileName, subFileName, type, body);

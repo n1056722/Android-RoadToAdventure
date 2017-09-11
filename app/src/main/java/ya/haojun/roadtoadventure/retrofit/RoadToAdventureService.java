@@ -14,6 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import ya.haojun.roadtoadventure.helper.URLHelper;
 import ya.haojun.roadtoadventure.model.Friend;
+import ya.haojun.roadtoadventure.model.Group;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
 import ya.haojun.roadtoadventure.model.Picture;
 import ya.haojun.roadtoadventure.model.User;
@@ -75,4 +76,10 @@ public interface RoadToAdventureService {
 
     @POST("Friend/Search")
     Call<Friend> searchFriends(@Body Friend friend);
+
+    @POST("Group/Create")
+    Call<Group> createGroup(@Body Group group);
+
+    @POST("Group/GetList")
+    Call<Group> getGroupList(@Body User user);
 }

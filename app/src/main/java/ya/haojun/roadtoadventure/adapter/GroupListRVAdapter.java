@@ -46,14 +46,18 @@ public class GroupListRVAdapter extends CommonRVAdapter {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
             final Group item = list.get(position);
-            Picasso.with(getContext()).load(item.getGroupPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
-            h.name.setText(item.getGroupName());
+            Picasso.with(getContext())
+                    .load(item.getPicturePath())
+                    .resize(pictureWidth, pictureWidth)
+                    .centerCrop()
+                    .into(h.picture);
+            h.name.setText(item.getName());
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), GroupInfoActivity.class);
                     Bundle b = new Bundle();
-                    b.putInt("groupID",item.getGroupID());
+                    b.putInt("groupID",item.getGroupId());
                     intent.putExtras(b);
                     getContext().startActivity(intent);
                 }

@@ -1,5 +1,7 @@
 package ya.haojun.roadtoadventure.activity;
 
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,13 +13,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
-import ya.haojun.roadtoadventure.adapter.FriendListRVAdapter;
+import ya.haojun.roadtoadventure.adapter.InviteMemberRVAdapter;
 import ya.haojun.roadtoadventure.model.Friend;
-import ya.haojun.roadtoadventure.model.PersonalJourney;
 import ya.haojun.roadtoadventure.model.User;
 import ya.haojun.roadtoadventure.retrofit.RoadToAdventureService;
 
-public class FriendListActivity extends CommonActivity implements View.OnClickListener {
+public class InviteMemberActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
     private RecyclerView rv;
@@ -27,16 +28,16 @@ public class FriendListActivity extends CommonActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_list);
+        setContentView(R.layout.activity_invite_member);
 
         // ui reference
-        rv = (RecyclerView) findViewById(R.id.rv_friend_list);
-        findViewById(R.id.iv_friend_list_search).setOnClickListener(this);
+        rv = (RecyclerView) findViewById(R.id.rv_invite_member);
+        findViewById(R.id.iv_invite_member_done).setOnClickListener(this);
 
-        // init RecyclerView
+        // init
         list_friend = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new FriendListRVAdapter(this, list_friend));
+        rv.setAdapter(new InviteMemberRVAdapter(this, list_friend));
         getFriendsList();
     }
 
@@ -72,12 +73,18 @@ public class FriendListActivity extends CommonActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_friend_list_search:
-                openActivity(SearchFriendActivity.class);
+        switch (v.getId()){
+            case R.id.iv_invite_member_done:
+                ArrayList<Integer> list_selected = ((InviteMemberRVAdapter)rv.getAdapter()).getSelected();
+                ArrayList<Friend> list_member = new ArrayList<>();
+                for (Integer i : list_selected){
+                    list_member.add(list_friend.get(i));
+                }
+                Intent intent = new Intent();
+                intent.putParcelableArrayListExtra("members", list_member);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
         }
     }
-
 }
-
