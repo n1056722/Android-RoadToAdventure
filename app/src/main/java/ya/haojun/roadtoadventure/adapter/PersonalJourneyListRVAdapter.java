@@ -25,11 +25,13 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
 
     // data
     private ArrayList<PersonalJourney> list;
+    private String[] journey_status;
     private int w;
 
     public PersonalJourneyListRVAdapter(Context context, ArrayList<PersonalJourney> list) {
         super(context);
         this.list = list;
+        this.journey_status = getResources().getStringArray(R.array.journey_status);
         this.w = (int) (getResources().getDisplayMetrics().density * 100);
     }
 
@@ -63,7 +65,7 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
             h.createDate.setText(TimeHelper.convertToNoYearSecond(item.getCreateDate()));
             h.name.setText(item.getName());
             h.content.setText(item.getContent());
-            h.status.setVisibility(item.getStatus().equals("1") ? View.VISIBLE : View.GONE);
+            h.status.setText(getStatus(item.getStatus()));
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -71,6 +73,10 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
                 }
             });
         }
+    }
+
+    private String getStatus(String status){
+        return journey_status[Integer.valueOf(status)];
     }
 
     @Override

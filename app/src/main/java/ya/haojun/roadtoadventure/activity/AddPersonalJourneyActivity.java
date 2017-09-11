@@ -59,25 +59,25 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
 
         // ui reference
         iv_map_picture = (ImageView) findViewById(R.id.iv_add_personal_journey_map_picture);
-        tv_start_date = (TextView) findViewById(R.id.tv_add_personal_journey_start_date);
-        tv_start_time = (TextView) findViewById(R.id.tv_add_personal_journey_start_time);
-        tv_end_date = (TextView) findViewById(R.id.tv_add_personal_journey_end_date);
-        tv_end_time = (TextView) findViewById(R.id.tv_add_personal_journey_end_time);
+//        tv_start_date = (TextView) findViewById(R.id.tv_add_personal_journey_start_date);
+//        tv_start_time = (TextView) findViewById(R.id.tv_add_personal_journey_start_time);
+//        tv_end_date = (TextView) findViewById(R.id.tv_add_personal_journey_end_date);
+//        tv_end_time = (TextView) findViewById(R.id.tv_add_personal_journey_end_time);
         sp_open = (Spinner) findViewById(R.id.sp_add_personal_journey_open);
         findViewById(R.id.iv_add_personal_journey_map_picture).setOnClickListener(this);
         findViewById(R.id.tv_add_personal_journey_direction).setOnClickListener(this);
         findViewById(R.id.iv_add_personal_journey_done).setOnClickListener(this);
-        tv_start_date.setOnClickListener(this);
-        tv_start_time.setOnClickListener(this);
-        tv_end_date.setOnClickListener(this);
-        tv_end_time.setOnClickListener(this);
+//        tv_start_date.setOnClickListener(this);
+//        tv_start_time.setOnClickListener(this);
+//        tv_end_date.setOnClickListener(this);
+//        tv_end_time.setOnClickListener(this);
         // init
         sp_open.setAdapter(new JourneyOpenListAdapter(this));
 
         personalJourney = new PersonalJourney();
     }
 
-    private void createPersonalJourney(String name, String content, String startTime, String endTime, String picturePath) {
+    private void createPersonalJourney(String name, String content, String picturePath) {
         PersonalJourney params = new PersonalJourney();
         params.setUserId(User.getInstance().getUserId());
         params.setName(name);
@@ -85,8 +85,6 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
         params.setPoints(points == null ? "" : points);
         params.setStatus("0");
         params.setIsOpen(sp_open.getSelectedItemPosition() == 0 ? "1" : "0");
-        params.setStartTime(startTime);
-        params.setEndTime(endTime);
         params.getPictures().add(picturePath);
 
         Call<PersonalJourney> call = RoadToAdventureService.service.createPersonalJourney(params);
@@ -116,7 +114,7 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
         });
     }
 
-    private void createPicture(final String name, final String content, final String startTime, final String endTime) {
+    private void createPicture(final String name, final String content) {
         if (file_map_picture == null) {
             t("未選擇路線");
             return;
@@ -135,7 +133,7 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
                 if (isResponseOK(response)) {
                     Picture result = response.body();
                     if (result.isSuccess()) {
-                        createPersonalJourney(name, content, startTime, endTime, result.getPicturePath());
+                        createPersonalJourney(name, content, result.getPicturePath());
                     } else {
                         t(R.string.fail);
                     }
@@ -209,19 +207,19 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
             case R.id.iv_add_personal_journey_map_picture:
                 openActivityForResult(SelectDistanceMapActivity.class, SELECT_JOURNEY);
                 break;
-            case R.id.tv_add_personal_journey_start_date:
-            case R.id.tv_add_personal_journey_end_date:
-                showDatePickerDialog((TextView) v);
-                break;
-            case R.id.tv_add_personal_journey_start_time:
-            case R.id.tv_add_personal_journey_end_time:
-                showTimePickerDialog((TextView) v);
-                break;
+//            case R.id.tv_add_personal_journey_start_date:
+//            case R.id.tv_add_personal_journey_end_date:
+//                showDatePickerDialog((TextView) v);
+//                break;
+//            case R.id.tv_add_personal_journey_start_time:
+//            case R.id.tv_add_personal_journey_end_time:
+//                showTimePickerDialog((TextView) v);
+//                break;
             case R.id.iv_add_personal_journey_done:
                 String name = ((EditText) findViewById(R.id.et_add_personal_journey_name)).getText().toString();
                 String content = ((EditText) findViewById(R.id.et_add_personal_journey_content)).getText().toString();
-                String startTime = tv_start_date.getText().toString().substring(0, 10) + " " + tv_start_time.getText().toString().substring(0, 5);
-                String endTime = tv_end_date.getText().toString().substring(0, 10) + " " + tv_end_time.getText().toString().substring(0, 5);
+//                String startTime = tv_start_date.getText().toString().substring(0, 10) + " " + tv_start_time.getText().toString().substring(0, 5);
+//                String endTime = tv_end_date.getText().toString().substring(0, 10) + " " + tv_end_time.getText().toString().substring(0, 5);
                 if (name.isEmpty()) {
                     t(R.string.empty_error);
                     return;
@@ -231,7 +229,7 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
                     t(R.string.empty_error);
                     return;
                 }
-                createPicture(name, content, startTime, endTime);
+                createPicture(name, content);
                 break;
         }
     }

@@ -40,21 +40,21 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/tv_personal_journey_detail_info"
                 style="@style/AppTheme.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:text="詳細資訊" />
 
             <LinearLayout
@@ -62,7 +62,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
                 android:visibility="gone">
 
                 <TextView
@@ -141,6 +140,20 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/icon" />
+
+            <TextView
+                android:id="@+id/tv_personal_journey_status"
+                style="@style/AppTheme.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_personal_journey_value_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
         </LinearLayout>
-    </ScrollView>
+
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

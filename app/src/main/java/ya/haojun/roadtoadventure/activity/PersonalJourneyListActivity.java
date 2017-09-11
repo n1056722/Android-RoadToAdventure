@@ -65,7 +65,7 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
                         list.addAll(result.getPersonalJourneys());
                         rv.getAdapter().notifyDataSetChanged();
                     } else {
-                        t(R.string.fail);
+                        t(R.string.empty);
                     }
                 }
             }
