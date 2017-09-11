@@ -76,7 +76,8 @@
         <activity android:name=".activity.VerificationCodeActivity" />
         <activity android:name=".activity.ResetPasswordActivity" />
         <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.PersonalJourneyActivity"></activity>
+        <activity android:name=".activity.PersonalJourneyActivity" />
+        <activity android:name=".activity.PictureActivity"></activity>
     </application>
 
 </manifest>

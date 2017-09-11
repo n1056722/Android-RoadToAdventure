@@ -120,5 +120,21 @@ public class PersonalJourney extends CommonModel {
         this.modifyDate = modifyDate;
     }
 
-
+    @Override
+    public String toString() {
+        return "PersonalJourney{" +
+                "personalJourneyId=" + personalJourneyId +
+                ", userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", points='" + points + '\'' +
+                ", status='" + status + '\'' +
+                ", isOpen='" + isOpen + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", modifyDate='" + modifyDate + '\'' +
+                ", pictures=" + pictures +
+                '}';
+    }
 }
