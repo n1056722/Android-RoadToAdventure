@@ -39,6 +39,16 @@
             android:enabled="true"
             android:exported="true" />
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="ya.haojun.roadtoadventure.helper.GenericFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity
             android:name=".activity.ChartActivity"
             android:screenOrientation="portrait" />
@@ -76,6 +86,10 @@
         <activity android:name=".activity.VerificationCodeActivity" />
         <activity android:name=".activity.ResetPasswordActivity" />
         <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.PersonalJourneyActivity" />
+        <activity android:name=".activity.PictureActivity" />
+        <activity android:name=".activity.CropActivity" />
+        <activity android:name=".activity.InviteMemberActivity"></activity>
     </application>
 
 </manifest>

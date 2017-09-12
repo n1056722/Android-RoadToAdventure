@@ -6,6 +6,7 @@ package ya.haojun.roadtoadventure.model;
 
 public class CommonModel {
     private int result;
+    private String message;
 
     public int getResult() {
         return result;
@@ -17,5 +18,13 @@ public class CommonModel {
 
     public boolean isSuccess(){
         return result == 1;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

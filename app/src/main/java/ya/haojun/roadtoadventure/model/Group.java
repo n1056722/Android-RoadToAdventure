@@ -1,37 +1,59 @@
 package ya.haojun.roadtoadventure.model;
 
 
-public class Group {
-    private int groupID;
-    private String groupName;
-    private String groupPicture;
+import java.util.ArrayList;
 
-    public Group(String groupName, String groupPicture) {
-        this.groupName = groupName;
-        this.groupPicture = groupPicture;
+public class Group extends CommonModel{
+    private int groupId;
+    private String userId;
+    private String name;
+    private String picturePath;
+    private ArrayList<GroupMember> members;
+    //
+    private ArrayList<Group> groups;
+
+    public Group(){
+        members = new ArrayList<>();
+        groups = new ArrayList<>();
     }
 
-    public int getGroupID() {
-        return groupID;
+    public int getGroupId() {
+        return groupId;
     }
 
-    public void setGroupID(int groupID) {
-        this.groupID = groupID;
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getGroupPicture() {
-        return groupPicture;
+    public String getName() {
+        return name;
     }
 
-    public void setGroupPicture(String groupPicture) {
-        this.groupPicture = groupPicture;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
+    }
+
+    public ArrayList<GroupMember> getMembers() {
+        return members;
+    }
+
+    public ArrayList<Group> getGroups() {
+        return groups;
     }
 }

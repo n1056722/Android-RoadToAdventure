@@ -2,21 +2,22 @@ package ya.haojun.roadtoadventure.model;
 
 
 public class GroupMember {
-    private String userID;
+    private String userId;
     private String userName;
     private String userPicture;
 
-    public GroupMember(String userName, String userPicture) {
+    public GroupMember(String userId, String userName, String userPicture) {
+        this.userId = userId;
         this.userName = userName;
         this.userPicture = userPicture;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {

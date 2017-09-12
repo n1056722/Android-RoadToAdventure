@@ -9,6 +9,7 @@
     <string name="fail">失敗</string>
     <string name="empty">空的</string>
     <string name="stop">停止</string>
+    <string name="space"> </string>
     <string name="start">開始</string>
     <string name="account">帳號</string>
     <string name="password">密碼</string>
@@ -23,7 +24,15 @@
     <string name="reset_password">重設密碼</string>
     <string name="update_password">修改密碼</string>
     <string name="update_profile">修改資料</string>
-
+    <string-array name="journey_status">
+        <item>規劃中</item>
+        <item>進行中</item>
+        <item>已完成</item>
+    </string-array>
+    <string-array name="choose_picture">
+        <item>從圖庫</item>
+        <item>拍照</item>
+    </string-array>
     <!-- Error -->
     <string name="connection_error">連線錯誤</string>
     <string name="empty_error">不能是空的</string>

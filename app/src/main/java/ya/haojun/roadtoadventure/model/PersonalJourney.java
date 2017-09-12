@@ -8,7 +8,6 @@ public class PersonalJourney extends CommonModel {
     private String userId;
     private String name;
     private String content;
-    private String picture;
     private String points;
     private String status;
     private String isOpen;
@@ -16,10 +15,21 @@ public class PersonalJourney extends CommonModel {
     private String endTime;
     private String createDate;
     private String modifyDate;
-   private ArrayList<PersonalJourney> personalJourneys;
+    private ArrayList<String> pictures;
+    //
+    private ArrayList<PersonalJourney> personalJourneys;
+
+    public PersonalJourney() {
+        pictures = new ArrayList<>();
+        personalJourneys = new ArrayList<>();
+    }
 
     public ArrayList<PersonalJourney> getPersonalJourneys() {
         return personalJourneys;
+    }
+
+    public ArrayList<String> getPictures() {
+        return pictures;
     }
 
     public int getPersonalJourneyId() {
@@ -52,14 +62,6 @@ public class PersonalJourney extends CommonModel {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
     }
 
     public String getPoints() {
@@ -118,24 +120,21 @@ public class PersonalJourney extends CommonModel {
         this.modifyDate = modifyDate;
     }
 
-    public PersonalJourney(int personalJourneyId, String userId, String name, String content, String picture, String points, String status, String isOpen, String startTime, String endTime, String createDate, String modifyDate) {
-        this.personalJourneyId = personalJourneyId;
-        this.userId = userId;
-        this.name = name;
-        this.content = content;
-        this.picture = picture;
-        this.points = points;
-        this.status = status;
-        this.isOpen = isOpen;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.createDate = createDate;
-        this.modifyDate = modifyDate;
-
-
+    @Override
+    public String toString() {
+        return "PersonalJourney{" +
+                "personalJourneyId=" + personalJourneyId +
+                ", userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", points='" + points + '\'' +
+                ", status='" + status + '\'' +
+                ", isOpen='" + isOpen + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", modifyDate='" + modifyDate + '\'' +
+                ", pictures=" + pictures +
+                '}';
     }
-    public PersonalJourney(){
-
-    }
-
 }

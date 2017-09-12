@@ -14,7 +14,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
+import ya.haojun.roadtoadventure.activity.AddGroupActivity;
 import ya.haojun.roadtoadventure.activity.FriendChatActivity;
+import ya.haojun.roadtoadventure.activity.InviteMemberActivity;
 import ya.haojun.roadtoadventure.model.Friend;
 import ya.haojun.roadtoadventure.model.GroupMember;
 
@@ -56,7 +58,8 @@ public class GroupMemberRVAdapter extends CommonRVAdapter {
             h.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(getContext(), InviteMemberActivity.class);
+                    ((AddGroupActivity)getContext()).startActivityForResult(intent, AddGroupActivity.REQUEST_INVITE_MEMBER);
                 }
             });
         } else if (holder instanceof OtherViewHolder) {

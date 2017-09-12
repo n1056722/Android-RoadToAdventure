@@ -19,8 +19,8 @@ public class JourneyOpenListAdapter extends CommonBaseAdapter {
     public JourneyOpenListAdapter(Context context) {
         super(context);
         this.list = new ArrayList<>();
-        list.add(new JourneyOpenItem(R.drawable.ic_lock_b, "不公開"));
         list.add(new JourneyOpenItem(R.drawable.ic_public_b, "公開"));
+        list.add(new JourneyOpenItem(R.drawable.ic_lock_b, "不公開"));
     }
 
     @Override
