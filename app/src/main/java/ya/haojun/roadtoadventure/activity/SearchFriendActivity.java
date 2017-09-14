@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,6 @@ public class SearchFriendActivity extends CommonActivity implements View.OnClick
         rv.setAdapter(new SearchFriendRVAdapter(this, list_search));
 
 
-
     }
 
     private void searchFriends(String input) {
@@ -53,8 +53,12 @@ public class SearchFriendActivity extends CommonActivity implements View.OnClick
                     Friend result = response.body();
                     if (result.isSuccess()) {
                         list_search.clear();
-                        list_search.addAll(result.getFriends());
-                        Log.d("ppp",list_search.size()+"");
+                        for (Friend f : result.getFriends()) {
+                            if (!f.getUserId().equals(User.getInstance().getUserId())) {
+                                list_search.add(f);
+                            }
+                        }
+                        Log.d("ppp", list_search.size() + "");
                         rv.getAdapter().notifyDataSetChanged();
                     } else {
                         t(R.string.empty);
@@ -70,6 +74,39 @@ public class SearchFriendActivity extends CommonActivity implements View.OnClick
         });
     }
 
+    public void createFriend(String friendId) {
+        Toast.makeText(this, User.getInstance().getUserId() +" "+ friendId , Toast.LENGTH_SHORT).show();
+        Friend params = new Friend();
+        params.setUserId(User.getInstance().getUserId());
+        params.setFriendId(friendId);
+
+        Call<Friend> call = RoadToAdventureService.service.createFriend(params);
+        showLoadingDialog();
+        call.enqueue(new Callback<Friend>() {
+            @Override
+            public void onResponse(Call<Friend> call, Response<Friend> response) {
+                dismissLoadingDialog();
+                if (isResponseOK(response)) {
+                    Friend result = response.body();
+                    if (result.isSuccess()) {
+                        t(R.string.success);
+                        setResult(RESULT_OK);
+                        finish();
+                    } else {
+                        t(R.string.empty);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Friend> call, Throwable t) {
+                dismissLoadingDialog();
+                t(t.toString());
+            }
+        });
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -80,8 +117,6 @@ public class SearchFriendActivity extends CommonActivity implements View.OnClick
                     return;
                 }
                 searchFriends(input);
-
-
                 break;
         }
     }

@@ -15,18 +15,18 @@
             android:layout_gravity="center" />
 
         <TextView
-            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:id="@+id/tv_item_rv_friend_search_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="123"
             android:textColor="#000"
             android:textSize="24sp" />
         <TextView
-            android:layout_marginLeft="100dp"
+            android:layout_weight="1"
             android:id="@+id/tv_item_rv_friend_search_add"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="加為好友"

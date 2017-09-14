@@ -77,6 +77,12 @@ public interface RoadToAdventureService {
     @POST("Friend/Search")
     Call<Friend> searchFriends(@Body Friend friend);
 
+    @POST("Friend/Create")
+    Call<Friend> createFriend(@Body Friend friend);
+
+    @POST("Friend/Delete")
+    Call<Friend> deleteFriend(@Body Friend friend);
+
     @POST("Group/Create")
     Call<Group> createGroup(@Body Group group);
 

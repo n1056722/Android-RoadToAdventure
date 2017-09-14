@@ -10,6 +10,7 @@ public class Friend extends CommonModel implements Parcelable{
     private String userId;
     private String userName;
     private String userPicture;
+    private String friendId;
     private ArrayList<Friend> friends;
 
 
@@ -66,6 +67,14 @@ public class Friend extends CommonModel implements Parcelable{
 
     public void setUserPicture(String userPicture) {
         this.userPicture = userPicture;
+    }
+
+    public String getFriendId() {
+        return friendId;
+    }
+
+    public void setFriendId(String friendId) {
+        this.friendId = friendId;
     }
 
     @Override
