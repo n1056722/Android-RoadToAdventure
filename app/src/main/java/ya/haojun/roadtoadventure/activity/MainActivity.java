@@ -1,5 +1,6 @@
 package ya.haojun.roadtoadventure.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +37,8 @@ import ya.haojun.roadtoadventure.sqlite.DAOLocationRecord;
 
 public class MainActivity extends CommonActivity {
 
+    // request
+    public static final int REQUEST_PROFILE = 0;
     // ui
     private ImageView iv_weather_image;
     private TextView tv_weather_date, tv_weather_name, tv_weather_temperature;
@@ -207,5 +210,14 @@ public class MainActivity extends CommonActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK)return;
+        switch (requestCode){
+            case REQUEST_PROFILE:
 
+                break;
+        }
+    }
 }

@@ -67,8 +67,7 @@ public class DrawerRVAdapter extends CommonRVAdapter {
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), ProfileActivity.class);
-                    getContext().startActivity(intent);
+                    ((MainActivity) getContext()).startActivityForResult(new Intent(getContext(), ProfileActivity.class), MainActivity.REQUEST_PROFILE);
                 }
             });
         } else if (holder instanceof BodyGroupViewHolder) {
