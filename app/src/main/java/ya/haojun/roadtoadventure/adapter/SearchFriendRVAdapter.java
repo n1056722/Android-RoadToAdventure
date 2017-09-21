@@ -20,7 +20,7 @@ import ya.haojun.roadtoadventure.model.Friend;
  * Created by bvxcx on 2017/9/7.
  */
 
-public class SearchFriendRVAdapter extends CommonRVAdapter {
+public class SearchFriendRVAdapter extends CommonRVAdapter  {
     private ArrayList<Friend> list_search;
     private int pictureWidth;
 
@@ -42,10 +42,16 @@ public class SearchFriendRVAdapter extends CommonRVAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
-            Friend item = list_search.get(position);
+            final Friend item = list_search.get(position);
 //            Picasso.with(getContext()).load(item.getUserPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
 //            h.starttime.setText(TimeHelper.convertToNoYearSecond(item.getStartTime()));
             h.name.setText(item.getUserName());
+            h.add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((SearchFriendActivity)getContext()).createFriend(item.getUserId());
+                }
+            });
 
         }
     }
@@ -54,6 +60,9 @@ public class SearchFriendRVAdapter extends CommonRVAdapter {
     public int getItemCount() {
         return list_search.size();
     }
+
+
+
     private class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView picture;

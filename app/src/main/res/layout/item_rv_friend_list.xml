@@ -17,12 +17,20 @@
             android:layout_gravity="center" />
 
         <TextView
-            android:layout_marginLeft="5dp"
             android:id="@+id/tv_item_rv_friend_list_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="123"
             android:textColor="#000"
             android:textSize="24sp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/tv_item_rv_friend_list_delete"
+            android:text="刪除好友"
+            style="@style/AppTheme.TextView"
+            />
     </LinearLayout>
 </LinearLayout>
