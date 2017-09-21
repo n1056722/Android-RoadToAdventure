@@ -13,9 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
-import ya.haojun.roadtoadventure.activity.MainActivity;
-import ya.haojun.roadtoadventure.model.Chat;
-import ya.haojun.roadtoadventure.model.DrawerItem;
+import ya.haojun.roadtoadventure.model.FriendChat;
 import ya.haojun.roadtoadventure.model.User;
 
 
@@ -28,9 +26,9 @@ public class ChatRVAdapter extends CommonRVAdapter {
     // data
     private int pictureWidth;
     private String selfUserID;
-    private ArrayList<Chat> list;
+    private ArrayList<FriendChat> list;
 
-    public ChatRVAdapter(Context context, ArrayList<Chat> list) {
+    public ChatRVAdapter(Context context, ArrayList<FriendChat> list) {
         super(context);
         this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_chat_picture);
         this.selfUserID = User.getInstance().getUserId();
@@ -54,7 +52,7 @@ public class ChatRVAdapter extends CommonRVAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Chat item = list.get(position);
+        FriendChat item = list.get(position);
         if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;
             h.content.setText(item.getContent());

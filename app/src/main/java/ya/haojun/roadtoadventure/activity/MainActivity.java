@@ -40,6 +40,7 @@ public class MainActivity extends CommonActivity {
     // request
     public static final int REQUEST_PROFILE = 0;
     // ui
+    private RecyclerView rv_drawer;
     private ImageView iv_weather_image;
     private TextView tv_weather_date, tv_weather_name, tv_weather_temperature;
 
@@ -77,8 +78,8 @@ public class MainActivity extends CommonActivity {
     }
 
     private void initDrawer() {
-        RecyclerView rv = (RecyclerView) findViewById(R.id.rv_main_navigation);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv_drawer = (RecyclerView) findViewById(R.id.rv_main_navigation);
+        rv_drawer.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<DrawerItem> list = new ArrayList<>();
         list.add(new DrawerItem(R.drawable.ic_nav_personal, DrawerItem.PERSONAL));
         list.add(new DrawerItem(0, DrawerItem.PERSONAL_RECORD));
@@ -91,7 +92,7 @@ public class MainActivity extends CommonActivity {
         list.add(new DrawerItem(R.drawable.ic_nav_road_query, DrawerItem.ROAD_QUERY));
         list.add(new DrawerItem(R.drawable.ic_nav_tip, DrawerItem.TIP));
         list.add(new DrawerItem(R.drawable.ic_nav_help, DrawerItem.HELP));
-        rv.setAdapter(new DrawerRVAdapter(this, list));
+        rv_drawer.setAdapter(new DrawerRVAdapter(this, list));
     }
 
     public void onDrawerItemClick(String name) {
@@ -213,10 +214,10 @@ public class MainActivity extends CommonActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK)return;
-        switch (requestCode){
+        if (resultCode != RESULT_OK) return;
+        switch (requestCode) {
             case REQUEST_PROFILE:
-
+                rv_drawer.getAdapter().notifyItemChanged(0);
                 break;
         }
     }

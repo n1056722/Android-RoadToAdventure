@@ -14,6 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import ya.haojun.roadtoadventure.helper.URLHelper;
 import ya.haojun.roadtoadventure.model.Friend;
+import ya.haojun.roadtoadventure.model.FriendChat;
 import ya.haojun.roadtoadventure.model.Group;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
 import ya.haojun.roadtoadventure.model.Picture;
@@ -48,6 +49,9 @@ public interface RoadToAdventureService {
 
     @POST("User/ResetPassword")
     Call<User> resetPassword(@Body User user);
+
+    @POST("User/UpdatePicture")
+    Call<User> updatePicture(@Body User user);
 
     @Multipart
     @POST("Picture/Create")

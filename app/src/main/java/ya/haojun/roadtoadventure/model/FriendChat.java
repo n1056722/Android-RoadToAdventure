@@ -1,14 +1,14 @@
 package ya.haojun.roadtoadventure.model;
 
 
-public class Chat {
+public class FriendChat {
     private String userID;
     private String userName;
     private String userPicture;
     private String content;
     private String createDate;
 
-    public Chat(String userID, String userName, String userPicture, String content, String createDate) {
+    public FriendChat(String userID, String userName, String userPicture, String content, String createDate) {
         this.userID = userID;
         this.userName = userName;
         this.userPicture = userPicture;

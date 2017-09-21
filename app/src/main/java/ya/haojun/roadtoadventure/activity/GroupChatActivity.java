@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.adapter.ChatRVAdapter;
-import ya.haojun.roadtoadventure.model.Chat;
+import ya.haojun.roadtoadventure.model.FriendChat;
 
 public class GroupChatActivity extends CommonActivity implements View.OnClickListener {
 
@@ -18,7 +18,7 @@ public class GroupChatActivity extends CommonActivity implements View.OnClickLis
     private RecyclerView rv;
     private EditText et_input;
     // data
-    private ArrayList<Chat> list_chat;
+    private ArrayList<FriendChat> list_chat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +32,9 @@ public class GroupChatActivity extends CommonActivity implements View.OnClickLis
 
         // init RecyclerView
         list_chat = new ArrayList<>();
-        list_chat.add(new Chat("hj", "haojun", "https://avatars1.githubusercontent.com/u/15250400?v=3&s=460", "HI", "2017-05-01 00:00:00"));
+        list_chat.add(new FriendChat("hj", "haojun", "https://avatars1.githubusercontent.com/u/15250400?v=3&s=460", "HI", "2017-05-01 00:00:00"));
         for (int i = 0; i < 10; i++) {
-            list_chat.add(new Chat("hj" + i, "haojun" + i, "https://avatars1.githubusercontent.com/u/15250400?v=3&s=460", "HI" + i, "2017-05-02 00:00:00"));
+            list_chat.add(new FriendChat("hj" + i, "haojun" + i, "https://avatars1.githubusercontent.com/u/15250400?v=3&s=460", "HI" + i, "2017-05-02 00:00:00"));
         }
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new ChatRVAdapter(this, list_chat));
