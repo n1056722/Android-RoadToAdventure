@@ -20,8 +20,9 @@ public class TimeHelper {
             long gap = t.getTime() - f.getTime();
             int sec = (int) (gap / 1000);
             int hour = sec / 3600;
-            int minute = sec / 60;
-            int second = sec % 60;
+            int remainder = sec - (hour * 3600);
+            int minute = remainder / 60;
+            int second = remainder - (minute * 60);
             return String.format("%02d:%02d:%02d", hour, minute, second);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -36,5 +37,14 @@ public class TimeHelper {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static long toSecond(String time) {
+        try {
+            return sdf_standard.parse(time).getTime() / 1000;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

@@ -148,11 +148,112 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_personal_journey_value_info"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_margin="5dp"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="1dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="已騎乘時間"
+                        android:textColor="#3F51B5"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_personal_journey_ride_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="00:00:00"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="1dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="已騎乘距離"
+                            android:textColor="#3F51B5"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_personal_journey_ride_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="0.00公里"
+                            android:textColor="#000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="1dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="平均時速"
+                            android:textColor="#3F51B5"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_personal_journey_average_speed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="0.00公里/時"
+                            android:textColor="#000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

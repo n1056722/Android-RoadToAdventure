@@ -51,4 +51,13 @@ public class LocationRecordModel {
     public void setTime(String time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "LocationRecordModel{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", time='" + time + '\'' +
+                '}';
+    }
 }

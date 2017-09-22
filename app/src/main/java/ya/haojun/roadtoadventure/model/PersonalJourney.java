@@ -16,12 +16,14 @@ public class PersonalJourney extends CommonModel {
     private String createDate;
     private String modifyDate;
     private ArrayList<String> pictures;
+    private ArrayList<LocationRecordModel> routes;
     //
     private ArrayList<PersonalJourney> personalJourneys;
 
     public PersonalJourney() {
         pictures = new ArrayList<>();
         personalJourneys = new ArrayList<>();
+        routes= new ArrayList<>();
     }
 
     public ArrayList<PersonalJourney> getPersonalJourneys() {
@@ -118,6 +120,10 @@ public class PersonalJourney extends CommonModel {
 
     public void setModifyDate(String modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public ArrayList<LocationRecordModel> getRoutes() {
+        return routes;
     }
 
     @Override

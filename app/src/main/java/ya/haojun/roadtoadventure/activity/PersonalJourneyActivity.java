@@ -1,6 +1,5 @@
 package ya.haojun.roadtoadventure.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,30 +11,31 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
-import ya.haojun.roadtoadventure.adapter.PersonalJourneyValueInfoRVAdapter;
-import ya.haojun.roadtoadventure.helper.LogHelper;
+import ya.haojun.roadtoadventure.helper.GoogleMapHelper;
 import ya.haojun.roadtoadventure.helper.TimeHelper;
+import ya.haojun.roadtoadventure.model.LocationRecordModel;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
-import ya.haojun.roadtoadventure.model.User;
 import ya.haojun.roadtoadventure.model.ValueInfo;
 import ya.haojun.roadtoadventure.retrofit.RoadToAdventureService;
+import ya.haojun.roadtoadventure.sqlite.DAOLocationRecord;
 
 public class PersonalJourneyActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
-    private TextView tv_name, tv_content, tv_start_time, tv_end_time, tv_status;
+    private TextView tv_name, tv_content,
+            tv_start_time, tv_end_time, tv_status,
+            tv_ride_time, tv_ride_distance, tv_average_speed;
     private ImageView iv_map_picture;
-    private RecyclerView rv_value_info;
     // extra
     private int personalJourneyId;
     // data
     private PersonalJourney personalJourney;
-    private ArrayList<ValueInfo> list_value_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,23 +49,15 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
         tv_end_time = (TextView) findViewById(R.id.tv_personal_journey_end_time);
         tv_status = (TextView) findViewById(R.id.tv_personal_journey_status);
         iv_map_picture = (ImageView) findViewById(R.id.iv_personal_journey_map_picture);
-        rv_value_info = (RecyclerView) findViewById(R.id.rv_personal_journey_value_info);
+        tv_ride_time = (TextView) findViewById(R.id.tv_personal_journey_ride_time);
+        tv_ride_distance = (TextView) findViewById(R.id.tv_personal_journey_ride_distance);
+        tv_average_speed = (TextView) findViewById(R.id.tv_personal_journey_average_speed);
         findViewById(R.id.tv_personal_journey_detail_info).setOnClickListener(this);
         tv_status.setOnClickListener(this);
         iv_map_picture.setOnClickListener(this);
         // extra
         personalJourneyId = getIntent().getExtras().getInt("personalJourneyId");
         // init
-        list_value_info = new ArrayList<>();
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return position % 3 == 0 ? 2 : 1;
-            }
-        });
-        rv_value_info.setLayoutManager(layoutManager);
-        rv_value_info.setAdapter(new PersonalJourneyValueInfoRVAdapter(this, list_value_info));
         getPersonalJourney();
     }
 
@@ -85,17 +77,11 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
                         personalJourney = result;
                         tv_name.setText(personalJourney.getName());
                         tv_content.setText(personalJourney.getContent());
-                        tv_start_time.setText(personalJourney.getStartTime());
-                        tv_end_time.setText(personalJourney.getEndTime());
+                        tv_start_time.setText(personalJourney.getStartTime().equals("None") ? "" : personalJourney.getStartTime());
+                        tv_end_time.setText(personalJourney.getEndTime().equals("None") ? "" : personalJourney.getEndTime());
                         tv_status.setText(getStatusText(personalJourney.getStatus()));
-                        rv_value_info.setVisibility(personalJourney.getStatus().equals("0") ? View.GONE : View.VISIBLE);
-                        setValueInfo();
-                        DisplayMetrics dm = getResources().getDisplayMetrics();
-                        Picasso.with(PersonalJourneyActivity.this)
-                                .load(personalJourney.getPictures().get(0))
-                                .resize(dm.widthPixels, (int) (dm.density * 200))
-                                .centerCrop()
-                                .into(iv_map_picture);
+                        calculateRideInfo();
+                        showMapPicture();
                     } else {
                         t(R.string.fail);
                     }
@@ -110,12 +96,30 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
         });
     }
 
-    private void setValueInfo() {
-        list_value_info.clear();
-        list_value_info.add(new ValueInfo("已騎乘時間", "00:00:00"));
-        list_value_info.add(new ValueInfo("已騎乘距離", "1.23公里"));
-        list_value_info.add(new ValueInfo("平均時速", "0.00公里/時"));
-        rv_value_info.getAdapter().notifyDataSetChanged();
+    private void calculateRideInfo() {
+        if (personalJourney.getStatus().equals("0")) { // planning
+            tv_ride_time.setText("00:00:00");
+            tv_ride_distance.setText("0.00公里");
+            tv_average_speed.setText("0.00公里/時");
+        } else { // riding & finish
+            String startTime = personalJourney.getStartTime();
+            String endTime = personalJourney.getStatus().equals("1") ? TimeHelper.now() : personalJourney.getEndTime();
+            double rideDistanceKM = GoogleMapHelper.distance(new DAOLocationRecord(this).filter(startTime, endTime)) / 1000;
+            long secondGap = TimeHelper.toSecond(endTime) - TimeHelper.toSecond(startTime);
+            double kmPerHour = rideDistanceKM / (secondGap * 3600);
+            tv_ride_time.setText(TimeHelper.gap(startTime, endTime));
+            tv_ride_distance.setText(String.format("%.2f公里", rideDistanceKM));
+            tv_average_speed.setText(String.format("%.2f公里/時", kmPerHour));
+        }
+    }
+
+    private void showMapPicture() {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        Picasso.with(PersonalJourneyActivity.this)
+                .load(personalJourney.getPictures().get(0))
+                .resize(dm.widthPixels, (int) (dm.density * 200))
+                .centerCrop()
+                .into(iv_map_picture);
     }
 
     private void startPersonalJourney() {
@@ -148,10 +152,11 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
         });
     }
 
-    private void endPersonalJourney() {
+    private void endPersonalJourney(String endTime, List<LocationRecordModel> list) {
         PersonalJourney params = new PersonalJourney();
         params.setPersonalJourneyId(personalJourneyId);
-        params.setEndTime(TimeHelper.now());
+        params.setEndTime(endTime);
+        params.getRoutes().addAll(list);
 
         Call<PersonalJourney> call = RoadToAdventureService.service.endPersonalJourney(params);
         showLoadingDialog();
@@ -206,7 +211,10 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
                 if (personalJourney.getStatus().equals("0")) {
                     startPersonalJourney();
                 } else if (personalJourney.getStatus().equals("1")) {
-                    endPersonalJourney();
+                    String startTime = personalJourney.getStartTime();
+                    String endTime = TimeHelper.now();
+                    List<LocationRecordModel> list = new DAOLocationRecord(this).filter(startTime, endTime);
+                    endPersonalJourney(endTime, list);
                 }
                 break;
         }

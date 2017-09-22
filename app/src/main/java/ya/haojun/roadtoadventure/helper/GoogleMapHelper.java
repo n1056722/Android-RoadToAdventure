@@ -1,6 +1,7 @@
 package ya.haojun.roadtoadventure.helper;
 
 import android.content.Context;
+import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import ya.haojun.roadtoadventure.R;
+import ya.haojun.roadtoadventure.model.LocationRecordModel;
 
 /**
  * Created by asus on 2017/3/8.
@@ -79,5 +81,19 @@ public class GoogleMapHelper {
         }
 
         return poly;
+    }
+
+    public static double distance(List<LocationRecordModel> list) {
+        Location l1 = new Location("L1");
+        Location l2 = new Location("L2");
+        float sum = 0f;
+        for (int i = 0; i < list.size() - 1; i++) {
+            l1.setLatitude(list.get(i).getLatitude());
+            l1.setLongitude(list.get(i).getLongitude());
+            l2.setLatitude(list.get(i + 1).getLatitude());
+            l2.setLongitude(list.get(i + 1).getLongitude());
+            sum += l1.distanceTo(l2);
+        }
+        return sum;
     }
 }
