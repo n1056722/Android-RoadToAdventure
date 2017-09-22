@@ -38,7 +38,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                        dismissLoadingDialog();
+                dismissLoadingDialog();
                 if (isResponseOK(response)) {
                     User result = response.body();
                     if (result.isSuccess()) {

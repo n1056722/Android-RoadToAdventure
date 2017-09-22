@@ -37,9 +37,13 @@ import ya.haojun.roadtoadventure.activity.JourneyStatusActivity;
 import ya.haojun.roadtoadventure.adapter.HelpRVAdapter;
 import ya.haojun.roadtoadventure.helper.GoogleMapHelper;
 import ya.haojun.roadtoadventure.model.GoogleDirection;
+import ya.haojun.roadtoadventure.model.GooglePlace;
+import ya.haojun.roadtoadventure.model.GooglePlaces;
 import ya.haojun.roadtoadventure.model.HelpShop;
+import ya.haojun.roadtoadventure.model.LocationRecordModel;
 import ya.haojun.roadtoadventure.retrofit.GoogleMapService;
 import ya.haojun.roadtoadventure.sqlite.DAOJourney;
+import ya.haojun.roadtoadventure.sqlite.DAOLocationRecord;
 
 
 public class HelpFragment extends CommonFragment {
@@ -54,6 +58,7 @@ public class HelpFragment extends CommonFragment {
     private RecyclerView rv;
     // extra
     private int type;
+    private String keyword;
     // data
     private ArrayList<HelpShop> list;
 
@@ -80,28 +85,54 @@ public class HelpFragment extends CommonFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         type = getArguments().getInt("type");
+        keyword = getKeyword();
 
-        // init RecyclerView
+        // init
         list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            String name = "";
-            switch (type) {
-                case HOSPITAL:
-                    name = "醫院" + i;
-                    break;
-                case HOSTEL:
-                    name = "旅社" + i;
-                    break;
-                case CAR:
-                    name = "車行" + i;
-                    break;
-                case SHOP:
-                    name = "超商" + i;
-                    break;
-            }
-            list.add(new HelpShop(name, "台北市中正區濟南路一段321號", "02-3322-2777"));
-        }
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(new HelpRVAdapter(getActivity(), list));
+        getHospital();
+    }
+
+    private String getKeyword() {
+        if (type == HOSPITAL) return "醫院";
+        if (type == HOSTEL) return "旅社";
+        if (type == CAR) return "腳踏車店";
+        return "便利商店";
+    }
+
+    private void getHospital() {
+        // get last location
+        LocationRecordModel l = new DAOLocationRecord(getActivity()).getLast();
+        final LatLng latLng = new LatLng(l.getLatitude(), l.getLongitude());
+
+        Call<GooglePlaces> call = GoogleMapService.service.getPlaces(GoogleMapHelper.getPlacesQueryString(getActivity(), latLng, keyword));
+//        showLoadingDialog();
+        call.enqueue(new Callback<GooglePlaces>() {
+            @Override
+            public void onResponse(Call<GooglePlaces> call, Response<GooglePlaces> response) {
+//                dismissLoadingDialog();
+                if (isResponseOK(response)) {
+                    GooglePlaces result = response.body();
+                    list.clear();
+                    for (GooglePlace p : result.getResults()) {
+                        HelpShop hs = new HelpShop();
+                        hs.setName(p.getName());
+                        hs.setAddress(p.getVicinity());
+                        hs.setLat(p.getGeometry().getLocation().getLat());
+                        hs.setLng(p.getGeometry().getLocation().getLng());
+                        hs.setDistance((int) GoogleMapHelper.distance(latLng.latitude, latLng.longitude, p.getGeometry().getLocation().getLat(), p.getGeometry().getLocation().getLng()));
+                        list.add(hs);
+                    }
+                    rv.getAdapter().notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GooglePlaces> call, Throwable t) {
+//                dismissLoadingDialog();
+                t(t.toString());
+            }
+        });
     }
 }

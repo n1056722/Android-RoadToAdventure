@@ -1,26 +1,20 @@
 package ya.haojun.roadtoadventure.adapter;
 
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
-import ya.haojun.roadtoadventure.activity.MainActivity;
-import ya.haojun.roadtoadventure.model.DrawerItem;
 import ya.haojun.roadtoadventure.model.HelpShop;
-import ya.haojun.roadtoadventure.model.User;
 
 
 public class HelpRVAdapter extends CommonRVAdapter {
@@ -43,10 +37,26 @@ public class HelpRVAdapter extends CommonRVAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
-            HelpShop item = list.get(position);
+            final HelpShop item = list.get(position);
             h.name.setText(item.getName());
             h.address.setText(item.getAddress());
-            h.phone.setText(item.getPhone());
+            h.distance.setText(item.getDistance() + "公尺");
+            // listener
+            h.name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), item.getName(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            h.address.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri = Uri.parse(String.format("geo:0,0?q=%f,%f(%s)", item.getLat(), item.getLng(), item.getName()));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    intent.setPackage("com.google.android.apps.maps");
+                    getContext().startActivity(intent);
+                }
+            });
         }
     }
 
@@ -55,39 +65,17 @@ public class HelpRVAdapter extends CommonRVAdapter {
         return list.size();
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
         TextView address;
-        TextView phone;
+        TextView distance;
 
         ViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.tv_item_rv_help_name);
             address = (TextView) v.findViewById(R.id.tv_item_rv_help_address);
-            phone = (TextView) v.findViewById(R.id.tv_item_rv_help_phone);
-
-            address.setOnClickListener(this);
-            phone.setOnClickListener(this);
-
-        }
-
-
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.tv_item_rv_help_address:
-                    Uri uri2=Uri.parse("geo:38.899533,-77.036476");
-                    Intent intent2=new Intent(Intent.ACTION_VIEW,uri2);
-                    getContext().startActivity(intent2);
-                    break;
-                case R.id.tv_item_rv_help_phone:
-                    Uri uri=Uri.parse("tel:0999123456");
-                    Intent intent=new Intent(Intent.ACTION_DIAL,uri);
-                    getContext().startActivity(intent);
-                    break;
-
-            }
+            distance = (TextView) v.findViewById(R.id.tv_item_rv_help_distance);
         }
     }
 

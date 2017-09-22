@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
 
 public class CommonFragment extends Fragment {
@@ -54,6 +55,10 @@ public class CommonFragment extends Fragment {
         Log.d(TAG, message);
     }
 
+    protected void t(int textId) {
+        t(getString(textId));
+    }
+
     protected void t(String message) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
@@ -76,5 +81,17 @@ public class CommonFragment extends Fragment {
                 .setPositiveButton(R.string.confirm, posi)
                 .setNegativeButton(R.string.cancel, nega)
                 .show();
+    }
+
+    protected boolean isResponseOK(Response<?> response) {
+        if (!response.isSuccessful()) {
+            t(getString(R.string.connection_error) + response.code());
+            return false;
+        }
+        if (response.body() == null) {
+            t(R.string.server_error_null);
+            return false;
+        }
+        return true;
     }
 }

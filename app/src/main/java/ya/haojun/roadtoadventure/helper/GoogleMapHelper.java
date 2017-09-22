@@ -30,21 +30,24 @@ public class GoogleMapHelper {
         return sb.toString();
     }
 
-    /*
-    *   @param origin
-    *   @param destination
-    *   @param avoid=tolls|highways|ferries
-    *   @param mode=bicycling.....driving,walking,bicycling
-    *   @param key
-    * */
     public static Map<String, String> getDirectionsQueryString(Context context, LatLng from, LatLng to) {
         Map<String, String> map = new HashMap<>();
+        map.put("key", context.getString(R.string.google_maps_key));
         map.put("origin", String.format("%f,%f", from.latitude, from.longitude));
         map.put("destination", String.format("%f,%f", to.latitude, to.longitude));
         map.put("alternatives", "true");
         map.put("avoid", "tolls|highways|ferries");
         map.put("mode", "driving");
+        return map;
+    }
+
+    public static Map<String, String> getPlacesQueryString(Context context, LatLng location, String keyword) {
+        Map<String, String> map = new HashMap<>();
         map.put("key", context.getString(R.string.google_maps_key));
+        map.put("location", String.format("%f,%f", location.latitude, location.longitude));
+        map.put("rankby", "distance");
+        map.put("keyword", keyword);
+        map.put("language", "zh-TW");
         return map;
     }
 
@@ -95,5 +98,15 @@ public class GoogleMapHelper {
             sum += l1.distanceTo(l2);
         }
         return sum;
+    }
+
+    public static double distance(double lat1, double lng1, double lat2, double lng2){
+        Location l1 = new Location("L1");
+        Location l2 = new Location("L2");
+        l1.setLatitude(lat1);
+        l1.setLongitude(lng1);
+        l2.setLatitude(lat2);
+        l2.setLongitude(lng2);
+        return l1.distanceTo(l2);
     }
 }
