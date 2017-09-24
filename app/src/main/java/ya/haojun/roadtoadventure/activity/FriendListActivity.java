@@ -7,7 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,6 @@ import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.adapter.FriendListRVAdapter;
 import ya.haojun.roadtoadventure.model.Friend;
-import ya.haojun.roadtoadventure.model.PersonalJourney;
 import ya.haojun.roadtoadventure.model.User;
 import ya.haojun.roadtoadventure.retrofit.RoadToAdventureService;
 
@@ -38,7 +36,7 @@ public class FriendListActivity extends CommonActivity implements View.OnClickLi
         rv = (RecyclerView) findViewById(R.id.rv_friend_list);
         findViewById(R.id.iv_friend_list_search).setOnClickListener(this);
 
-        // init RecyclerView
+        // init
         list_friend = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new FriendListRVAdapter(this, list_friend));

@@ -163,6 +163,7 @@ public class AddGroupActivity extends CommonActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        hideKeyBoard(v);
         switch (v.getId()) {
             case R.id.iv_add_group_done:
                 String name = et_name.getText().toString();

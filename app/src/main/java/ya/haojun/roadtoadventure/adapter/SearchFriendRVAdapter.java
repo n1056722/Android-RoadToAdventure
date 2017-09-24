@@ -20,18 +20,16 @@ import ya.haojun.roadtoadventure.model.Friend;
  * Created by bvxcx on 2017/9/7.
  */
 
-public class SearchFriendRVAdapter extends CommonRVAdapter  {
+public class SearchFriendRVAdapter extends CommonRVAdapter {
+
     private ArrayList<Friend> list_search;
-    private int pictureWidth;
-
-
+    private int w;
 
     public SearchFriendRVAdapter(Context context, ArrayList<Friend> list_search) {
         super(context);
         this.list_search = list_search;
-        this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_list_picture_big);
+        this.w = (int) (getResources().getDisplayMetrics().density * 60);
     }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,16 +41,18 @@ public class SearchFriendRVAdapter extends CommonRVAdapter  {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
             final Friend item = list_search.get(position);
-//            Picasso.with(getContext()).load(item.getUserPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
-//            h.starttime.setText(TimeHelper.convertToNoYearSecond(item.getStartTime()));
+            Picasso.with(getContext())
+                    .load(item.getUserPicture())
+                    .resize(w, w)
+                    .centerCrop()
+                    .into(h.picture);
             h.name.setText(item.getUserName());
             h.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((SearchFriendActivity)getContext()).createFriend(item.getUserId());
+                    ((SearchFriendActivity) getContext()).createFriend(item.getUserId());
                 }
             });
-
         }
     }
 
@@ -61,25 +61,17 @@ public class SearchFriendRVAdapter extends CommonRVAdapter  {
         return list_search.size();
     }
 
-
-
     private class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView picture;
-
         TextView name;
-
         TextView add;
-
 
         ViewHolder(View v) {
             super(v);
             picture = (ImageView) v.findViewById(R.id.iv_item_rv_friend_search_picture);
-
             name = (TextView) v.findViewById(R.id.tv_item_rv_friend_search_name);
-
-            add= (TextView) v.findViewById(R.id.tv_item_rv_friend_search_add);
-
+            add = (TextView) v.findViewById(R.id.tv_item_rv_friend_search_add);
         }
     }
 

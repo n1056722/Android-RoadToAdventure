@@ -8,29 +8,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_item_rv_friend_list_picture"
-            android:layout_width="@dimen/imageview_list_picture"
-            android:layout_height="@dimen/imageview_list_picture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/tv_item_rv_friend_list_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="123"
             android:textColor="#000"
-            android:textSize="24sp" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/tv_item_rv_friend_list_delete"
-            android:text="刪除好友"
-            style="@style/AppTheme.TextView"
-            />
+            android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>

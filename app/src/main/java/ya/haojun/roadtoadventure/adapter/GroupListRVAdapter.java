@@ -26,12 +26,12 @@ public class GroupListRVAdapter extends CommonRVAdapter {
 
 
     // data
-    private int pictureWidth;
+    private int w;
     private ArrayList<Group> list;
 
     public GroupListRVAdapter(Context context, ArrayList<Group> list) {
         super(context);
-        this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_list_picture);
+        this.w = (int) (getResources().getDisplayMetrics().density * 60);
         this.list = list;
     }
 
@@ -48,7 +48,7 @@ public class GroupListRVAdapter extends CommonRVAdapter {
             final Group item = list.get(position);
             Picasso.with(getContext())
                     .load(item.getPicturePath())
-                    .resize(pictureWidth, pictureWidth)
+                    .resize(w, w)
                     .centerCrop()
                     .into(h.picture);
             h.name.setText(item.getName());
@@ -57,7 +57,7 @@ public class GroupListRVAdapter extends CommonRVAdapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), GroupInfoActivity.class);
                     Bundle b = new Bundle();
-                    b.putInt("groupID",item.getGroupId());
+                    b.putInt("groupId",item.getGroupId());
                     intent.putExtras(b);
                     getContext().startActivity(intent);
                 }

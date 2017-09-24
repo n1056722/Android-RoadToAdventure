@@ -95,4 +95,7 @@ public interface RoadToAdventureService {
 
     @POST("Group/GetList")
     Call<Group> getGroupList(@Body User user);
+
+    @POST("Group/Get")
+    Call<Group> getGroup(@Body Group group);
 }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.activity.FriendChatActivity;
 import ya.haojun.roadtoadventure.activity.FriendListActivity;
+import ya.haojun.roadtoadventure.helper.LogHelper;
 import ya.haojun.roadtoadventure.model.Friend;
 
 
@@ -26,12 +27,12 @@ public class FriendListRVAdapter extends CommonRVAdapter {
 
 
     // data
-    private int pictureWidth;
+    private int w;
     private ArrayList<Friend> list;
 
     public FriendListRVAdapter(Context context, ArrayList<Friend> list) {
         super(context);
-        this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_list_picture);
+        this.w = (int) getResources().getDimension(R.dimen.imageview_list_picture);
         this.list = list;
     }
 
@@ -46,7 +47,11 @@ public class FriendListRVAdapter extends CommonRVAdapter {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
             final Friend item = list.get(position);
-            Picasso.with(getContext()).load(item.getUserPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
+            Picasso.with(getContext())
+                    .load(item.getUserPicture())
+                    .resize(w, w)
+                    .centerCrop()
+                    .into(h.picture);
             h.name.setText(item.getUserName());
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,10 +60,11 @@ public class FriendListRVAdapter extends CommonRVAdapter {
                     getContext().startActivity(intent);
                 }
             });
-            h.delete.setOnClickListener(new View.OnClickListener() {
+            h.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View v) {
-                    ((FriendListActivity)getContext()).deleteFriendDialog(item.getUserId());
+                public boolean onLongClick(View v) {
+                    ((FriendListActivity) getContext()).deleteFriendDialog(item.getUserId());
+                    return false;
                 }
             });
         }
@@ -74,13 +80,11 @@ public class FriendListRVAdapter extends CommonRVAdapter {
 
         ImageView picture;
         TextView name;
-        TextView delete;
 
         ViewHolder(View v) {
             super(v);
             picture = (ImageView) v.findViewById(R.id.iv_item_rv_friend_list_picture);
             name = (TextView) v.findViewById(R.id.tv_item_rv_friend_list_name);
-            delete = (TextView) v.findViewById(R.id.tv_item_rv_friend_list_delete);
         }
     }
 

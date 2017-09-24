@@ -50,9 +50,9 @@ public class HelpFragment extends CommonFragment {
 
     // type
     public static final int HOSPITAL = 0;
-    public static final int HOSTEL = 1;
-    public static final int CAR = 2;
-    public static final int SHOP = 3;
+    public static final int HOTEL = 1;
+    public static final int BIKE_SHOP = 2;
+    public static final int CONVENIENT_SHOP = 3;
 
     // ui
     private RecyclerView rv;
@@ -96,8 +96,8 @@ public class HelpFragment extends CommonFragment {
 
     private String getKeyword() {
         if (type == HOSPITAL) return "醫院";
-        if (type == HOSTEL) return "旅社";
-        if (type == CAR) return "腳踏車店";
+        if (type == HOTEL) return "旅社";
+        if (type == BIKE_SHOP) return "腳踏車店";
         return "便利商店";
     }
 

@@ -73,6 +73,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
     private void displayUserPicture() {
         User u = User.getInstance();
         String picturePath = u.getUserPicture();
+        LogHelper.d(picturePath + "");
         if (!picturePath.isEmpty()) {
             int w = (int) (getResources().getDisplayMetrics().density * 100);
             Picasso.with(this)

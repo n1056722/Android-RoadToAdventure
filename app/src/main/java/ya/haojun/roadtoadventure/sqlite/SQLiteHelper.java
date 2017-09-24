@@ -29,12 +29,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DAOLocationRecord.createTable());
         db.execSQL(DAOJourney.createTable());
+        db.execSQL(DAOGroupChat.createTable());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + DAOLocationRecord.TABLENAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOJourney.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOGroupChat.TABLENAME);
         onCreate(db);
     }
 }

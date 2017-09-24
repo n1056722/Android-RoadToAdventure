@@ -17,6 +17,7 @@ import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.activity.AddGroupActivity;
 import ya.haojun.roadtoadventure.activity.FriendChatActivity;
 import ya.haojun.roadtoadventure.activity.InviteMemberActivity;
+import ya.haojun.roadtoadventure.helper.LogHelper;
 import ya.haojun.roadtoadventure.model.Friend;
 import ya.haojun.roadtoadventure.model.GroupMember;
 
@@ -27,12 +28,12 @@ public class GroupMemberRVAdapter extends CommonRVAdapter {
     public static final int FIRST = 0;
     public static final int OTHER = 1;
     // data
-    private int pictureWidth;
+    private int w;
     private ArrayList<GroupMember> list;
 
     public GroupMemberRVAdapter(Context context, ArrayList<GroupMember> list) {
         super(context);
-        this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_list_picture);
+        this.w = (int) getResources().getDimension(R.dimen.imageview_list_picture);
         this.list = list;
     }
 
@@ -65,7 +66,11 @@ public class GroupMemberRVAdapter extends CommonRVAdapter {
         } else if (holder instanceof OtherViewHolder) {
             OtherViewHolder h = (OtherViewHolder) holder;
             GroupMember item = list.get(position - 1);
-            Picasso.with(getContext()).load(item.getUserPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
+            Picasso.with(getContext())
+                    .load(item.getUserPicture())
+                    .resize(w, w)
+                    .centerCrop()
+                    .into(h.picture);
             h.name.setText(item.getUserName());
         }
     }
