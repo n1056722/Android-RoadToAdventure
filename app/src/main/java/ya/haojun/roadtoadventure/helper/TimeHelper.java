@@ -2,6 +2,7 @@ package ya.haojun.roadtoadventure.helper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -46,5 +47,17 @@ public class TimeHelper {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public static String toChatFormat(String time) {
+        try {
+            Date d = sdf_standard.parse(time);
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+            return c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH) + " " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
     }
 }

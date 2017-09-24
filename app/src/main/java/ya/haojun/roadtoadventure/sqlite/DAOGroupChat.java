@@ -18,6 +18,8 @@ public class DAOGroupChat {
     // other column
     private static final String GROUP_ID = "GroupId";
     private static final String USER_ID = "UserId";
+    private static final String USER_NAME = "UserName";
+    private static final String USER_PICTURE = "UserPicture";
     private static final String CONTENT = "Content";
     private static final String CREATE_DATE = "CreateDate";
 
@@ -27,6 +29,8 @@ public class DAOGroupChat {
         sb.append(GROUP_CHAT_ID + " INTEGER PRIMARY KEY, ");
         sb.append(GROUP_ID + " INTEGER NOT NULL, ");
         sb.append(USER_ID + " TEXT NOT NULL, ");
+        sb.append(USER_NAME + " TEXT NOT NULL, ");
+        sb.append(USER_PICTURE + " TEXT NOT NULL, ");
         sb.append(CONTENT + " TEXT NOT NULL, ");
         sb.append(CREATE_DATE + " TEXT NOT NULL) ");
         return sb.toString();
@@ -45,6 +49,8 @@ public class DAOGroupChat {
         cv.put(GROUP_CHAT_ID, item.getGroupChatId());
         cv.put(GROUP_ID, item.getGroupId());
         cv.put(USER_ID, item.getUserId());
+        cv.put(USER_NAME, item.getUserName());
+        cv.put(USER_PICTURE, item.getUserPicture());
         cv.put(CONTENT, item.getContent());
         cv.put(CREATE_DATE, item.getCreateDate());
 
@@ -57,6 +63,8 @@ public class DAOGroupChat {
 
         cv.put(GROUP_ID, item.getGroupId());
         cv.put(USER_ID, item.getUserId());
+        cv.put(USER_NAME, item.getUserName());
+        cv.put(USER_PICTURE, item.getUserPicture());
         cv.put(CONTENT, item.getContent());
         cv.put(CREATE_DATE, item.getCreateDate());
 
@@ -82,6 +90,20 @@ public class DAOGroupChat {
         return result;
     }
 
+    public ArrayList<GroupChat> filter(int groupId) {
+        ArrayList<GroupChat> result = new ArrayList<>();
+
+        Cursor cursor = db.query(
+                TABLENAME, null, GROUP_ID + "=" + groupId, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            result.add(getRecord(cursor));
+        }
+
+        cursor.close();
+        return result;
+    }
+
 
     public GroupChat get(int id) {
         GroupChat item = null;
@@ -97,16 +119,32 @@ public class DAOGroupChat {
         return item;
     }
 
+    public int getLastId() {
+        GroupChat item = null;
+
+        Cursor result = db.rawQuery(
+                "SELECT * FROM " + TABLENAME + " ORDER BY " + GROUP_CHAT_ID + " DESC LIMIT 1;", null);
+
+        if (result.moveToFirst()) {
+            item = getRecord(result);
+        }
+
+        result.close();
+        if (item == null) return 0;
+        return item.getGroupChatId();
+    }
+
     public GroupChat getRecord(Cursor cursor) {
         GroupChat result = new GroupChat();
         result.setGroupChatId(cursor.getInt(0));
         result.setGroupId(cursor.getInt(1));
         result.setUserId(cursor.getString(2));
-        result.setContent(cursor.getString(3));
-        result.setCreateDate(cursor.getString(4));
+        result.setUserName(cursor.getString(3));
+        result.setUserPicture(cursor.getString(4));
+        result.setContent(cursor.getString(5));
+        result.setCreateDate(cursor.getString(6));
         return result;
     }
-
 
     public int getCount() {
         int result = 0;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RoadToAdventure</string>
+    <string name="app_name">Road To Adventure</string>
 
     <string name="allow_word">0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM</string>
     <string name="confirm">確定</string>

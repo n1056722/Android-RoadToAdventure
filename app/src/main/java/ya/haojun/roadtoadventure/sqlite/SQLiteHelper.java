@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     // database name
-    public static final String DATABASE_NAME = "timer.db";
+    public static final String DATABASE_NAME = "roa.db";
     // version
-    public static final int VERSION = 3;
+    public static final int VERSION = 5;
     // database object
     private static SQLiteDatabase database;
 

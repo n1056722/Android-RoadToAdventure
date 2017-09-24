@@ -84,12 +84,14 @@ public class GroupInfoActivity extends CommonActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        Bundle b = new Bundle();
         switch (v.getId()) {
             case R.id.cv_group_info_member:
                 openActivity(GroupMemberActivity.class);
                 break;
             case R.id.cv_group_info_chat:
-                openActivity(GroupChatActivity.class);
+                b.putInt("groupId", group.getGroupId());
+                openActivity(GroupChatActivity.class, b);
                 break;
         }
     }

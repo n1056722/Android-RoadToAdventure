@@ -16,6 +16,7 @@ import ya.haojun.roadtoadventure.helper.URLHelper;
 import ya.haojun.roadtoadventure.model.Friend;
 import ya.haojun.roadtoadventure.model.FriendChat;
 import ya.haojun.roadtoadventure.model.Group;
+import ya.haojun.roadtoadventure.model.GroupChat;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
 import ya.haojun.roadtoadventure.model.Picture;
 import ya.haojun.roadtoadventure.model.User;
@@ -98,4 +99,12 @@ public interface RoadToAdventureService {
 
     @POST("Group/Get")
     Call<Group> getGroup(@Body Group group);
+
+    @POST("GroupChat/Create")
+    Call<GroupChat> createGroupChat(@Body GroupChat groupChat);
+
+    @POST("GroupChat/GetList")
+    Call<GroupChat> getGroupChatList(@Body GroupChat groupChat);
+
+
 }
