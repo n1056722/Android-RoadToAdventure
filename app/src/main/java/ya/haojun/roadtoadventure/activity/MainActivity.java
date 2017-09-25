@@ -110,6 +110,9 @@ public class MainActivity extends CommonActivity {
                 break;
             case DrawerItem.CHALLENGE_GROUP:
                 break;
+            case DrawerItem.HELP:
+                openActivity(HelpActivity.class);
+                break;
         }
     }
 

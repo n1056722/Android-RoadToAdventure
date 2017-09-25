@@ -52,7 +52,7 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@drawable/edittext_chat_send"
+            android:background="@drawable/edit_text_chat_send"
             android:hint="輸入訊息" />
 
         <ImageView

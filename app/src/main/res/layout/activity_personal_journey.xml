@@ -29,13 +29,13 @@
                     android:textSize="24sp" />
 
                 <ImageView
-                    android:id="@+id/iv_personal_journey_edit"
+                    android:id="@+id/iv_personal_journey_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/ic_edit_w" />
+                    android:src="@drawable/ic_save_w" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -61,19 +61,23 @@
                 android:id="@+id/ll_personal_journey_detail_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="名稱" />
 
-                <TextView
-                    android:id="@+id/tv_personal_journey_name"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/et_personal_journey_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_input"
                     android:textSize="20sp" />
 
                 <TextView
@@ -82,11 +86,12 @@
                     android:layout_marginTop="10dp"
                     android:text="內容" />
 
-                <TextView
-                    android:id="@+id/tv_personal_journey_content"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/et_personal_journey_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_input"
                     android:textSize="20sp" />
 
                 <TextView

@@ -65,6 +65,9 @@ public interface RoadToAdventureService {
     @POST("PersonalJourney/Create")
     Call<PersonalJourney> createPersonalJourney(@Body PersonalJourney personalJourney);
 
+    @POST("PersonalJourney/Update")
+    Call<PersonalJourney> updatePersonalJourney(@Body PersonalJourney personalJourney);
+
     @POST("PersonalJourney/GetList")
     Call<PersonalJourney> getPersonalJourneyList(@Body PersonalJourney personalJourney);
 

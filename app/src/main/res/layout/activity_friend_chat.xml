@@ -53,7 +53,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:hint="輸入訊息"
-            android:background="@drawable/edittext_chat_send" />
+            android:background="@drawable/edit_text_chat_send" />
 
         <ImageView
             android:id="@+id/iv_friend_chat_send"
