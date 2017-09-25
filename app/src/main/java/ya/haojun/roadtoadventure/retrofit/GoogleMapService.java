@@ -9,6 +9,8 @@ import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 import ya.haojun.roadtoadventure.model.GoogleDirection;
 import ya.haojun.roadtoadventure.model.GooglePath;
+import ya.haojun.roadtoadventure.model.GooglePlace;
+import ya.haojun.roadtoadventure.model.GooglePlaces;
 
 public interface GoogleMapService {
     Retrofit retrofit = new Retrofit.Builder()
@@ -24,4 +26,7 @@ public interface GoogleMapService {
 
     @GET("directions/json")
     Call<GoogleDirection> getDirections(@QueryMap Map<String, String> options);
+
+    @GET("place/nearbysearch/json")
+    Call<GooglePlaces> getPlaces(@QueryMap Map<String, String> options);
 }

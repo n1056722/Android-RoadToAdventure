@@ -2,6 +2,7 @@ package ya.haojun.roadtoadventure.helper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -20,8 +21,9 @@ public class TimeHelper {
             long gap = t.getTime() - f.getTime();
             int sec = (int) (gap / 1000);
             int hour = sec / 3600;
-            int minute = sec / 60;
-            int second = sec % 60;
+            int remainder = sec - (hour * 3600);
+            int minute = remainder / 60;
+            int second = remainder - (minute * 60);
             return String.format("%02d:%02d:%02d", hour, minute, second);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -36,5 +38,26 @@ public class TimeHelper {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static long toSecond(String time) {
+        try {
+            return sdf_standard.parse(time).getTime() / 1000;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static String toChatFormat(String time) {
+        try {
+            Date d = sdf_standard.parse(time);
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+            return c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH) + " " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
     }
 }

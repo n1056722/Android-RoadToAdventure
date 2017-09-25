@@ -11,6 +11,7 @@ public class Picture extends CommonModel {
     public static final String GROUP_JOURNEY = "3";
 
     private String picturePath;
+    private String fullPath;
 
     public Picture() {
 
@@ -26,5 +27,13 @@ public class Picture extends CommonModel {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public String getFullPath() {
+        return fullPath;
+    }
+
+    public void setFullPath(String fullPath) {
+        this.fullPath = fullPath;
     }
 }

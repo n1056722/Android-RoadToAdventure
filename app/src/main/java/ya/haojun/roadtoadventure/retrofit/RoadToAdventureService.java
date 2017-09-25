@@ -14,7 +14,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import ya.haojun.roadtoadventure.helper.URLHelper;
 import ya.haojun.roadtoadventure.model.Friend;
+import ya.haojun.roadtoadventure.model.FriendChat;
 import ya.haojun.roadtoadventure.model.Group;
+import ya.haojun.roadtoadventure.model.GroupChat;
+import ya.haojun.roadtoadventure.model.GroupMember;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
 import ya.haojun.roadtoadventure.model.Picture;
 import ya.haojun.roadtoadventure.model.User;
@@ -48,6 +51,9 @@ public interface RoadToAdventureService {
 
     @POST("User/ResetPassword")
     Call<User> resetPassword(@Body User user);
+
+    @POST("User/UpdatePicture")
+    Call<User> updatePicture(@Body User user);
 
     @Multipart
     @POST("Picture/Create")
@@ -83,12 +89,27 @@ public interface RoadToAdventureService {
     @POST("Friend/Delete")
     Call<Friend> deleteFriend(@Body Friend friend);
 
-    @POST("FriendChat/GetList")
-    Call<FriendChat> getFriendChatList(@Body Friend friend);
+//    @POST("FriendChat/GetList")
+//    Call<FriendChat> getFriendChatList(@Body Friend friend);
 
     @POST("Group/Create")
     Call<Group> createGroup(@Body Group group);
 
     @POST("Group/GetList")
     Call<Group> getGroupList(@Body User user);
+
+    @POST("Group/Get")
+    Call<Group> getGroup(@Body Group group);
+
+    @POST("GroupChat/Create")
+    Call<GroupChat> createGroupChat(@Body GroupChat groupChat);
+
+    @POST("GroupChat/GetList")
+    Call<GroupChat> getGroupChatList(@Body GroupChat groupChat);
+
+    @POST("GroupUser/Create")
+    Call<GroupMember> createGroupMember(@Body Group group);
+
+    @POST("GroupUser/Delete")
+    Call<GroupMember> deleteGroupMember(@Body GroupMember groupMember);
 }

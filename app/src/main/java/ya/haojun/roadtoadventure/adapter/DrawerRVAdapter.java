@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -61,7 +63,13 @@ public class DrawerRVAdapter extends CommonRVAdapter {
             int w = (int) getResources().getDimension(R.dimen.imageview_drawer_width);
             String picturePath = user.getUserPicture();
             if (!picturePath.isEmpty())
-                Picasso.with(getContext()).load(picturePath).resize(w, w).centerCrop().into(h.picture);
+                Picasso.with(getContext())
+                        .load(picturePath)
+                        .resize(w, w)
+                        .centerCrop()
+                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .into(h.picture);
             h.name.setText(user.getUserName());
             h.userId.setText(user.getUserId());
             h.itemView.setOnClickListener(new View.OnClickListener() {

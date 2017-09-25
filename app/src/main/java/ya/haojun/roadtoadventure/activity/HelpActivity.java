@@ -25,10 +25,10 @@ public class HelpActivity extends CommonActivity {
 
         // init TabLayout , ViewPager
         HelpFragmentPagerAdapter adapter = new HelpFragmentPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(HelpFragment.getInstance(HelpFragment.HOSPITAL), "診所醫院");
-        adapter.addFragment(HelpFragment.getInstance(HelpFragment.HOSTEL), "旅社");
-        adapter.addFragment(HelpFragment.getInstance(HelpFragment.CAR), "車行");
-        adapter.addFragment(HelpFragment.getInstance(HelpFragment.SHOP), "超商");
+        adapter.addFragment(HelpFragment.getInstance(HelpFragment.HOSPITAL), "醫院");
+        adapter.addFragment(HelpFragment.getInstance(HelpFragment.HOTEL), "旅社");
+        adapter.addFragment(HelpFragment.getInstance(HelpFragment.BIKE_SHOP), "腳踏車店");
+        adapter.addFragment(HelpFragment.getInstance(HelpFragment.CONVENIENT_SHOP), "便利商店");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);
         tabLayout.setupWithViewPager(viewPager);

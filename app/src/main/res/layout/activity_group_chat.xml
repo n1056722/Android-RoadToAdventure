@@ -36,8 +36,8 @@
         android:id="@+id/rv_group_chat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#B3DBF4"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="#B3DBF4" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,14 +52,15 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:hint="輸入訊息"
-            android:background="@drawable/edittext_chat_send" />
+            android:background="@drawable/edittext_chat_send"
+            android:hint="輸入訊息" />
 
         <ImageView
             android:id="@+id/iv_group_chat_send"
-            android:layout_width="@dimen/imageview_chat_send"
-            android:layout_height="@dimen/imageview_chat_send"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
+            android:layout_marginRight="5dp"
             android:src="@drawable/ic_send_w" />
     </LinearLayout>
 </LinearLayout>

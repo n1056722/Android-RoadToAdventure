@@ -17,6 +17,8 @@ public class User extends CommonModel {
     private String verificationCode;
     private String oldPassword;
     private String newPassword;
+    //
+    private String picturePath;
 
 
     public static User getInstance() {
@@ -97,6 +99,14 @@ public class User extends CommonModel {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 
     public JSONObject getJSONObject() {

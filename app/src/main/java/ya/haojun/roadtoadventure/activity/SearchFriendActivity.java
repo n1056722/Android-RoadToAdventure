@@ -1,10 +1,8 @@
 package ya.haojun.roadtoadventure.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,7 +13,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
-import ya.haojun.roadtoadventure.adapter.PersonalJourneyListRVAdapter;
 import ya.haojun.roadtoadventure.adapter.SearchFriendRVAdapter;
 import ya.haojun.roadtoadventure.model.Friend;
 import ya.haojun.roadtoadventure.model.User;
@@ -35,8 +32,6 @@ public class SearchFriendActivity extends CommonActivity implements View.OnClick
         list_search = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new SearchFriendRVAdapter(this, list_search));
-
-
     }
 
     private void searchFriends(String input) {
@@ -58,7 +53,6 @@ public class SearchFriendActivity extends CommonActivity implements View.OnClick
                                 list_search.add(f);
                             }
                         }
-                        Log.d("ppp", list_search.size() + "");
                         rv.getAdapter().notifyDataSetChanged();
                     } else {
                         t(R.string.empty);
@@ -75,7 +69,7 @@ public class SearchFriendActivity extends CommonActivity implements View.OnClick
     }
 
     public void createFriend(String friendId) {
-        Toast.makeText(this, User.getInstance().getUserId() +" "+ friendId , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, User.getInstance().getUserId() + " " + friendId, Toast.LENGTH_SHORT).show();
         Friend params = new Friend();
         params.setUserId(User.getInstance().getUserId());
         params.setFriendId(friendId);

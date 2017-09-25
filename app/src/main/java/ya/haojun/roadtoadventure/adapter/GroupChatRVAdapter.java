@@ -13,31 +13,33 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
+import ya.haojun.roadtoadventure.helper.TimeHelper;
 import ya.haojun.roadtoadventure.model.FriendChat;
+import ya.haojun.roadtoadventure.model.GroupChat;
 import ya.haojun.roadtoadventure.model.User;
 
 
-public class ChatRVAdapter extends CommonRVAdapter {
+public class GroupChatRVAdapter extends CommonRVAdapter {
 
     // type
     private static final int SELF = 0;
     private static final int OTHER = 1;
 
     // data
-    private int pictureWidth;
+    private int w;
     private String selfUserID;
-    private ArrayList<FriendChat> list;
+    private ArrayList<GroupChat> list;
 
-    public ChatRVAdapter(Context context, ArrayList<FriendChat> list) {
+    public GroupChatRVAdapter(Context context, ArrayList<GroupChat> list) {
         super(context);
-        this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_chat_picture);
+        this.w = (int) (getResources().getDisplayMetrics().density * 40);
         this.selfUserID = User.getInstance().getUserId();
         this.list = list;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return list.get(position).getUserID().equals(selfUserID) ? SELF : OTHER;
+        return list.get(position).getUserId().equals(selfUserID) ? SELF : OTHER;
     }
 
     @Override
@@ -52,17 +54,21 @@ public class ChatRVAdapter extends CommonRVAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        FriendChat item = list.get(position);
+        GroupChat item = list.get(position);
         if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;
             h.content.setText(item.getContent());
-            h.createDate.setText(item.getCreateDate());
+            h.createDate.setText(TimeHelper.toChatFormat(item.getCreateDate()));
         } else if (holder instanceof OtherGroupViewHolder) {
             OtherGroupViewHolder h = (OtherGroupViewHolder) holder;
-            Picasso.with(getContext()).load(item.getUserPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
+            Picasso.with(getContext())
+                    .load(item.getUserPicture())
+                    .resize(w, w)
+                    .centerCrop()
+                    .into(h.picture);
             h.name.setText(item.getUserName());
             h.content.setText(item.getContent());
-            h.createDate.setText(item.getCreateDate());
+            h.createDate.setText(TimeHelper.toChatFormat(item.getCreateDate()));
         }
     }
 

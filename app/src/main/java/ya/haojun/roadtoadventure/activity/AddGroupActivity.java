@@ -72,7 +72,7 @@ public class AddGroupActivity extends CommonActivity implements View.OnClickList
         // init RecyclerView
         list_member = new ArrayList<>();
         rv_member.setLayoutManager(new GridLayoutManager(this, 3));
-        rv_member.setAdapter(new GroupMemberRVAdapter(this, list_member));
+        rv_member.setAdapter(new GroupMemberRVAdapter(this, list_member, GroupMemberRVAdapter.ADD_GROUP));
     }
 
     private void createPicture(final String name) {
@@ -163,6 +163,7 @@ public class AddGroupActivity extends CommonActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        hideKeyBoard(v);
         switch (v.getId()) {
             case R.id.iv_add_group_done:
                 String name = et_name.getText().toString();

@@ -1,6 +1,7 @@
 package ya.haojun.roadtoadventure.adapter;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -16,23 +17,30 @@ import java.util.ArrayList;
 import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.activity.AddGroupActivity;
 import ya.haojun.roadtoadventure.activity.FriendChatActivity;
+import ya.haojun.roadtoadventure.activity.GroupMemberActivity;
 import ya.haojun.roadtoadventure.activity.InviteMemberActivity;
+import ya.haojun.roadtoadventure.helper.LogHelper;
 import ya.haojun.roadtoadventure.model.Friend;
 import ya.haojun.roadtoadventure.model.GroupMember;
 
 
 public class GroupMemberRVAdapter extends CommonRVAdapter {
 
+    // origin
+    public static final int ADD_GROUP = 0;
+    public static final int GROUP_MEMBER = 1;
     // type
     public static final int FIRST = 0;
     public static final int OTHER = 1;
     // data
-    private int pictureWidth;
+    private int w;
+    private int origin;
     private ArrayList<GroupMember> list;
 
-    public GroupMemberRVAdapter(Context context, ArrayList<GroupMember> list) {
+    public GroupMemberRVAdapter(Context context, ArrayList<GroupMember> list, int origin) {
         super(context);
-        this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_list_picture);
+        this.w = (int) (getResources().getDisplayMetrics().density * 100);
+        this.origin = origin;
         this.list = list;
     }
 
@@ -59,14 +67,30 @@ public class GroupMemberRVAdapter extends CommonRVAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), InviteMemberActivity.class);
-                    ((AddGroupActivity)getContext()).startActivityForResult(intent, AddGroupActivity.REQUEST_INVITE_MEMBER);
+                    if (origin == ADD_GROUP) {
+                        ((AddGroupActivity) getContext()).startActivityForResult(intent, AddGroupActivity.REQUEST_INVITE_MEMBER);
+                    } else if (origin == GROUP_MEMBER) {
+                        ((GroupMemberActivity) getContext()).startActivityForResult(intent, GroupMemberActivity.REQUEST_INVITE_MEMBER);
+                    }
                 }
             });
         } else if (holder instanceof OtherViewHolder) {
             OtherViewHolder h = (OtherViewHolder) holder;
-            GroupMember item = list.get(position - 1);
-            Picasso.with(getContext()).load(item.getUserPicture()).resize(pictureWidth, pictureWidth).centerCrop().into(h.picture);
+            final GroupMember item = list.get(position - 1);
+            Picasso.with(getContext())
+                    .load(item.getUserPicture())
+                    .resize(w, w)
+                    .centerCrop()
+                    .into(h.picture);
             h.name.setText(item.getUserName());
+            h.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (origin == GROUP_MEMBER) {
+                        ((GroupMemberActivity) getContext()).displayMemberInfo(item);
+                    }
+                }
+            });
         }
     }
 

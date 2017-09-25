@@ -11,8 +11,9 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="2dp">
+        app:cardBackgroundColor="#CCC"
+        app:cardCornerRadius="1dp"
+        app:cardElevation="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,16 +24,18 @@
                 android:id="@+id/tv_item_rv_help_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#0071BC"
                 android:padding="10dp"
+                android:background="#0071BC"
                 android:text="惠生診所"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="#FFF"
                 android:textSize="20sp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#CCC"
                 android:orientation="horizontal"
                 android:padding="5dp">
 
@@ -55,31 +58,39 @@
                     android:textSize="20sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_item_rv_help_distance"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#CCC"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:layout_margin="10dp"
+                android:text="100公尺"
+                android:textColor="#000"
+                android:textSize="20sp" />
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="#CCC"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="5dp">-->
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_help_phone" />
+            <!--<ImageView-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:src="@drawable/ic_help_phone" />-->
 
-                <TextView
-                    android:id="@+id/tv_item_rv_help_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="02-2394-4488"
-                    android:textColor="#000"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/tv_item_rv_help_phone"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:ellipsize="end"-->
+            <!--android:maxLines="1"-->
+            <!--android:text="02-2394-4488"-->
+            <!--android:textColor="#000"-->
+            <!--android:textSize="20sp" />-->
+            <!--</LinearLayout>-->
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

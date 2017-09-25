@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     // database name
-    public static final String DATABASE_NAME = "timer.db";
+    public static final String DATABASE_NAME = "roa.db";
     // version
-    public static final int VERSION = 3;
+    public static final int VERSION = 5;
     // database object
     private static SQLiteDatabase database;
 
@@ -29,12 +29,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DAOLocationRecord.createTable());
         db.execSQL(DAOJourney.createTable());
+        db.execSQL(DAOGroupChat.createTable());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + DAOLocationRecord.TABLENAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOJourney.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOGroupChat.TABLENAME);
         onCreate(db);
     }
 }
