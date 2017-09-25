@@ -14,6 +14,8 @@ public class GroupMember extends CommonModel implements Parcelable{
     private String groupRoleName;
     //
     private ArrayList<GroupMember> members;
+    private int groupId;
+    private String targetUserId;
 
     public GroupMember(){
         members = new ArrayList<>();
@@ -87,6 +89,22 @@ public class GroupMember extends CommonModel implements Parcelable{
 
     public ArrayList<GroupMember> getMembers() {
         return members;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getTargetUserId() {
+        return targetUserId;
+    }
+
+    public void setTargetUserId(String targetUserId) {
+        this.targetUserId = targetUserId;
     }
 
     @Override

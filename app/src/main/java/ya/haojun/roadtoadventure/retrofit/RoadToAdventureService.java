@@ -109,4 +109,7 @@ public interface RoadToAdventureService {
 
     @POST("GroupUser/Create")
     Call<GroupMember> createGroupMember(@Body Group group);
+
+    @POST("GroupUser/Delete")
+    Call<GroupMember> deleteGroupMember(@Body GroupMember groupMember);
 }

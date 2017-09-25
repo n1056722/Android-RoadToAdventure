@@ -39,7 +39,7 @@ public class GroupMemberRVAdapter extends CommonRVAdapter {
 
     public GroupMemberRVAdapter(Context context, ArrayList<GroupMember> list, int origin) {
         super(context);
-        this.w = (int) getResources().getDimension(R.dimen.imageview_list_picture);
+        this.w = (int) (getResources().getDisplayMetrics().density * 100);
         this.origin = origin;
         this.list = list;
     }
