@@ -16,6 +16,7 @@ import ya.haojun.roadtoadventure.adapter.ChatRVAdapter;
 import ya.haojun.roadtoadventure.adapter.GroupChatRVAdapter;
 import ya.haojun.roadtoadventure.helper.LogHelper;
 import ya.haojun.roadtoadventure.model.FriendChat;
+import ya.haojun.roadtoadventure.model.Group;
 import ya.haojun.roadtoadventure.model.GroupChat;
 import ya.haojun.roadtoadventure.model.User;
 import ya.haojun.roadtoadventure.retrofit.RoadToAdventureService;
@@ -27,7 +28,7 @@ public class GroupChatActivity extends CommonActivity implements View.OnClickLis
     private RecyclerView rv;
     private EditText et_input;
     // extra
-    private int groupId;
+    private Group group;
     // data
     private ArrayList<GroupChat> list_chat;
 
@@ -42,7 +43,7 @@ public class GroupChatActivity extends CommonActivity implements View.OnClickLis
         findViewById(R.id.iv_group_chat_send).setOnClickListener(this);
 
         // extra
-        groupId = getIntent().getExtras().getInt("groupId");
+        group = getIntent().getExtras().getParcelable("group");
 
         // init
         list_chat = new ArrayList<>();
@@ -54,7 +55,7 @@ public class GroupChatActivity extends CommonActivity implements View.OnClickLis
     }
 
     private void getLocalGroupChat() {
-        ArrayList<GroupChat> list = new DAOGroupChat(this).filter(groupId);
+        ArrayList<GroupChat> list = new DAOGroupChat(this).filter(group.getGroupId());
         list_chat.clear();
         list_chat.addAll(list);
         rv.getAdapter().notifyDataSetChanged();
@@ -63,7 +64,7 @@ public class GroupChatActivity extends CommonActivity implements View.OnClickLis
 
     private void getGroupChat() {
         GroupChat params = new GroupChat();
-        params.setGroupId(groupId);
+        params.setGroupId(group.getGroupId());
 
         Call<GroupChat> call = RoadToAdventureService.service.getGroupChatList(params);
         showLoadingDialog();
@@ -100,7 +101,7 @@ public class GroupChatActivity extends CommonActivity implements View.OnClickLis
 
     private void createGroupChat(String content) {
         GroupChat params = new GroupChat();
-        params.setGroupId(groupId);
+        params.setGroupId(group.getGroupId());
         params.setUserId(User.getInstance().getUserId());
         params.setContent(content);
         params.setLastChatId(new DAOGroupChat(this).getLastId());

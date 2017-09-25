@@ -72,7 +72,7 @@ public class AddGroupActivity extends CommonActivity implements View.OnClickList
         // init RecyclerView
         list_member = new ArrayList<>();
         rv_member.setLayoutManager(new GridLayoutManager(this, 3));
-        rv_member.setAdapter(new GroupMemberRVAdapter(this, list_member));
+        rv_member.setAdapter(new GroupMemberRVAdapter(this, list_member, GroupMemberRVAdapter.ADD_GROUP));
     }
 
     private void createPicture(final String name) {

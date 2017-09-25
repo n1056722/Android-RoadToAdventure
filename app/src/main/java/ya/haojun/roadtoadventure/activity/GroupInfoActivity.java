@@ -1,5 +1,6 @@
 package ya.haojun.roadtoadventure.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,8 @@ import ya.haojun.roadtoadventure.retrofit.RoadToAdventureService;
 
 public class GroupInfoActivity extends CommonActivity implements View.OnClickListener {
 
+    // request
+    public static final int REQUEST_MEMBER = 0;
     // ui
     private ImageView iv_group_picture;
     private TextView tv_group_name;
@@ -85,13 +88,24 @@ public class GroupInfoActivity extends CommonActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         Bundle b = new Bundle();
+        b.putParcelable("group", group);
         switch (v.getId()) {
             case R.id.cv_group_info_member:
-                openActivity(GroupMemberActivity.class);
+                openActivityForResult(GroupMemberActivity.class, REQUEST_MEMBER, b);
                 break;
             case R.id.cv_group_info_chat:
-                b.putInt("groupId", group.getGroupId());
                 openActivity(GroupChatActivity.class, b);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_MEMBER:
+                group = data.getParcelableExtra("group");
                 break;
         }
     }

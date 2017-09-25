@@ -1,21 +1,43 @@
 package ya.haojun.roadtoadventure.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Group extends CommonModel{
+public class Group extends CommonModel implements Parcelable{
     private int groupId;
-    private String userId;
     private String name;
     private String picturePath;
     private ArrayList<GroupMember> members;
     //
+    private String userId;
     private ArrayList<Group> groups;
 
     public Group(){
         members = new ArrayList<>();
         groups = new ArrayList<>();
     }
+
+    protected Group(Parcel in) {
+        groupId = in.readInt();
+        name = in.readString();
+        picturePath = in.readString();
+        members = in.createTypedArrayList(GroupMember.CREATOR);
+    }
+
+    public static final Creator<Group> CREATOR = new Creator<Group>() {
+        @Override
+        public Group createFromParcel(Parcel in) {
+            return new Group(in);
+        }
+
+        @Override
+        public Group[] newArray(int size) {
+            return new Group[size];
+        }
+    };
 
     public int getGroupId() {
         return groupId;
@@ -55,5 +77,18 @@ public class Group extends CommonModel{
 
     public ArrayList<Group> getGroups() {
         return groups;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(groupId);
+        dest.writeString(name);
+        dest.writeString(picturePath);
+        dest.writeTypedList(members);
     }
 }
