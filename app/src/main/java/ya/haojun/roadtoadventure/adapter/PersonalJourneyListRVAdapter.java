@@ -62,9 +62,8 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
                         .centerCrop()
                         .into(h.picture);
             }
-            h.createDate.setText(TimeHelper.convertToNoYearSecond(item.getCreateDate()));
+            h.createDate.setText(TimeHelper.toDate(item.getCreateDate()));
             h.name.setText(item.getName());
-            h.content.setText(item.getContent());
             h.status.setText(getStatus(item.getStatus()));
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,18 +86,16 @@ public class PersonalJourneyListRVAdapter extends CommonRVAdapter {
     private class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView picture;
+        TextView name;
         TextView status;
         TextView createDate;
-        TextView name;
-        TextView content;
 
         ViewHolder(View v) {
             super(v);
             picture = (ImageView) v.findViewById(R.id.iv_item_rv_personal_journey_list_picture);
+            name = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_name);
             status = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_status);
             createDate = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_create_date);
-            name = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_name);
-            content = (TextView) v.findViewById(R.id.tv_item_rv_personal_journey_list_content);
         }
     }
 

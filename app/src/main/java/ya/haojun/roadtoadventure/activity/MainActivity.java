@@ -180,7 +180,7 @@ public class MainActivity extends CommonActivity {
                     findViewById(R.id.ll_main_weather_loading).setVisibility(View.GONE);
                     findViewById(R.id.ll_main_weather_result).setVisibility(View.VISIBLE);
                     iv_weather_image.setImageResource(YahooWeatherHelper.getWeatherPicture(code));
-                    tv_weather_date.setText(TimeHelper.convertToNoYearSecond(TimeHelper.now()));
+                    tv_weather_date.setText(TimeHelper.toDateMinute(TimeHelper.now()));
                     tv_weather_name.setText(YahooWeatherHelper.getWeatherName(code));
                     tv_weather_temperature.setText(YahooWeatherHelper.getWeatherTemp(temp));
                 } catch (JSONException e) {
