@@ -27,6 +27,10 @@ public class FriendChat {
 
     }
 
+    public FriendChat() {
+        
+    }
+
     public String getFriendID() {
         return friendID;
     }
@@ -97,5 +101,9 @@ public class FriendChat {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+
+    public void getCreateDate(String string) {
     }
 }

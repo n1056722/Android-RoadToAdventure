@@ -104,11 +104,11 @@ public class DAOFriendChat {
     }
 
 
-    public JourneyModel get(int id) {
+    public FriendChat get(int id) {
 
-        JourneyModel item = null;
+        FriendChat item = null;
 
-        String where = JOURNEY_ID + "=" + id;
+        String where = FRIEND_CHAT_ID + "=" + id;
 
         Cursor result = db.query(
                 TABLENAME, null, where, null, null, null, null, null);
@@ -125,11 +125,11 @@ public class DAOFriendChat {
         return item;
     }
 
-    public JourneyModel getLast() {
+    public FriendChat getLast() {
 
-        JourneyModel item = null;
+        FriendChat item = null;
 
-        Cursor result = db.rawQuery("SELECT * FROM "+TABLENAME+" ORDER BY "+JOURNEY_ID+" DESC LIMIT 1;", null);
+        Cursor result = db.rawQuery("SELECT * FROM "+TABLENAME+" ORDER BY "+FRIEND_CHAT_ID+" DESC LIMIT 1;", null);
 
 
         if (result.moveToFirst()) {
@@ -143,14 +143,17 @@ public class DAOFriendChat {
         return item;
     }
 
-    public JourneyModel getRecord(Cursor cursor) {
+    public FriendChat getRecord(Cursor cursor) {
         // Course
-        JourneyModel result = new JourneyModel();
-        result.setJourneyId((int) cursor.getLong(0));
-        result.setJourneyName(cursor.getString(1));
-        result.setJourneyContent(cursor.getString(2));
-        result.setStartTime(cursor.getString(3));
-        result.setStopTime(cursor.getString(4));
+        FriendChat result = new FriendChat();
+        result.setUserID(( cursor.getString(0)));
+        result.setUserName(cursor.getString(1));
+        result.setUserPicture(cursor.getString(2));
+        result.setFriendID(cursor.getString(3));
+        result.setFriendName(cursor.getString(4));
+        result.setFriendPicture(cursor.getString(5));
+        result.setContent(cursor.getString(6));
+        result.getCreateDate(cursor.getString(7));
         return result;
     }
 
