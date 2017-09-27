@@ -22,6 +22,7 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
 
     // request
     public static final int REQUEST_ADD_PERSONAL_JOURNEY = 0;
+    public static final int REQUEST_PERSONAL_JOURNEY = 1;
     // ui
     private RecyclerView rv;
     // data
@@ -42,10 +43,10 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
         getPersonalJourneyList();
     }
 
-    public void onItemClick(PersonalJourney item){
+    public void onItemClick(PersonalJourney item) {
         Bundle b = new Bundle();
         b.putInt("personalJourneyId", item.getPersonalJourneyId());
-        openActivity(PersonalJourneyActivity.class, b);
+        openActivityForResult(PersonalJourneyActivity.class, REQUEST_PERSONAL_JOURNEY, b);
     }
 
     private void getPersonalJourneyList() {
@@ -94,6 +95,7 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_ADD_PERSONAL_JOURNEY:
+            case REQUEST_PERSONAL_JOURNEY:
                 getPersonalJourneyList();
                 break;
         }

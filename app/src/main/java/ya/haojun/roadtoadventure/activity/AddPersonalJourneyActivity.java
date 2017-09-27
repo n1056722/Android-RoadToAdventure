@@ -44,8 +44,6 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
     // ui
     private ImageView iv_map_picture;
     private Spinner sp_open;
-    private TextView tv_start_date, tv_start_time;
-    private TextView tv_end_date, tv_end_time;
     // select distance extra
     private File file_map_picture;
     private String points;
@@ -59,18 +57,10 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
 
         // ui reference
         iv_map_picture = (ImageView) findViewById(R.id.iv_add_personal_journey_map_picture);
-//        tv_start_date = (TextView) findViewById(R.id.tv_add_personal_journey_start_date);
-//        tv_start_time = (TextView) findViewById(R.id.tv_add_personal_journey_start_time);
-//        tv_end_date = (TextView) findViewById(R.id.tv_add_personal_journey_end_date);
-//        tv_end_time = (TextView) findViewById(R.id.tv_add_personal_journey_end_time);
         sp_open = (Spinner) findViewById(R.id.sp_add_personal_journey_open);
         findViewById(R.id.iv_add_personal_journey_map_picture).setOnClickListener(this);
         findViewById(R.id.tv_add_personal_journey_direction).setOnClickListener(this);
         findViewById(R.id.iv_add_personal_journey_done).setOnClickListener(this);
-//        tv_start_date.setOnClickListener(this);
-//        tv_start_time.setOnClickListener(this);
-//        tv_end_date.setOnClickListener(this);
-//        tv_end_time.setOnClickListener(this);
         // init
         sp_open.setAdapter(new JourneyOpenListAdapter(this));
 
@@ -206,19 +196,9 @@ public class AddPersonalJourneyActivity extends CommonActivity implements View.O
             case R.id.iv_add_personal_journey_map_picture:
                 openActivityForResult(SelectDistanceMapActivity.class, SELECT_JOURNEY);
                 break;
-//            case R.id.tv_add_personal_journey_start_date:
-//            case R.id.tv_add_personal_journey_end_date:
-//                showDatePickerDialog((TextView) v);
-//                break;
-//            case R.id.tv_add_personal_journey_start_time:
-//            case R.id.tv_add_personal_journey_end_time:
-//                showTimePickerDialog((TextView) v);
-//                break;
             case R.id.iv_add_personal_journey_done:
                 String name = ((EditText) findViewById(R.id.et_add_personal_journey_name)).getText().toString();
                 String content = ((EditText) findViewById(R.id.et_add_personal_journey_content)).getText().toString();
-//                String startTime = tv_start_date.getText().toString().substring(0, 10) + " " + tv_start_time.getText().toString().substring(0, 5);
-//                String endTime = tv_end_date.getText().toString().substring(0, 10) + " " + tv_end_time.getText().toString().substring(0, 5);
                 if (name.isEmpty()) {
                     t(R.string.empty_error);
                     return;

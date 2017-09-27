@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,9 +29,9 @@ import ya.haojun.roadtoadventure.sqlite.DAOLocationRecord;
 public class PersonalJourneyActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
-    private TextView tv_name, tv_content,
-            tv_start_time, tv_end_time, tv_status,
+    private TextView tv_start_time, tv_end_time, tv_status,
             tv_ride_time, tv_ride_distance, tv_average_speed;
+    private EditText et_name, et_content;
     private ImageView iv_map_picture;
     // extra
     private int personalJourneyId;
@@ -43,8 +44,8 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
         setContentView(R.layout.activity_personal_journey);
 
         // ui reference
-        tv_name = (TextView) findViewById(R.id.tv_personal_journey_name);
-        tv_content = (TextView) findViewById(R.id.tv_personal_journey_content);
+        et_name = (EditText) findViewById(R.id.et_personal_journey_name);
+        et_content = (EditText) findViewById(R.id.et_personal_journey_content);
         tv_start_time = (TextView) findViewById(R.id.tv_personal_journey_start_time);
         tv_end_time = (TextView) findViewById(R.id.tv_personal_journey_end_time);
         tv_status = (TextView) findViewById(R.id.tv_personal_journey_status);
@@ -53,6 +54,7 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
         tv_ride_distance = (TextView) findViewById(R.id.tv_personal_journey_ride_distance);
         tv_average_speed = (TextView) findViewById(R.id.tv_personal_journey_average_speed);
         findViewById(R.id.tv_personal_journey_detail_info).setOnClickListener(this);
+        findViewById(R.id.iv_personal_journey_save).setOnClickListener(this);
         tv_status.setOnClickListener(this);
         iv_map_picture.setOnClickListener(this);
         // extra
@@ -75,8 +77,8 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
                     PersonalJourney result = response.body();
                     if (result.isSuccess()) {
                         personalJourney = result;
-                        tv_name.setText(personalJourney.getName());
-                        tv_content.setText(personalJourney.getContent());
+                        et_name.setText(personalJourney.getName());
+                        et_content.setText(personalJourney.getContent());
                         tv_start_time.setText(personalJourney.getStartTime().equals("None") ? "" : personalJourney.getStartTime());
                         tv_end_time.setText(personalJourney.getEndTime().equals("None") ? "" : personalJourney.getEndTime());
                         tv_status.setText(getStatusText(personalJourney.getStatus()));
@@ -195,9 +197,53 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
         }
     }
 
+    private void updatePersonalJourney(final String name, final String content) {
+        PersonalJourney params = new PersonalJourney();
+        params.setPersonalJourneyId(personalJourneyId);
+        params.setName(name);
+        params.setContent(content);
+
+        Call<PersonalJourney> call = RoadToAdventureService.service.updatePersonalJourney(params);
+        showLoadingDialog();
+        call.enqueue(new Callback<PersonalJourney>() {
+            @Override
+            public void onResponse(Call<PersonalJourney> call, Response<PersonalJourney> response) {
+                dismissLoadingDialog();
+                if (isResponseOK(response)) {
+                    PersonalJourney result = response.body();
+                    if (result.isSuccess()) {
+                        t(R.string.success);
+                        personalJourney.setName(name);
+                        personalJourney.setContent(content);
+                        setResult(RESULT_OK);
+                    } else {
+                        t(R.string.fail);
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PersonalJourney> call, Throwable t) {
+                dismissLoadingDialog();
+                t(t.toString());
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
+        hideKeyBoard(v);
         switch (v.getId()) {
+            case R.id.iv_personal_journey_save:
+                String name = et_name.getText().toString();
+                String content = et_content.getText().toString();
+                if (name.isEmpty() || content.isEmpty()) {
+                    t(R.string.empty_error);
+                    return;
+                }
+                updatePersonalJourney(name, content);
+                break;
             case R.id.tv_personal_journey_detail_info:
                 View ll_detail_info = findViewById(R.id.ll_personal_journey_detail_info);
                 ll_detail_info.setVisibility(ll_detail_info.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
