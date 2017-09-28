@@ -55,7 +55,7 @@ public class PersonalJourneyListActivity extends CommonActivity implements View.
                 }
             }
         });
-        
+
         getPersonalJourneyList();
     }
 

@@ -121,7 +121,7 @@ public class MainActivity extends CommonActivity {
         ArrayList<MainItem> list = new ArrayList<>();
         list.add(new MainItem(R.drawable.ic_record, MainItem.RECORD, ContextCompat.getColor(this, R.color.main_record), Color.BLACK));
         list.add(new MainItem(R.drawable.ic_position, MainItem.POSITION, ContextCompat.getColor(this, R.color.main_position), Color.BLACK));
-        list.add(new MainItem(R.drawable.ic_tip, MainItem.TIP, ContextCompat.getColor(this, R.color.main_tip), Color.BLACK));
+        list.add(new MainItem(R.drawable.ic_discussion, MainItem.DISCUSSION, ContextCompat.getColor(this, R.color.main_discussion), Color.BLACK));
         list.add(new MainItem(R.drawable.ic_together, MainItem.TOGETHER, ContextCompat.getColor(this, R.color.main_together), Color.BLACK));
         list.add(new MainItem(R.drawable.ic_chat, MainItem.CHAT, ContextCompat.getColor(this, R.color.main_chat), Color.WHITE));
         list.add(new MainItem(R.drawable.ic_help, MainItem.HELP, ContextCompat.getColor(this, R.color.main_help), Color.BLACK));
@@ -140,7 +140,8 @@ public class MainActivity extends CommonActivity {
                 break;
             case MainItem.POSITION:
                 break;
-            case MainItem.TIP:
+            case MainItem.DISCUSSION:
+                openActivity(DiscussionListActivity.class);
                 break;
             case MainItem.TOGETHER:
                 break;

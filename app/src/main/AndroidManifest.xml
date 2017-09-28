@@ -89,7 +89,8 @@
         <activity android:name=".activity.PersonalJourneyActivity" />
         <activity android:name=".activity.PictureActivity" />
         <activity android:name=".activity.CropActivity" />
-        <activity android:name=".activity.InviteMemberActivity"></activity>
+        <activity android:name=".activity.InviteMemberActivity" />
+        <activity android:name=".activity.DiscussionListActivity"></activity>
     </application>
 
 </manifest>

@@ -3,7 +3,7 @@ package ya.haojun.roadtoadventure.model;
 public class MainItem {
     public static final String RECORD = "騎乘紀錄";
     public static final String POSITION = "即時定位";
-    public static final String TIP = "路程攻略";
+    public static final String DISCUSSION = "路程攻略";
     public static final String TOGETHER = "揪愛騎";
     public static final String CHAT = "聊天室";
     public static final String HELP = "急難救助";
