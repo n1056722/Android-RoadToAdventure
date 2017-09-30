@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import retrofit2.Response;
@@ -21,6 +22,14 @@ public class CommonActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setRequestedOrientation(true ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT : ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
+    protected void setUpToolbar(String title) {
+        setUpToolbar(R.id.tv_toolbar_title, title);
+    }
+
+    protected void setUpToolbar(int textViewId, String title) {
+        ((TextView) findViewById(textViewId)).setText(title);
     }
 
 

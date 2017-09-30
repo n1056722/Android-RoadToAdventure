@@ -16,9 +16,10 @@ import ya.haojun.roadtoadventure.retrofit.RoadToAdventureService;
 
 public class DiscussionListActivity extends CommonActivity {
 
+    // request
+    public static final int REQUEST_DISCUSSION = 0;
     // ui
     private RecyclerView rv;
-
     // data
     private ArrayList<PersonalJourney> list_personal_journey;
 
@@ -65,5 +66,11 @@ public class DiscussionListActivity extends CommonActivity {
                 t(t.toString());
             }
         });
+    }
+
+    public void onItemClick(PersonalJourney item) {
+        Bundle b = new Bundle();
+        b.putInt("personalJourneyId", item.getPersonalJourneyId());
+        openActivityForResult(DiscussionActivity.class, REQUEST_DISCUSSION, b);
     }
 }

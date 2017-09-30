@@ -19,13 +19,19 @@ public class PersonalJourney extends CommonModel {
     private ArrayList<LocationRecordModel> routes;
     //
     private ArrayList<PersonalJourney> personalJourneys;
+    private ArrayList<PersonalJourneyComment> comments;
     private String userName;
     private String userPicture;
 
     public PersonalJourney() {
         pictures = new ArrayList<>();
         personalJourneys = new ArrayList<>();
+        comments = new ArrayList<>();
         routes= new ArrayList<>();
+    }
+
+    public ArrayList<PersonalJourneyComment> getComments() {
+        return comments;
     }
 
     public ArrayList<PersonalJourney> getPersonalJourneys() {

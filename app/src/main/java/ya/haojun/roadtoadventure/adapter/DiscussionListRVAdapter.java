@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ya.haojun.roadtoadventure.R;
+import ya.haojun.roadtoadventure.activity.DiscussionListActivity;
 import ya.haojun.roadtoadventure.activity.PersonalJourneyListActivity;
 import ya.haojun.roadtoadventure.helper.TimeHelper;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
@@ -63,7 +64,7 @@ public class DiscussionListRVAdapter extends CommonRVAdapter {
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    ((DiscussionListActivity)getContext()).onItemClick(item);
                 }
             });
         }

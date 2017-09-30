@@ -90,7 +90,8 @@
         <activity android:name=".activity.PictureActivity" />
         <activity android:name=".activity.CropActivity" />
         <activity android:name=".activity.InviteMemberActivity" />
-        <activity android:name=".activity.DiscussionListActivity"></activity>
+        <activity android:name=".activity.DiscussionListActivity" />
+        <activity android:name=".activity.DiscussionActivity"></activity>
     </application>
 
 </manifest>
