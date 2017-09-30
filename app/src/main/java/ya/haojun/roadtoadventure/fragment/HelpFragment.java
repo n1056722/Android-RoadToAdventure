@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,6 +56,7 @@ public class HelpFragment extends CommonFragment {
     public static final int CONVENIENT_SHOP = 3;
 
     // ui
+    private SwipeRefreshLayout srl;
     private RecyclerView rv;
     // extra
     private int type;
@@ -78,6 +80,7 @@ public class HelpFragment extends CommonFragment {
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
+        srl = (SwipeRefreshLayout) v.findViewById(R.id.srl_fragment_help);
         rv = (RecyclerView) v.findViewById(R.id.rv_fragment_help);
     }
 
@@ -91,7 +94,20 @@ public class HelpFragment extends CommonFragment {
         list = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(new HelpRVAdapter(getActivity(), list));
-        getHospital();
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srl.setRefreshing(true);
+                getPlaces();
+            }
+        });
+        srl.setColorSchemeResources(
+                android.R.color.holo_red_light,
+                android.R.color.holo_blue_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light);
+
+        getPlaces();
     }
 
     private String getKeyword() {
@@ -101,17 +117,17 @@ public class HelpFragment extends CommonFragment {
         return "便利商店";
     }
 
-    private void getHospital() {
+    private void getPlaces() {
         // get last location
         LocationRecordModel l = new DAOLocationRecord(getActivity()).getLast();
         final LatLng latLng = new LatLng(l.getLatitude(), l.getLongitude());
 
         Call<GooglePlaces> call = GoogleMapService.service.getPlaces(GoogleMapHelper.getPlacesQueryString(getActivity(), latLng, keyword));
-//        showLoadingDialog();
+        srl.setRefreshing(true);
         call.enqueue(new Callback<GooglePlaces>() {
             @Override
             public void onResponse(Call<GooglePlaces> call, Response<GooglePlaces> response) {
-//                dismissLoadingDialog();
+                srl.setRefreshing(false);
                 if (isResponseOK(response)) {
                     GooglePlaces result = response.body();
                     list.clear();
@@ -130,7 +146,7 @@ public class HelpFragment extends CommonFragment {
 
             @Override
             public void onFailure(Call<GooglePlaces> call, Throwable t) {
-//                dismissLoadingDialog();
+                srl.setRefreshing(false);
                 t(t.toString());
             }
         });

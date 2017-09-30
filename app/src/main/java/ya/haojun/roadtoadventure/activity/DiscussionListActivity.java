@@ -1,6 +1,7 @@
 package ya.haojun.roadtoadventure.activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ public class DiscussionListActivity extends CommonActivity {
     // request
     public static final int REQUEST_DISCUSSION = 0;
     // ui
+    private SwipeRefreshLayout srl;
     private RecyclerView rv;
     // data
     private ArrayList<PersonalJourney> list_personal_journey;
@@ -27,14 +29,28 @@ public class DiscussionListActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion_list);
+        setUpToolbar("路程攻略");
 
         // ui reference
+        srl= (SwipeRefreshLayout) findViewById(R.id.srl_discussion_list);
         rv = (RecyclerView) findViewById(R.id.rv_discussion_list);
 
         // init
         list_personal_journey = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new DiscussionListRVAdapter(this, list_personal_journey));
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srl.setRefreshing(true);
+                getPublicPersonalJourney();
+            }
+        });
+        srl.setColorSchemeResources(
+                android.R.color.holo_red_light,
+                android.R.color.holo_blue_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light);
 
         getPublicPersonalJourney();
     }
@@ -43,11 +59,11 @@ public class DiscussionListActivity extends CommonActivity {
         PersonalJourney params = new PersonalJourney();
 
         Call<PersonalJourney> call = RoadToAdventureService.service.getPublicPersonalJourneyList(params);
-        showLoadingDialog();
+        srl.setRefreshing(true);
         call.enqueue(new Callback<PersonalJourney>() {
             @Override
             public void onResponse(Call<PersonalJourney> call, Response<PersonalJourney> response) {
-                dismissLoadingDialog();
+                srl.setRefreshing(false);
                 if (isResponseOK(response)) {
                     PersonalJourney result = response.body();
                     if (result.isSuccess()) {
@@ -62,7 +78,7 @@ public class DiscussionListActivity extends CommonActivity {
 
             @Override
             public void onFailure(Call<PersonalJourney> call, Throwable t) {
-                dismissLoadingDialog();
+                srl.setRefreshing(false);
                 t(t.toString());
             }
         });

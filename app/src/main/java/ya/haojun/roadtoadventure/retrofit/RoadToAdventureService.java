@@ -19,6 +19,7 @@ import ya.haojun.roadtoadventure.model.Group;
 import ya.haojun.roadtoadventure.model.GroupChat;
 import ya.haojun.roadtoadventure.model.GroupMember;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
+import ya.haojun.roadtoadventure.model.PersonalJourneyComment;
 import ya.haojun.roadtoadventure.model.Picture;
 import ya.haojun.roadtoadventure.model.User;
 
@@ -82,6 +83,9 @@ public interface RoadToAdventureService {
 
     @POST("PersonalJourney/End")
     Call<PersonalJourney> endPersonalJourney(@Body PersonalJourney personalJourney);
+
+    @POST("PersonalJourneyComment/Create")
+    Call<PersonalJourneyComment> createPersonalJourneyComment(@Body PersonalJourneyComment personalJourneyComment);
 
     @POST("Friend/GetFriendList")
     Call<Friend> getFriendsList(@Body Friend friend);

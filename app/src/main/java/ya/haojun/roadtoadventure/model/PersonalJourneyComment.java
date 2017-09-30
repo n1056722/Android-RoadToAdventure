@@ -6,12 +6,14 @@ import java.util.ArrayList;
  * Created by rin84 on 2017/9/30.
  */
 
-public class PersonalJourneyComment {
+public class PersonalJourneyComment extends CommonModel{
     private String userId;
     private String userName;
     private String userPicture;
     private String comment;
     private String createDate;
+    //
+    private int personalJourneyId;
 
     public String getUserId() {
         return userId;
@@ -51,5 +53,13 @@ public class PersonalJourneyComment {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public int getPersonalJourneyId() {
+        return personalJourneyId;
+    }
+
+    public void setPersonalJourneyId(int personalJourneyId) {
+        this.personalJourneyId = personalJourneyId;
     }
 }
