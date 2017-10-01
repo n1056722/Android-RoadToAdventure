@@ -62,6 +62,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
         tv_name = (TextView) findViewById(R.id.tv_profile_name);
         tv_email = (TextView) findViewById(R.id.tv_profile_email);
         findViewById(R.id.tv_profile_update_password).setOnClickListener(this);
+        findViewById(R.id.tv_profile_logout).setOnClickListener(this);
         iv_picture.setOnClickListener(this);
         // init
         User u = User.getInstance();
@@ -233,6 +234,12 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
                 break;
             case R.id.tv_profile_update_password:
                 showUpdatePasswordDialog();
+                break;
+            case R.id.tv_profile_logout:
+                Intent intent = new Intent();
+                intent.putExtra("logout", true);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
         }
     }

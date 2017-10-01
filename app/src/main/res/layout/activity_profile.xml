@@ -58,4 +58,16 @@
         android:text="@string/update_password"
         android:textColor="#FFF"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_profile_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/logout"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
 </LinearLayout>

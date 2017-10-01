@@ -27,6 +27,7 @@ import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.adapter.DrawerRVAdapter;
 import ya.haojun.roadtoadventure.adapter.MainRVAdapter;
 import ya.haojun.roadtoadventure.helper.LogHelper;
+import ya.haojun.roadtoadventure.helper.SPHelper;
 import ya.haojun.roadtoadventure.helper.TimeHelper;
 import ya.haojun.roadtoadventure.helper.YahooWeatherHelper;
 import ya.haojun.roadtoadventure.model.DrawerItem;
@@ -90,7 +91,7 @@ public class MainActivity extends CommonActivity {
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_MY));
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_GROUP));
         list.add(new DrawerItem(R.drawable.ic_nav_road_query, DrawerItem.ROAD_QUERY));
-        list.add(new DrawerItem(R.drawable.ic_nav_tip, DrawerItem.TIP));
+        list.add(new DrawerItem(R.drawable.ic_nav_discussion, DrawerItem.DISCUSSION));
         list.add(new DrawerItem(R.drawable.ic_nav_help, DrawerItem.HELP));
         rv_drawer.setAdapter(new DrawerRVAdapter(this, list));
     }
@@ -109,6 +110,9 @@ public class MainActivity extends CommonActivity {
             case DrawerItem.CHALLENGE_MY:
                 break;
             case DrawerItem.CHALLENGE_GROUP:
+                break;
+            case DrawerItem.DISCUSSION:
+                openActivity(DiscussionListActivity.class);
                 break;
             case DrawerItem.HELP:
                 openActivity(HelpActivity.class);
@@ -221,7 +225,13 @@ public class MainActivity extends CommonActivity {
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_PROFILE:
-                rv_drawer.getAdapter().notifyItemChanged(0);
+                if (data.getBooleanExtra("logout", false)) {
+                    SPHelper.clearUser(this);
+                    openActivity(PermissionActivity.class);
+                    finish();
+                } else {
+                    rv_drawer.getAdapter().notifyItemChanged(0);
+                }
                 break;
         }
     }
