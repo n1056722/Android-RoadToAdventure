@@ -45,8 +45,11 @@ public class PermissionActivity extends CommonActivity {
 
         if (!SPHelper.getServiceStatus(this) || !isMyServiceRunning(LocationService.class))
             startLocationService();
-
+        if (SPHelper.getUser(this)){
+            openActivity(MainActivity.class);
+        }else{
         openActivity(LoginActivity.class);
+        }
         finish();
     }
 

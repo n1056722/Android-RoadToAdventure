@@ -18,10 +18,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ya.haojun.roadtoadventure.R;
+import ya.haojun.roadtoadventure.helper.CaloriesHelper;
 import ya.haojun.roadtoadventure.helper.GoogleMapHelper;
+import ya.haojun.roadtoadventure.helper.LogHelper;
 import ya.haojun.roadtoadventure.helper.TimeHelper;
 import ya.haojun.roadtoadventure.model.LocationRecordModel;
 import ya.haojun.roadtoadventure.model.PersonalJourney;
+import ya.haojun.roadtoadventure.model.User;
 import ya.haojun.roadtoadventure.model.ValueInfo;
 import ya.haojun.roadtoadventure.retrofit.RoadToAdventureService;
 import ya.haojun.roadtoadventure.sqlite.DAOLocationRecord;
@@ -106,12 +109,18 @@ public class PersonalJourneyActivity extends CommonActivity implements View.OnCl
         } else { // riding & finish
             String startTime = personalJourney.getStartTime();
             String endTime = personalJourney.getStatus().equals("1") ? TimeHelper.now() : personalJourney.getEndTime();
+
             double rideDistanceKM = GoogleMapHelper.distance(new DAOLocationRecord(this).filter(startTime, endTime)) / 1000;
             long secondGap = TimeHelper.toSecond(endTime) - TimeHelper.toSecond(startTime);
-            double kmPerHour = rideDistanceKM / (secondGap * 3600);
+            double hour = secondGap / 60 / 60.0;
+            double kmPerHour = rideDistanceKM / hour;
+
             tv_ride_time.setText(TimeHelper.gap(startTime, endTime));
             tv_ride_distance.setText(String.format("%.2f公里", rideDistanceKM));
             tv_average_speed.setText(String.format("%.2f公里/時", kmPerHour));
+
+//            LogHelper.d("km=" + rideDistanceKM);
+//            LogHelper.d(CaloriesHelper.calculate(User.getInstance().getWeight(), hour, kmPerHour) + "");
         }
     }
 
