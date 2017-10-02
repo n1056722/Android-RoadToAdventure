@@ -5,46 +5,28 @@ import java.util.ArrayList;
 
 public class FriendChat extends CommonModel {
     private int chatID;
-    private String userID;
+    private String userId;
     private String userName;
     private String userPicture;
-    private String friendID;
+    private String friendId;
     private String friendName;
     private String friendPicture;
     private String content;
     private String createDate;
     //
     private int lastChatId;
-private ArrayList<FriendChat> chats;
-
-    public FriendChat(int lastChatId) {
-        this.lastChatId = lastChatId;
-    }
-
-    public FriendChat(String userID, String userName, String userPicture, String content, String createDate , int chatID , String friendID, String friendName, String friendPicture) {
-        this.userID = userID;
-        this.userName = userName;
-        this.userPicture = userPicture;
-        this.content = content;
-        this.createDate = createDate;
-        this.chatID = chatID;
-        this.friendID = friendID;
-        this.friendName = friendName;
-        this.friendPicture = friendPicture;
-
-
-    }
+    private ArrayList<FriendChat> chats;
 
     public FriendChat() {
-        
+        chats = new ArrayList<>();
     }
 
     public String getFriendID() {
-        return friendID;
+        return friendId;
     }
 
-    public void setFriendID(String friendID) {
-        this.friendID = friendID;
+    public void setFriendID(String friendId) {
+        this.friendId = friendId;
     }
 
     public String getFriendName() {
@@ -72,11 +54,11 @@ private ArrayList<FriendChat> chats;
     }
 
     public String getUserID() {
-        return userID;
+        return userId;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserID(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {

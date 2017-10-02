@@ -55,8 +55,9 @@ public class FriendChatActivity extends CommonActivity implements View.OnClickLi
         getLocalFriendChat();
         getFriendChat();
     }
+
     private void getLocalFriendChat() {
-        ArrayList<FriendChat> list = new DAOFriendChat(this).filter(User.getInstance().getUserId(),friend.getUserId());
+        ArrayList<FriendChat> list = new DAOFriendChat(this).filter(User.getInstance().getUserId(), friend.getUserId());
         list_chat.clear();
         list_chat.addAll(list);
         rv.getAdapter().notifyDataSetChanged();
@@ -66,8 +67,8 @@ public class FriendChatActivity extends CommonActivity implements View.OnClickLi
     private void getFriendChat() {
         FriendChat params = new FriendChat();
         params.setUserID(User.getInstance().getUserId());
-        params.setFriendID(friend.getFriendId());
-        params.setLastChatId(!list_chat.isEmpty()?list_chat.get(list_chat.size()-1).getChatID():0);
+        params.setFriendID(friend.getUserId());
+        params.setLastChatId(!list_chat.isEmpty() ? list_chat.get(list_chat.size() - 1).getChatID() : 0);
 
         Call<FriendChat> call = RoadToAdventureService.service.getFriendChatList(params);
         showLoadingDialog();
@@ -101,6 +102,7 @@ public class FriendChatActivity extends CommonActivity implements View.OnClickLi
             }
         });
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

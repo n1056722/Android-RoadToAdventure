@@ -171,6 +171,8 @@ public class MainActivity extends CommonActivity {
         findViewById(R.id.ll_main_weather_result).setVisibility(View.GONE);
 
         LocationRecordModel l = new DAOLocationRecord(this).getLast();
+        if (l == null)
+            l = new LocationRecordModel(25.0417395, 121.5256846, "2017-01-01 00:00:00");
         Call<String> call = YahooWeatherService.service.getWeather(YahooWeatherHelper.getWeatherQuery(l.getLatitude(), l.getLongitude()));
         call.enqueue(new Callback<String>() {
             @Override
@@ -225,7 +227,7 @@ public class MainActivity extends CommonActivity {
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_PROFILE:
-                if (data.getBooleanExtra("logout", false)) {
+                if (data != null && data.getBooleanExtra("logout", false)) {
                     SPHelper.clearUser(this);
                     openActivity(PermissionActivity.class);
                     finish();
