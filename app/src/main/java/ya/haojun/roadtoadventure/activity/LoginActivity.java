@@ -48,6 +48,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                         user.setUserPicture(result.getUserPicture());
                         user.setEmail(result.getEmail());
                         user.setModifyDate(result.getModifyDate());
+                        user.setWeight(result.getWeight());
                         SPHelper.setUser(LoginActivity.this);
                         openActivity(MainActivity.class);
                         finish();

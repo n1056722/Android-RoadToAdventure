@@ -27,6 +27,7 @@ import ya.haojun.roadtoadventure.R;
 import ya.haojun.roadtoadventure.adapter.DrawerRVAdapter;
 import ya.haojun.roadtoadventure.adapter.MainRVAdapter;
 import ya.haojun.roadtoadventure.helper.LogHelper;
+import ya.haojun.roadtoadventure.helper.SPHelper;
 import ya.haojun.roadtoadventure.helper.TimeHelper;
 import ya.haojun.roadtoadventure.helper.YahooWeatherHelper;
 import ya.haojun.roadtoadventure.model.DrawerItem;
@@ -90,7 +91,7 @@ public class MainActivity extends CommonActivity {
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_MY));
         list.add(new DrawerItem(0, DrawerItem.CHALLENGE_GROUP));
         list.add(new DrawerItem(R.drawable.ic_nav_road_query, DrawerItem.ROAD_QUERY));
-        list.add(new DrawerItem(R.drawable.ic_nav_tip, DrawerItem.TIP));
+        list.add(new DrawerItem(R.drawable.ic_nav_discussion, DrawerItem.DISCUSSION));
         list.add(new DrawerItem(R.drawable.ic_nav_help, DrawerItem.HELP));
         rv_drawer.setAdapter(new DrawerRVAdapter(this, list));
     }
@@ -110,6 +111,9 @@ public class MainActivity extends CommonActivity {
                 break;
             case DrawerItem.CHALLENGE_GROUP:
                 break;
+            case DrawerItem.DISCUSSION:
+                openActivity(DiscussionListActivity.class);
+                break;
             case DrawerItem.HELP:
                 openActivity(HelpActivity.class);
                 break;
@@ -121,7 +125,7 @@ public class MainActivity extends CommonActivity {
         ArrayList<MainItem> list = new ArrayList<>();
         list.add(new MainItem(R.drawable.ic_record, MainItem.RECORD, ContextCompat.getColor(this, R.color.main_record), Color.BLACK));
         list.add(new MainItem(R.drawable.ic_position, MainItem.POSITION, ContextCompat.getColor(this, R.color.main_position), Color.BLACK));
-        list.add(new MainItem(R.drawable.ic_tip, MainItem.TIP, ContextCompat.getColor(this, R.color.main_tip), Color.BLACK));
+        list.add(new MainItem(R.drawable.ic_discussion, MainItem.DISCUSSION, ContextCompat.getColor(this, R.color.main_discussion), Color.BLACK));
         list.add(new MainItem(R.drawable.ic_together, MainItem.TOGETHER, ContextCompat.getColor(this, R.color.main_together), Color.BLACK));
         list.add(new MainItem(R.drawable.ic_chat, MainItem.CHAT, ContextCompat.getColor(this, R.color.main_chat), Color.WHITE));
         list.add(new MainItem(R.drawable.ic_help, MainItem.HELP, ContextCompat.getColor(this, R.color.main_help), Color.BLACK));
@@ -140,7 +144,8 @@ public class MainActivity extends CommonActivity {
                 break;
             case MainItem.POSITION:
                 break;
-            case MainItem.TIP:
+            case MainItem.DISCUSSION:
+                openActivity(DiscussionListActivity.class);
                 break;
             case MainItem.TOGETHER:
                 break;
@@ -180,7 +185,7 @@ public class MainActivity extends CommonActivity {
                     findViewById(R.id.ll_main_weather_loading).setVisibility(View.GONE);
                     findViewById(R.id.ll_main_weather_result).setVisibility(View.VISIBLE);
                     iv_weather_image.setImageResource(YahooWeatherHelper.getWeatherPicture(code));
-                    tv_weather_date.setText(TimeHelper.convertToNoYearSecond(TimeHelper.now()));
+                    tv_weather_date.setText(TimeHelper.toDateMinute(TimeHelper.now()));
                     tv_weather_name.setText(YahooWeatherHelper.getWeatherName(code));
                     tv_weather_temperature.setText(YahooWeatherHelper.getWeatherTemp(temp));
                 } catch (JSONException e) {
@@ -220,7 +225,13 @@ public class MainActivity extends CommonActivity {
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_PROFILE:
-                rv_drawer.getAdapter().notifyItemChanged(0);
+                if (data.getBooleanExtra("logout", false)) {
+                    SPHelper.clearUser(this);
+                    openActivity(PermissionActivity.class);
+                    finish();
+                } else {
+                    rv_drawer.getAdapter().notifyItemChanged(0);
+                }
                 break;
         }
     }

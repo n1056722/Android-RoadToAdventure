@@ -22,7 +22,7 @@
             android:padding="5dp">
 
             <ImageView
-                android:id="@+id/iv_item_rv_personal_journey_list_picture"
+                android:id="@+id/iv_item_rv_discussion_list_picture"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -37,7 +37,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_item_rv_personal_journey_list_name"
+                    android:id="@+id/tv_item_rv_discussion_list_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -54,14 +54,14 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_item_rv_personal_journey_list_status"
+                        android:id="@+id/tv_item_rv_discussion_list_user_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tv_item_rv_personal_journey_list_create_date"
+                        android:id="@+id/tv_item_rv_discussion_list_modify_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp" />

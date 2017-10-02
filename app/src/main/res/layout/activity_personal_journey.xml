@@ -65,7 +65,7 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"

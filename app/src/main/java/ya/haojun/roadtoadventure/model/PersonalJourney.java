@@ -19,11 +19,19 @@ public class PersonalJourney extends CommonModel {
     private ArrayList<LocationRecordModel> routes;
     //
     private ArrayList<PersonalJourney> personalJourneys;
+    private ArrayList<PersonalJourneyComment> comments;
+    private String userName;
+    private String userPicture;
 
     public PersonalJourney() {
         pictures = new ArrayList<>();
         personalJourneys = new ArrayList<>();
+        comments = new ArrayList<>();
         routes= new ArrayList<>();
+    }
+
+    public ArrayList<PersonalJourneyComment> getComments() {
+        return comments;
     }
 
     public ArrayList<PersonalJourney> getPersonalJourneys() {
@@ -124,6 +132,22 @@ public class PersonalJourney extends CommonModel {
 
     public ArrayList<LocationRecordModel> getRoutes() {
         return routes;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPicture() {
+        return userPicture;
+    }
+
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
     }
 
     @Override

@@ -11,7 +11,7 @@
     <!-- Main Item -->
     <color name="main_record">#F4DC5E</color>
     <color name="main_position">#FFBDC7</color>
-    <color name="main_tip">#97E2A1</color>
+    <color name="main_discussion">#97E2A1</color>
     <color name="main_together">#5ABFCB</color>
     <color name="main_chat">#F35B2A</color>
     <color name="main_help">#F1F0EB</color>

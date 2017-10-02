@@ -15,9 +15,10 @@ public class User extends CommonModel {
     private String email;
     private String modifyDate;
     private String verificationCode;
+    private int weight;
+    //
     private String oldPassword;
     private String newPassword;
-    //
     private String picturePath;
 
 
@@ -109,6 +110,14 @@ public class User extends CommonModel {
         this.picturePath = picturePath;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     public JSONObject getJSONObject() {
         try {
             JSONObject j = new JSONObject();
@@ -117,19 +126,22 @@ public class User extends CommonModel {
             j.put("userPicture", userPicture);
             j.put("email", email);
             j.put("modifyDate", modifyDate);
+            j.put("weight", weight);
             return j;
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public void setJSONObject(JSONObject j){
+
+    public void setJSONObject(JSONObject j) {
         try {
             setUserId(j.getString("userId"));
             setUserName(j.getString("userName"));
             setUserPicture(j.getString("userPicture"));
             setEmail(j.getString("email"));
             setModifyDate(j.getString("modifyDate"));
+            setWeight(j.getInt("weight"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
