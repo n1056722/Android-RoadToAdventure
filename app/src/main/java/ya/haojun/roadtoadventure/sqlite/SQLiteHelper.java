@@ -9,7 +9,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     // database name
     public static final String DATABASE_NAME = "roa.db";
     // version
-    public static final int VERSION = 5;
+    public static final int VERSION = 8;
     // database object
     private static SQLiteDatabase database;
 
@@ -30,6 +30,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(DAOLocationRecord.createTable());
         db.execSQL(DAOJourney.createTable());
         db.execSQL(DAOGroupChat.createTable());
+        db.execSQL(DAOFriendChat.createTable());
     }
 
     @Override
@@ -37,6 +38,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DAOLocationRecord.TABLENAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOJourney.TABLENAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOGroupChat.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOFriendChat.TABLENAME);
         onCreate(db);
     }
 }

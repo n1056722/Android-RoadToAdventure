@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import ya.haojun.roadtoadventure.model.Friend;
@@ -36,7 +38,7 @@ public class DAOFriendChat {
         sb.append(USER_ID + " TEXT NOT NULL, ");
         sb.append(USER_NAME + " TEXT NOT NULL, ");
         sb.append(USER_PICTURE + " TEXT NOT NULL, ");
-        sb.append(FRIEND_ID + " TEXT NOT NULL) ");
+        sb.append(FRIEND_ID + " TEXT NOT NULL, ");
         sb.append(FRIEND_NAME + " TEXT NOT NULL, ");
         sb.append(FRIEND_PICTURE + " TEXT NOT NULL, ");
         sb.append(CONTENT + " TEXT NOT NULL, ");
@@ -57,11 +59,11 @@ public class DAOFriendChat {
         cv.put(FRIEND_CHAT_ID, item.getChatID());
         cv.put(USER_ID, item.getUserID());
         cv.put(USER_NAME, item.getUserName());
-        cv.put(USER_PICTURE,item.getUserPicture());
-        cv.put(FRIEND_ID,item.getFriendID());
-        cv.put(FRIEND_NAME,item.getFriendName());
-        cv.put(FRIEND_PICTURE,item.getFriendPicture());
-        cv.put(CONTENT,item.getContent());
+        cv.put(USER_PICTURE, item.getUserPicture());
+        cv.put(FRIEND_ID, item.getFriendID());
+        cv.put(FRIEND_NAME, item.getFriendName());
+        cv.put(FRIEND_PICTURE, item.getFriendPicture());
+        cv.put(CONTENT, item.getContent());
         cv.put(CREATE_DATE, item.getCreateDate());
 
         return db.insert(TABLENAME, null, cv) > 0;
@@ -73,11 +75,11 @@ public class DAOFriendChat {
 
         cv.put(USER_ID, item.getUserID());
         cv.put(USER_NAME, item.getUserName());
-        cv.put(USER_PICTURE,item.getUserPicture());
-        cv.put(FRIEND_ID,item.getFriendID());
-        cv.put(FRIEND_NAME,item.getFriendName());
-        cv.put(FRIEND_PICTURE,item.getFriendPicture());
-        cv.put(CONTENT,item.getContent());
+        cv.put(USER_PICTURE, item.getUserPicture());
+        cv.put(FRIEND_ID, item.getFriendID());
+        cv.put(FRIEND_NAME, item.getFriendName());
+        cv.put(FRIEND_PICTURE, item.getFriendPicture());
+        cv.put(CONTENT, item.getContent());
         cv.put(CREATE_DATE, item.getCreateDate());
 
         return db.update(TABLENAME, cv, FRIEND_CHAT_ID + "=" + item.getChatID(), null) > 0;
@@ -129,7 +131,7 @@ public class DAOFriendChat {
 
         FriendChat item = null;
 
-        Cursor result = db.rawQuery("SELECT * FROM "+TABLENAME+" ORDER BY "+FRIEND_CHAT_ID+" DESC LIMIT 1;", null);
+        Cursor result = db.rawQuery("SELECT * FROM " + TABLENAME + " ORDER BY " + FRIEND_CHAT_ID + " DESC LIMIT 1;", null);
 
 
         if (result.moveToFirst()) {
@@ -146,7 +148,7 @@ public class DAOFriendChat {
     public FriendChat getRecord(Cursor cursor) {
         // Course
         FriendChat result = new FriendChat();
-        result.setUserID(( cursor.getString(0)));
+        result.setUserID((cursor.getString(0)));
         result.setUserName(cursor.getString(1));
         result.setUserPicture(cursor.getString(2));
         result.setFriendID(cursor.getString(3));
@@ -166,5 +168,37 @@ public class DAOFriendChat {
         }
         cursor.close();
         return result;
+    }
+
+
+    public ArrayList<FriendChat> filter(String userId, String friendId) {
+        ArrayList<FriendChat> result = new ArrayList<>();
+        ArrayList<FriendChat> result2 = new ArrayList<>();
+        ArrayList<FriendChat> result3 = new ArrayList<>();
+        String[] args = {userId, friendId};
+
+        Cursor cursor = db.query(
+                TABLENAME, null, USER_ID + "=? AND " + FRIEND_ID + "=?", args, null, null, null);
+        Cursor cursor2 = db.query(
+                TABLENAME, null, FRIEND_ID + "=? AND " + USER_ID + "=?", args, null, null, null);
+
+        while (cursor.moveToNext()) {
+            result.add(getRecord(cursor));
+        }
+
+        while (cursor2.moveToNext()) {
+            result2.add(getRecord(cursor2));
+        }
+        result3.addAll(result);
+        result3.addAll(result2);
+        Collections.sort(result3, new Comparator<FriendChat>() {
+            @Override
+            public int compare(FriendChat o1, FriendChat o2) { // 1 -1
+                return o1.getChatID() > o2.getChatID() ? 1 : -1;
+            }
+        });
+
+        cursor.close();
+        return result3;
     }
 }

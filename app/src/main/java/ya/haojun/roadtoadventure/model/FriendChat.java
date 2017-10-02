@@ -1,7 +1,9 @@
 package ya.haojun.roadtoadventure.model;
 
 
-public class FriendChat {
+import java.util.ArrayList;
+
+public class FriendChat extends CommonModel {
     private int chatID;
     private String userID;
     private String userName;
@@ -11,8 +13,13 @@ public class FriendChat {
     private String friendPicture;
     private String content;
     private String createDate;
+    //
+    private int lastChatId;
+private ArrayList<FriendChat> chats;
 
-
+    public FriendChat(int lastChatId) {
+        this.lastChatId = lastChatId;
+    }
 
     public FriendChat(String userID, String userName, String userPicture, String content, String createDate , int chatID , String friendID, String friendName, String friendPicture) {
         this.userID = userID;
@@ -24,6 +31,7 @@ public class FriendChat {
         this.friendID = friendID;
         this.friendName = friendName;
         this.friendPicture = friendPicture;
+
 
     }
 
@@ -105,5 +113,17 @@ public class FriendChat {
 
 
     public void getCreateDate(String string) {
+    }
+
+    public int getLastChatId() {
+        return lastChatId;
+    }
+
+    public void setLastChatId(int lastChatId) {
+        this.lastChatId = lastChatId;
+    }
+
+    public ArrayList<FriendChat> getChats() {
+        return chats;
     }
 }
