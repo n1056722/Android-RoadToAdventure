@@ -99,8 +99,8 @@ public interface RoadToAdventureService {
     @POST("Friend/Delete")
     Call<Friend> deleteFriend(@Body Friend friend);
 
-//    @POST("FriendChat/GetList")
-//    Call<FriendChat> getFriendChatList(@Body Friend friend);
+    @POST("FriendChat/GetList")
+   Call<FriendChat> getFriendChatList(@Body FriendChat friendchat);
 
     @POST("Group/Create")
     Call<Group> createGroup(@Body Group group);

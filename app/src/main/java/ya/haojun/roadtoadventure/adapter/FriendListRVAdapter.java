@@ -4,6 +4,7 @@ package ya.haojun.roadtoadventure.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -56,7 +57,10 @@ public class FriendListRVAdapter extends CommonRVAdapter {
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("friend", item);
                     Intent intent = new Intent(getContext(), FriendChatActivity.class);
+                    intent.putExtras(bundle);
                     getContext().startActivity(intent);
                 }
             });
