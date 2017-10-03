@@ -102,6 +102,9 @@ public interface RoadToAdventureService {
     @POST("FriendChat/GetList")
    Call<FriendChat> getFriendChatList(@Body FriendChat friendchat);
 
+    @POST("FriendChat/Create")
+    Call<FriendChat> createFriendChat(@Body FriendChat friendChat);
+
     @POST("Group/Create")
     Call<Group> createGroup(@Body Group group);
 

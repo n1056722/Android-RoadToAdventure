@@ -102,6 +102,41 @@ public class FriendChatActivity extends CommonActivity implements View.OnClickLi
             }
         });
     }
+    private void createFriendChat(String content) {
+        FriendChat params = new FriendChat();
+        params.setUserID(User.getInstance().getUserId());
+        params.setFriendID(friend.getUserId());
+        params.setContent(content);
+        params.setLastChatId(!list_chat.isEmpty() ? list_chat.get(list_chat.size() - 1).getChatID() : 0);
+
+        Call<FriendChat> call = RoadToAdventureService.service.createFriendChat(params);
+        showLoadingDialog();
+        call.enqueue(new Callback<FriendChat>() {
+            @Override
+            public void onResponse(Call<FriendChat> call, Response<FriendChat> response) {
+                dismissLoadingDialog();
+                if (isResponseOK(response)) {
+                    FriendChat result = response.body();
+                    if (result.isSuccess()) {
+                        et_input.setText("");
+                        DAOFriendChat daoFriendChat = new DAOFriendChat(FriendChatActivity.this);
+                        for (FriendChat fc : result.getChats()) {
+                            daoFriendChat.insert(fc);
+                        }
+                        getLocalFriendChat();
+                    } else {
+                        t(R.string.empty);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FriendChat> call, Throwable t) {
+                dismissLoadingDialog();
+                t(t.toString());
+            }
+        });
+    }
 
     @Override
     public void onClick(View v) {
