@@ -119,20 +119,15 @@ public class DAOLocationRecord {
     }
 
     public LocationRecordModel getLast() {
-
         LocationRecordModel item = null;
 
         Cursor result = db.query(TABLENAME, null, null, null, null, null, LOCATION_RECORD_ID + " desc", "1");
 
-
         if (result.moveToFirst()) {
-
             item = getRecord(result);
         }
 
-
         result.close();
-
         return item;
     }
 
